@@ -10,6 +10,7 @@ import javax.swing.JRootPane;
 
 import org.apache.log4j.Logger;
 
+import com.ft9.common.Session;
 import com.ft9.dao.impl.BaseDao;
 import com.ft9.service.IStoreKeeperService;
 import com.ft9.service.ServiceManager;
@@ -135,8 +136,10 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
 			String userName=jTextField1.getText();
 			String password=jTextField2.getText();
 			if(storeKeeperService.userLogin(userName, password)){
-				 JOptionPane.showMessageDialog(null, "Login Successful", "Login Success", JOptionPane.INFORMATION_MESSAGE);
-				 if(loginSuccessfulActionListener!=null){
+				// JOptionPane.showMessageDialog(null, "Login Successful", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+				log.info("Login Successful");
+				Session.addSession("UserName", userName);
+				if(loginSuccessfulActionListener!=null){
 					 loginSuccessfulActionListener.afterLoginSuccessful();
 					 this.setVisible(false);
 				 }
