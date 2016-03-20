@@ -3,7 +3,7 @@ package com.ft9.view.panel;
 import com.ft9.annotation.Menu;
 
 /**
- *
+ *ddd
  * @author hippo
  */
 @Menu(name="ModifyPassword",fatherName="StoreKeeper")
