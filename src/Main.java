@@ -16,17 +16,16 @@ public class Main {
 		// TODO 自动生成的方法存根
 		 try {  
 			 initWork();
-			 /*
-			 LoginDiagram lgD=new LoginDiagram();
-			 lgD.setVisible(true);	 
-			 lgD.setLoginSuccessfulActionListener(new LoginDiagram.LoginSuccessfulEventListener() {
-				@Override
-				public void afterLoginSuccessful() {
-					// TODO 自动生成的方法存根
-					MainFrame mainFrame=new MainFrame();
-  		            mainFrame.setVisible(true);
-				}
-			});*/
+//			 LoginDiagram lgD=new LoginDiagram();
+//			 lgD.setVisible(true);	 
+//			 lgD.setLoginSuccessfulActionListener(new LoginDiagram.LoginSuccessfulEventListener() {
+//				@Override
+//				public void afterLoginSuccessful() {
+//					// TODO 自动生成的方法存根
+//					MainFrame mainFrame=new MainFrame();
+//  		            mainFrame.setVisible(true);
+//				}
+//			});
 			 MainFrame mainFrame=new MainFrame();
 	         mainFrame.setVisible(true);
           }catch(FileNotFoundException fe){
