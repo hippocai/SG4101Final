@@ -1,13 +1,16 @@
 package com.ft9.view.frame;
 
 import java.awt.Font;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.apache.log4j.Logger;
 
 import com.ft9.view.ViewManager;
@@ -22,25 +25,30 @@ public class MainFrame extends JFrame implements TreeSelectionListener {
 	 private static Logger log = Logger.getLogger(MainFrame.class);
 	 private JScrollPane jScrollPane2;
 	 private JScrollPane jScrollPane1;
+	 private JTree jTree;
 	 public MainFrame() {  
 		 	log.info("Initialing MainFrame...");
+		 	jTree=ViewManager.createJTree(this);
+		 	jTree.expandRow(0);
 	        initComponent();  
 	    	super.dispose();
 			super.setUndecorated(true);
 			this.setLocationByPlatform(true);
-	        pack();  
-	        setVisible(true);  
+			log.info("Initial Successful");
 	        rootPane.setWindowDecorationStyle(JRootPane.FRAME);
 			rootPane.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 			rootPane.putClientProperty("Quaqua.RootPane.isVertical", Boolean.FALSE);
-			log.info("Initial Successful");
+			pack();  
+	        setVisible(true);  
+
+			
 	    }  
 	
 	    public void initComponent() {  
 	    	  setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	          jScrollPane1 = new javax.swing.JScrollPane();
 	          jScrollPane2 = new javax.swing.JScrollPane();
-	          jScrollPane1.setViewportView(ViewManager.createJTree(this));
+	          jScrollPane1.setViewportView(jTree);
 	          jScrollPane2.setViewportView(new StartupPanel());
 	          super.setSize(1024, 768);
 	          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -81,6 +89,7 @@ public class MainFrame extends JFrame implements TreeSelectionListener {
 				}
 			} catch (Exception e) {
 				// TODO 自动生成的 catch 块
+				
 				e.printStackTrace();
 			} 
 		}  

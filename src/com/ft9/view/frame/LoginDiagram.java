@@ -3,6 +3,8 @@ package com.ft9.view.frame;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -16,7 +18,7 @@ import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.StoreKeeperService;
 
-public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
+public class LoginDiagram extends javax.swing.JFrame implements ActionListener,KeyListener{
 	private static Logger log = Logger.getLogger(LoginDiagram.class);
 	private IStoreKeeperService storeKeeperService;
 	private javax.swing.JButton jButton1;
@@ -48,6 +50,7 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
 		rootPane.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		rootPane.putClientProperty("Quaqua.RootPane.isVertical", Boolean.FALSE);
 		//rootPane.putClientProperty("Quaqua.RootPane.isPalette", Boolean.TRUE);
+		addKeyListener(this);
 	}
   
 	private void initComponents() {
@@ -77,11 +80,11 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
 	        jButton1.setText("Confirm");
 
 	        jTextField1.setText("");
-
+	       // jTextField1.addKeyListener(this);
 	        jLabel1.setText("UserName");
 
 	        jTextField2.setText("");
-	        
+	        jTextField2.addKeyListener(this);
 	        jLabel2.setText("Password");
 
 	        jButton2.setText("Exit");
@@ -154,5 +157,27 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
 	public void setLoginSuccessfulActionListener(
 			LoginSuccessfulEventListener loginSuccessfulActionListener) {
 		this.loginSuccessfulActionListener = loginSuccessfulActionListener;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO 自动生成的方法存根
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO 自动生成的方法存根
+		if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
+			log.info("Enter Pressed");
+			jButton1.doClick();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO 自动生成的方法存根
+		
 	}
 }
