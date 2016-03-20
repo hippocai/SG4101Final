@@ -29,7 +29,8 @@ public class MainFrame extends JFrame implements TreeSelectionListener {
 	 public MainFrame() {  
 		 	log.info("Initialing MainFrame...");
 		 	jTree=ViewManager.createJTree(this);
-		 	jTree.expandRow(0);
+		 	//jTree.expandRow(0);
+		 	
 	        initComponent();  
 	    	super.dispose();
 			super.setUndecorated(true);
@@ -40,8 +41,7 @@ public class MainFrame extends JFrame implements TreeSelectionListener {
 			rootPane.putClientProperty("Quaqua.RootPane.isVertical", Boolean.FALSE);
 			pack();  
 	        setVisible(true);  
-
-			
+	        ViewManager.expandFatherTree("StoreKeeper");;
 	    }  
 	
 	    public void initComponent() {  

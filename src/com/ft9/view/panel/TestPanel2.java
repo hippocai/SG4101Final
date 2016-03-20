@@ -1,15 +1,28 @@
 package com.ft9.view.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.ft9.annotation.Menu;
+import com.ft9.view.ViewManager;
 
 /**
  *
  * @author hippo
  */
 @Menu(name="testPanel2",fatherName="TestFather")
-public class TestPanel2 extends javax.swing.JPanel {
+
+/**
+ *
+ * @author hippo
+ */
+public class TestPanel2 extends javax.swing.JPanel implements ActionListener {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7804927826598959558L;
+	/**
      * Creates new form TestPanel2
      */
     public TestPanel2() {
@@ -29,34 +42,39 @@ public class TestPanel2 extends javax.swing.JPanel {
         label1 = new java.awt.Label();
         textField2 = new java.awt.TextField();
         label2 = new java.awt.Label();
+        jButton1 = new javax.swing.JButton();
 
-        textField1.setText("textField1");
+        label1.setText("Node Name");
 
-        label1.setText("label1");
+        label2.setText("Father Name");
 
-        textField2.setText("textField2");
-
-        label2.setText("label2");
-
+        jButton1.setText("GO");
+        jButton1.addActionListener(this);
+       
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(137, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(302, 302, 302)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(155, 155, 155))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton1)))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGap(218, 218, 218)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -64,15 +82,27 @@ public class TestPanel2 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(jButton1)
+                .addContainerGap(269, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
 
 
     // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.TextField textField1;
     private java.awt.TextField textField2;
     // End of variables declaration                   
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO 自动生成的方法存根
+		String nodeName=textField1.getText();
+		String fatherNameString=textField2.getText();
+		ViewManager.selectTreeNodeByName(nodeName, fatherNameString);
+		//ViewManager.clearTreeSelection();
+		
+	}
 }
