@@ -3,7 +3,10 @@ import java.io.FileNotFoundException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import org.apache.log4j.Logger;
+
 import com.ft9.dao.DAOer;
+import com.ft9.dao.impl.BaseDao;
 import com.ft9.service.ServiceManager;
 import com.ft9.util.TimeUtil;
 import com.ft9.view.ViewManager;

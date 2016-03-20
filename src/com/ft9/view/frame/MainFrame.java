@@ -49,6 +49,7 @@ public class MainFrame extends JFrame implements TreeSelectionListener {
 	        initComponent();  
 	    	super.dispose();
 			super.setUndecorated(true);
+			this.setLocationByPlatform(true);
 	        pack();  
 	        setVisible(true);  
 	        rootPane.setWindowDecorationStyle(JRootPane.FRAME);

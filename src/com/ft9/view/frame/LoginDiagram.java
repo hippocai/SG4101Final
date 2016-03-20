@@ -74,7 +74,7 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener{
 	        );
 
 	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+	        this.setLocationByPlatform(true);
 	        jButton1.setText("Confirm");
 
 	        jTextField1.setText("");
