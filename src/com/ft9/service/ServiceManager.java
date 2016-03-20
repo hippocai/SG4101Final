@@ -5,9 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.ft9.bean.StoreKeeperBean;
 import com.ft9.dao.DaoException;
-import com.ft9.dao.impl.BaseDao;
 import com.ft9.service.impl.StoreKeeperService;
 
 public class ServiceManager {

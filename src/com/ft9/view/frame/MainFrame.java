@@ -1,37 +1,15 @@
 package com.ft9.view.frame;
 
-import java.awt.Button;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
-
 import org.apache.log4j.Logger;
 
-import com.ft9.dao.DAOer;
-import com.ft9.dao.impl.DiscountDao;
-import com.ft9.dao.impl.ProductDao;
-import com.ft9.dao.intl.IBaseDao;
-import com.ft9.dao.intl.IDiscountDao;
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.StartupPanel;
 

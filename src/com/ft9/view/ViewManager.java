@@ -15,12 +15,13 @@ import org.apache.log4j.Logger;
 
 import com.ft9.annotation.Menu;
 import com.ft9.common.StructConst;
-import com.ft9.dao.impl.BaseDao;
 import com.ft9.util.ClassUtils;
 
 public class ViewManager {
 	private static Logger log = Logger.getLogger(ViewManager.class);
+	@SuppressWarnings("rawtypes")
 	private static Map<String,HashMap<String,Class>>panelMap=new HashMap<String,HashMap<String,Class>>();
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void initViews(){
 		log.info("Initialing Panels...");
 		List<Class> allPanels=ClassUtils.getAllClassByFatherClass(javax.swing.JPanel.class, StructConst.PanelPackage);
@@ -43,6 +44,7 @@ public class ViewManager {
 		log.info("Initial Successful");
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static Map<String,ArrayList<String>>getMenuList(){
 		Map<String,ArrayList<String>> menuList=new HashMap<String,ArrayList<String>>();
 		for(String fatherNode:panelMap.keySet()){
@@ -56,6 +58,7 @@ public class ViewManager {
 		return menuList;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static JPanel getPanelByNodeName(String fatherNodeName,String childNodeName) throws InstantiationException, IllegalAccessException{
 		if(!panelMap.containsKey(fatherNodeName)){
 			return null;

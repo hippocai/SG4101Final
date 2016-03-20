@@ -25,7 +25,8 @@ import java.util.List;
 public class ClassUtils {
      
      
-    public static List<Class> getAllClassByInterface(Class c){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static List<Class> getAllClassByInterface(Class c){
         List<Class> returnClassList = new ArrayList<Class>();
          
         if(c.isInterface()){
@@ -48,7 +49,8 @@ public class ClassUtils {
         return returnClassList;
     }
     
-    public static List<Class> getAllClassByFatherClass(Class c,String packageName){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static List<Class> getAllClassByFatherClass(Class c,String packageName){
         List<Class> returnClassList = new ArrayList<Class>();
          
         
@@ -75,7 +77,8 @@ public class ClassUtils {
      
      
      
-    public static List<Class> getClasses(String packageName) throws ClassNotFoundException,IOException{
+    @SuppressWarnings("rawtypes")
+	public static List<Class> getClasses(String packageName) throws ClassNotFoundException,IOException{
          
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace(".", "/");
@@ -93,7 +96,8 @@ public class ClassUtils {
         return classes;
     }
      
-    private static List<Class> findClasses(File directory,String packageName) throws ClassNotFoundException{
+    @SuppressWarnings("rawtypes")
+	private static List<Class> findClasses(File directory,String packageName) throws ClassNotFoundException{
          
         List<Class> classes = new ArrayList<Class>();
         if(!directory.exists()){

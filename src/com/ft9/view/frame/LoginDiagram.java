@@ -11,7 +11,6 @@ import javax.swing.JRootPane;
 import org.apache.log4j.Logger;
 
 import com.ft9.common.Session;
-import com.ft9.dao.impl.BaseDao;
 import com.ft9.service.IStoreKeeperService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
