@@ -1,0 +1,5 @@
+Manifest-Version: 1.0  
+Created-By: Fat Jar Eclipse Plug-In  
+SplashScreen-Image: splash.gif  
+Main-Class: Main.main  
+Class-Path: . ./lib  
