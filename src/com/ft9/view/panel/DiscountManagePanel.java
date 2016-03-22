@@ -80,8 +80,6 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
         searchButton = new javax.swing.JButton();
         searchTxtArea = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-      
-        jTable1.setCellEditor(null);
         
         jScrollPane1.setViewportView(jTable1);
 
@@ -134,7 +132,8 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(goHomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                //.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGap(30,30,30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton)

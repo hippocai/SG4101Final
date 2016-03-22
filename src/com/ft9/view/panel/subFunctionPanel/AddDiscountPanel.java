@@ -263,11 +263,15 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	if(this.type==AddDiscountPanel.ADD_NEW_DISCOUNT){
     		if(discountService.addNewDiscount(discountBean)){
         		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        	}else{
+        		//TODO:........
         	}
     	}else{
     		if(discountService.updateDiscount(discountBean)){
     			JOptionPane.showMessageDialog(null, "Your Information updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     			ViewManager.goBack();
+    		}else{
+    			//TODO....
     		}
     	}
     	
