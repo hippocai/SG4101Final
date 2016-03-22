@@ -76,9 +76,11 @@ public class ViewUtil {
 	}
 	public static void setJTextError(JTextComponent jText){
 		jText.setBackground(new Color(253,13,53));
+		jText.setCaretColor(Color.WHITE);
 	}
 	
 	public static void clearJTextError(JTextComponent jText){
 		jText.setBackground(Color.white);
+		jText.setCaretColor(Color.BLACK);
 	}
 }

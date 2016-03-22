@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -21,6 +22,8 @@ import com.ft9.annotation.Menu;
 import com.ft9.common.StructConst;
 import com.ft9.util.ClassUtils;
 import com.ft9.view.panel.StartupPanel;
+import com.ft9.view.panel.actionListener.GoBackListener;
+import com.ft9.view.panel.actionListener.GoHomeListener;
 
 public class ViewManager {
 	private static Logger log = Logger.getLogger(ViewManager.class);
@@ -60,6 +63,19 @@ public class ViewManager {
 		log.info("Initial Successful");
 	}
 	
+	public static JButton createGoHomeButton(){
+		JButton goHomeButton=new JButton();
+		goHomeButton.addActionListener(new GoHomeListener());
+		goHomeButton.setText("home");
+		return goHomeButton;
+	}
+	
+	public static JButton createGoBackButton(){
+		JButton goBackButton=new JButton();
+		goBackButton.setText("Back");
+        goBackButton.addActionListener(new GoBackListener());
+        return goBackButton;
+	}
 	//Expend the father tree by father tree name
 	public static void expandFatherTree(String fatherTreeName){
 		DefaultMutableTreeNode top=(DefaultMutableTreeNode)jTree.getModel().getRoot();

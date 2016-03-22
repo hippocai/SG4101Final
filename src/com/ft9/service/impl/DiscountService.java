@@ -83,7 +83,7 @@ public class DiscountService implements IDiscountService {
 		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("code", code);
-		return false;
+		return this.getDiscountByMap(map).size()>0;
 	}
 
 	@Override

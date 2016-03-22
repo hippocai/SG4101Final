@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -21,6 +22,7 @@ import com.ft9.service.IDiscountService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.DiscountService;
+import com.ft9.util.BeanUtil;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.NameConverter;
 import com.ft9.view.ViewManager;
@@ -69,7 +71,7 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        goHomeButton = new javax.swing.JButton();
+        goHomeButton = ViewManager.createGoHomeButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = ViewUtil.createUneditableTable();
         addNewButton = new javax.swing.JButton();
@@ -78,8 +80,7 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
         searchButton = new javax.swing.JButton();
         searchTxtArea = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        goHomeButton.setText("home");
-        goHomeButton.addActionListener(new GoHomeListener());
+      
         jTable1.setCellEditor(null);
         
         jScrollPane1.setViewportView(jTable1);
@@ -89,7 +90,9 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
         deleteButton.setText("Delete");
 
         modifyButton.setText("Modify");
-
+        
+        modifyButton.addActionListener(this);
+        
         searchButton.setText("Search");
         
         searchButton.addActionListener(this);
@@ -175,17 +178,35 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
 				e.printStackTrace();
 			}
 		}else if(source==searchButton){
-			String key=jComboBox1.getSelectedItem().toString();
-			key=NameConverter.convertViewName2PhysicName("Discount", key);
-			String valueLike=searchTxtArea.getText();
-			List<DiscountBean>searchResult=discountService.searchDiscountByKey(key, valueLike);
-			
+			searchExec();
+		}else if(source==modifyButton){
+			modifyExec();
 		}
 		
 	}
 	
+	private void modifyExec(){
+		try {
+			List<HashMap<String,String>> selectedDatas=ViewUtil.getSelectedData(jTable1);
+			if(selectedDatas.size()!=1){
+				JOptionPane.showMessageDialog(null, "Please select 1 item to Modify", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Map<String,String>selectedMap=NameConverter.convertViewMap2PhysicMap(selectedDatas.get(0), "Discount");
+			DiscountBean selectedDiscountBean=new DiscountBean();
+			BeanUtil.transMap2Bean(selectedMap, selectedDiscountBean);
+			ViewManager.goToSubFunctionScreen(new AddDiscountPanel(selectedDiscountBean,AddDiscountPanel.MODIFY_DISCOUNT));
+		} catch (ServiceNotFoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
 	private void deleteExec(){
 		List<HashMap<String,String>> selectedDatas=ViewUtil.getSelectedData(jTable1);
+		if(selectedDatas.size()<1){
+			JOptionPane.showMessageDialog(null, "Please select at least 1 item to delete", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		int options=JOptionPane.showConfirmDialog(null, "Are you ready to delete this "+selectedDatas.size()+"Items?", "Info",JOptionPane.YES_NO_OPTION);
 		if(options==1){
 			return;
@@ -195,6 +216,14 @@ public class DiscountManagePanel extends javax.swing.JPanel implements ActionLis
 			discountService.deleteDiscountByMap(NameConverter.convertViewMap2PhysicMap(map, "Discount"));
 		}
 		this.initDatas();
+	}
+	
+	private void searchExec(){
+		String key=jComboBox1.getSelectedItem().toString();
+		key=NameConverter.convertViewName2PhysicName("Discount", key);
+		String valueLike=searchTxtArea.getText();
+		List<DiscountBean>searchResult=discountService.searchDiscountByKey(key, valueLike);
+		jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(searchResult,"Discount"));
 	}
 
 	@Override

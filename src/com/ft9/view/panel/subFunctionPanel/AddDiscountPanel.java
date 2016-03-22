@@ -11,6 +11,7 @@ import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.DiscountService;
 import com.ft9.util.ViewUtil;
+import com.ft9.view.ViewManager;
 import com.ft9.view.panel.actionListener.GoBackListener;
 import com.ft9.view.panel.actionListener.GoHomeListener;
 import com.ft9.bean.*;
@@ -20,8 +21,8 @@ public class AddDiscountPanel extends javax.swing.JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 7459983321187070197L;
-	private final static int ADD_NEW_DISCOUNT=0x01;
-	private final static int MODIFY_DISCOUNT=0x02;
+	public final static int ADD_NEW_DISCOUNT=0x01;
+	public final static int MODIFY_DISCOUNT=0x02;
 	
 	private int type=ADD_NEW_DISCOUNT; 
 	private DiscountBean discountBean=null;
@@ -35,6 +36,47 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         this.clearAllTextArea();
         discountService=(DiscountService)ServiceManager.getService("Discount");
     }
+    
+    public AddDiscountPanel(DiscountBean _discountBean,int _type) throws ServiceNotFoundException {
+        initComponents();
+        this.clearAllTextArea();
+        discountService=(DiscountService)ServiceManager.getService("Discount");
+        this.discountBean=_discountBean;
+        this.type=_type;
+        this.setDatas();
+        if(_type==AddDiscountPanel.MODIFY_DISCOUNT){
+        	submitBtn.setText("Modify");
+        }
+    }
+    
+    private void setDatas(){
+    	if(discountBean==null){
+    		return;
+    	}
+    	if(discountBean.getCode()!=null){
+    		codeTxtField.setText(discountBean.getCode());;
+    	}
+    	if(discountBean.getDescription()!=null){
+    		descTxtArea.setText(discountBean.getDescription());
+    	}
+    	if(discountBean.getDiscountPercentage()!=null){
+            percentageTxtField.setText(discountBean.getDiscountPercentage());
+    	}
+    	if(discountBean.getDiscountPeriod()!=null){
+    		periodTxtField.setText(discountBean.getDiscountPeriod());
+    	}
+    	if(discountBean.getStartDate()!=null){
+    		startDateTxtField.setText(discountBean.getStartDate());
+    	}
+    	if(discountBean.getMemberApplicable()!=null){
+    		if(discountBean.getMemberApplicable().equals("M")){
+    			aplicableCombo.setSelectedItem("Member");
+    		}else{
+    			aplicableCombo.setSelectedItem("All");
+    		}
+    	}
+    	codeTxtField.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,8 +86,8 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")                      
     private void initComponents() {
 
-        goHomeButton = new javax.swing.JButton();
-        goBackButton = new javax.swing.JButton();
+        goHomeButton = ViewManager.createGoHomeButton();
+        goBackButton = ViewManager.createGoBackButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -63,10 +105,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         submitBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
 
-        goHomeButton.setText("home");
-        goHomeButton.addActionListener(new GoHomeListener());
-        goBackButton.setText("Back");
-        goBackButton.addActionListener(new GoBackListener());
+
 
         jLabel1.setText("Discount Code:");
 
@@ -203,7 +242,10 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     private void clearAllTextArea() {                                         
         // TODO add your handling code here:
         descTxtArea.setText("");
-        codeTxtField.setText("");
+        if(type==ADD_NEW_DISCOUNT){
+        	codeTxtField.setText("");
+        }
+        
         startDateTxtField.setText("");
         periodTxtField.setText("");
         percentageTxtField.setText("");
@@ -212,11 +254,23 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     }      
     
     public void submitExec(){
-    	this.discountBean=this.generateDataBean();
     	this.clearAllTextError();
-    	if(discountService.addNewDiscount(discountBean)){
-    		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    	this.discountBean=this.generateDataBean();
+    	if(discountBean==null){
+    		return;
     	}
+    	
+    	if(this.type==AddDiscountPanel.ADD_NEW_DISCOUNT){
+    		if(discountService.addNewDiscount(discountBean)){
+        		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        	}
+    	}else{
+    		if(discountService.updateDiscount(discountBean)){
+    			JOptionPane.showMessageDialog(null, "Your Information updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    			ViewManager.goBack();
+    		}
+    	}
+    	
     	
     }
     
@@ -224,6 +278,12 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	if(!checkIfAllTxtFulfilled()){
     		JOptionPane.showMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
     		return null;
+    	}else{
+    		if(type==ADD_NEW_DISCOUNT&&discountService.isCodeExist(codeTxtField.getText())){
+    			ViewUtil.setJTextError(codeTxtField);
+    			JOptionPane.showMessageDialog(null, "The Discount Code Has Already Existed", "Error", JOptionPane.ERROR_MESSAGE);
+    			return null;
+    		}
     	}
     	DiscountBean discountBean=new DiscountBean();
     	discountBean.setCode(this.codeTxtField.getText());
@@ -243,6 +303,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     }
     
     private boolean checkIfAllTxtFulfilled(){
+    	
     	if(ViewUtil.isJTextEmpty(codeTxtField)){
     		ViewUtil.setJTextError(codeTxtField);
     		return false;
