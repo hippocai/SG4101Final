@@ -38,8 +38,12 @@ public class FileConst {
 		return fileRecordFormatMap.get(beanName);
 	}
 	
-	public static List<String>getRecordFormatList(String beanName){
+	public static String[] getRecordFormatArray(String beanName){
 		String [] formatListArr=getRecordFormat(beanName).split(",");
+		return formatListArr;
+	}
+	public static List<String>getRecordFormatList(String beanName){
+		String [] formatListArr=getRecordFormatArray(beanName);
 		List<String>formatList=new ArrayList<String>();
 		for(String formatUnit:formatListArr){
 			formatList.add(formatUnit);

@@ -13,6 +13,7 @@ import com.ft9.service.IStoreKeeperService;
 
 public class StoreKeeperService implements IStoreKeeperService{
 	
+	IStoreKeeperDao storeKeeperDao;
 	private static StoreKeeperService storeKeeperService=null;
 	public static StoreKeeperService getInstance()throws DaoException{
 		if(storeKeeperService==null){
@@ -20,7 +21,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 		}
 		return storeKeeperService;
 	}
-	IStoreKeeperDao storeKeeperDao;
 	private StoreKeeperService()throws DaoException{
 		storeKeeperDao=(StoreKeeperDao)DAOer.getDao("StoreKeeper");
 	}
