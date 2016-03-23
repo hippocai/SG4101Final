@@ -30,6 +30,20 @@ public class ViewUtil {
 		return dtModel;
 	}
 	
+	public static DefaultTableModel transferMapListToDTModel(List<String>header,List<HashMap<String,String>>datas){
+		DefaultTableModel dtModel=new DefaultTableModel();
+		Object[] columnNameArr= header.toArray();
+		dtModel.setColumnIdentifiers(columnNameArr);
+		for(int i=0;i<datas.size();++i){
+			Map<String,String>map=datas.get(i);
+			List<String> rowList=new ArrayList<String>();
+			for(Object columnName:columnNameArr){
+				rowList.add(map.get(columnName.toString()));
+			}
+			dtModel.addRow(rowList.toArray());
+		}
+		return dtModel;
+	}
 	public static JTable createUneditableTable(){
 		JTable jTable=new JTable(){
 			private static final long serialVersionUID = 4998323002110009801L;

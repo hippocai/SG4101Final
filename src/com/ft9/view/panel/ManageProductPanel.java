@@ -1,22 +1,60 @@
 package com.ft9.view.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
+
 import com.ft9.annotation.Menu;
+import com.ft9.bean.DiscountBean;
+import com.ft9.bean.ProductBean;
+import com.ft9.service.IProductService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
+import com.ft9.service.impl.ProductService;
+import com.ft9.util.BeanUtil;
+import com.ft9.util.ViewUtil;
+import com.ft9.view.NameConverter;
+import com.ft9.view.ViewManager;
+import com.ft9.view.panel.subFunctionPanel.AddDiscountPanel;
+import com.ft9.view.panel.subFunctionPanel.AddProductPanel;
 
 @Menu(name = "Product", fatherName = "Manage")
 
 /**
  *
- * @author apple
+ * @author hippo
  */
-public class ManageProductPanel extends javax.swing.JPanel {
+public class ManageProductPanel extends javax.swing.JPanel implements ActionListener,PropertyChangeListener{
 
     /**
      * Creates new form ManageProductPanel
      */
-    public ManageProductPanel() {
+	IProductService productService=null;
+    public ManageProductPanel() throws ServiceNotFoundException {
+    	productService=(ProductService)ServiceManager.getService("Product");
         initComponents();
+        initDatas();
+        setActionListener();
+       // searchTxtField.setText("");
     }
-
+    
+    private void initDatas(){
+    	jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(productService.getAllProducts(),"Product"));
+    }
+    
+    private void setActionListener(){
+    	this.addPropertyChangeListener("Refresh", this);
+    	deleteBtn.addActionListener(this);
+    	addBtn.addActionListener(this);
+    	searchBtn.addActionListener(this);
+    	modifyBtn.addActionListener(this);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,116 +64,173 @@ public class ManageProductPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        button1 = new java.awt.Button();
-        button2 = new java.awt.Button();
-        button3 = new java.awt.Button();
-        button4 = new java.awt.Button();
-        button5 = new java.awt.Button();
-        button6 = new java.awt.Button();
+        goHomeButton = ViewManager.createGoHomeButton();
+        searchTxtField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        searchBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        modifyBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1 = ViewUtil.createUneditableTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
-        button1.setActionCommand("Return to main menu");
-        button1.setLabel("MainMenu");
-        button1.setName(""); // NOI18N
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
 
-        button2.setLabel("Back");
+        searchTxtField.setText("");
+        searchTxtField.setSize(72, 21);
+        jLabel1.setText("Key Word:");
 
-        button3.setLabel("button3");
-        button3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
-            }
-        });
+        searchBtn.setText("Search");
+    
 
-        button4.setLabel("button4");
+        addBtn.setText("Add");
 
-        button5.setLabel("button5");
+        deleteBtn.setText("Delete");
 
-        button6.setLabel("button6");
+        modifyBtn.setText("Modify");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(NameConverter.getTitleArr("Product")));
+   
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
-                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                //.addGap(70, 70, 70)
+                                .addComponent(goHomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 23, 23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addBtn)
+                                .addGap(53, 53, 53)
+                                .addComponent(deleteBtn)
+                                .addGap(53, 53, 53)
+                                .addComponent(modifyBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(10, 10, 10)
+                                .addComponent(searchTxtField, 77, 77, 77)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(searchBtn)))
+                        .addGap(434, 434, 434))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(goHomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(searchBtn)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addBtn)
+                    .addComponent(deleteBtn)
+                    .addComponent(modifyBtn))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
-
-        button1.getAccessibleContext().setAccessibleName("Main Menu");
     }// </editor-fold>                        
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
+    @Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO 自动生成的方法存根
+		Object source=arg0.getSource();
+		if(source==deleteBtn){
+			deleteExec();
+		}else if(source==addBtn){
+			try {
+				ViewManager.goToSubFunctionScreen(new AddProductPanel());
+			} catch (Exception e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		}else if(source==searchBtn){
+			searchExec();
+		}else if(source==modifyBtn){
+			modifyExec();
+		}
+		
+	}
+	
+	private void modifyExec(){
+		try {
+			List<HashMap<String,String>> selectedDatas=ViewUtil.getSelectedData(jTable1);
+			if(selectedDatas.size()!=1){
+				JOptionPane.showMessageDialog(null, "Please select 1 item to Modify", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Map<String,String>selectedMap=NameConverter.convertViewMap2PhysicMap(selectedDatas.get(0), "Product");
+			ProductBean selectedProductBean=new ProductBean();
+			BeanUtil.transMap2Bean(selectedMap, selectedProductBean);
+			ViewManager.goToSubFunctionScreen(new AddProductPanel(selectedProductBean,AddProductPanel.MODIFY_DISCOUNT));
+		} catch (ServiceNotFoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	private void deleteExec(){
+		List<HashMap<String,String>> selectedDatas=ViewUtil.getSelectedData(jTable1);
+		if(selectedDatas.size()<1){
+			JOptionPane.showMessageDialog(null, "Please select at least 1 item to delete", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		int options=JOptionPane.showConfirmDialog(null, "Are you ready to delete this "+selectedDatas.size()+"Items?", "Info",JOptionPane.YES_NO_OPTION);
+		if(options==1){
+			return;
+		}
+		for(HashMap<String,String> map:selectedDatas){
+			
+			productService.deleteProductByMap(NameConverter.convertViewMap2PhysicMap(map, "Product"));
+		}
+		this.initDatas();
+	}
+	
+	private void searchExec(){
+		String key=jComboBox1.getSelectedItem().toString();
+		key=NameConverter.convertViewName2PhysicName("Product", key);
+		String valueLike=searchTxtField.getText();
+		List<ProductBean>searchResult=productService.searchProductByKey(key, valueLike);
+		jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(searchResult,"Product"));
+	}
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO 自动生成的方法存根
+		if(this.getClientProperty("Refresh")!=null&&this.getClientProperty("Refresh").equals("True")){
+			 initDatas();
+			 putClientProperty("Refresh", "False");
+		}
+		
+		
+	}
 
     // Variables declaration - do not modify                     
-    private java.awt.Button button1;
-    private java.awt.Button button2;
-    private java.awt.Button button3;
-    private java.awt.Button button4;
-    private java.awt.Button button5;
-    private java.awt.Button button6;
+    private javax.swing.JButton goHomeButton;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton modifyBtn;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField searchTxtField;
     // End of variables declaration                   
 }

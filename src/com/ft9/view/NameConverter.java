@@ -10,7 +10,7 @@ public class NameConverter {
 	final private static int PhysicName2ViewName=0x01;
 	final private static int ViewName2PhysicName=0x02;
 	static{
-		NameMap.put("Product", "ID,Name,Description,Quantity,Price,Barcode,Reorder,Order");
+		NameMap.put("Product", "ID,Name,Description,Quantity,Price,Barcode,Threshold,Order");
 		NameMap.put("Category", "Code,Name");
 		NameMap.put("Member", "Name,ID,LoyaltyPoint");
 		NameMap.put("Transaction", "ID,productId,memberId,quantityPurchased,date");

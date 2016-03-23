@@ -1,6 +1,24 @@
 package com.ft9.view.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import com.ft9.annotation.Menu;
+import com.ft9.service.ICategoryService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
+import com.ft9.service.impl.CategoryService;
+import com.ft9.util.ViewUtil;
+import com.ft9.view.NameConverter;
+import com.ft9.view.ViewManager;
+import com.ft9.view.panel.subFunctionPanel.AddCategoryPanel;
+import com.ft9.view.panel.subFunctionPanel.AddDiscountPanel;
 
 /**
  *
@@ -8,17 +26,25 @@ import com.ft9.annotation.Menu;
  */
 @Menu(name = "Category", fatherName = "Manage")
 
-public class ManageCategoryPanel extends javax.swing.JPanel {
+/**
+ *
+ * @author hippo
+ */
+public class ManageCategoryPanel extends javax.swing.JPanel implements ActionListener,PropertyChangeListener {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1344838085114859069L;
+	private static final long serialVersionUID = 9098970512592162357L;
+	private ICategoryService categoryService=null;
 	/**
      * Creates new form ManageCategoryPanel
+	 * @throws ServiceNotFoundException 
      */
-    public ManageCategoryPanel() {
+    public ManageCategoryPanel() throws ServiceNotFoundException {
+    	categoryService=(CategoryService)ServiceManager.getService("Category");
         initComponents();
+        initDatas();
     }
 
     /**
@@ -29,114 +55,108 @@ public class ManageCategoryPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        button3 = new java.awt.Button();
-        button4 = new java.awt.Button();
-        button5 = new java.awt.Button();
-        button6 = new java.awt.Button();
-        button1 = new java.awt.Button();
-        button2 = new java.awt.Button();
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-//                {null, null, null, null},
-//                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        button3.setLabel("button3");
-        button3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
-            }
-        });
-
-        button4.setLabel("button4");
-
-        button5.setLabel("button5");
-
-        button6.setLabel("button6");
-
-        button1.setActionCommand("Return to main menu");
-        button1.setLabel("Main Menu");
-        button1.setName(""); // NOI18N
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-
-        button2.setLabel("Back");
+    	this.addPropertyChangeListener("Refresh", this);
+        goHomeBtn = ViewManager.createGoHomeButton();
+        addBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        
+        addBtn.setText("Add");
+        addBtn.addActionListener(this);
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(this);
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(596, 596, 596)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110)
-                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(goHomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addBtn)
+                                .addGap(31, 31, 31)
+                                .addComponent(deleteBtn)
+                                .addGap(525, 525, 525)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(goHomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addBtn)
+                    .addComponent(deleteBtn))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }                                       
-
-
+    private void initDatas(){
+    	jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(categoryService.getAllCategorys(),"Category"));
+    }
     // Variables declaration - do not modify                     
-    private java.awt.Button button1;
-    private java.awt.Button button2;
-    private java.awt.Button button3;
-    private java.awt.Button button4;
-    private java.awt.Button button5;
-    private java.awt.Button button6;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JButton goHomeBtn;
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration                   
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO 自动生成的方法存根
+		if(e.getSource()==deleteBtn){
+			deleteExec();
+		}else if(e.getSource()==addBtn){
+			goToAddPanel();
+		}
+		
+	}
+	
+	private void goToAddPanel(){
+		try {
+			ViewManager.goToSubFunctionScreen(new AddCategoryPanel());
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+	private void deleteExec(){
+		List<HashMap<String,String>> selectedDatas=ViewUtil.getSelectedData(jTable1);
+		if(selectedDatas.size()<1){
+			JOptionPane.showMessageDialog(null, "Please select at least 1 item to delete", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		int options=JOptionPane.showConfirmDialog(null, "Are you ready to delete this "+selectedDatas.size()+"Items?", "Info",JOptionPane.YES_NO_OPTION);
+		if(options==1){
+			return;
+		}
+		for(HashMap<String,String> map:selectedDatas){
+			
+			categoryService.deleteCategoryByMap(NameConverter.convertViewMap2PhysicMap(map, "Category"));
+		}
+		this.initDatas();
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO 自动生成的方法存根
+		if(this.getClientProperty("Refresh")!=null&&this.getClientProperty("Refresh").equals("True")){
+			 initDatas();
+			 putClientProperty("Refresh", "False");
+		}
+		
+		
+	}
 }

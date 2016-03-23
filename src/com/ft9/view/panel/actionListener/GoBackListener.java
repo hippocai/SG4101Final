@@ -12,10 +12,12 @@ public class GoBackListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO 自动生成的方法存根
-		int options=JOptionPane.showConfirmDialog(null, "Are you ready to Go Back?", "Info",JOptionPane.YES_NO_OPTION);
-		if(options==0){
-			ViewManager.goBack();
-		}
+//		int options=JOptionPane.showConfirmDialog(null, "Are you ready to Go Back?", "Info",JOptionPane.YES_NO_OPTION);
+//		if(options==0){
+//			ViewManager.goBack();
+//		}
+		
+		ViewManager.goBack();
 	}
 
 }

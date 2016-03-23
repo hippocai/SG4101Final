@@ -161,6 +161,11 @@ public class ViewManager {
 			
 		}
 	}
+	
+	public static void callRefreshCurrentPanel(){
+		JPanel jPanel=(JPanel)rightPanel.getViewport().getView();
+		jPanel.putClientProperty("Refresh", "True");
+	}
 
 	
 	//select tree node by node name and father node name
