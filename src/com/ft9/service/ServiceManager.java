@@ -11,6 +11,7 @@ import com.ft9.service.impl.DiscountService;
 import com.ft9.service.impl.ProductService;
 import com.ft9.service.impl.MemberService;
 import com.ft9.service.impl.StoreKeeperService;
+import com.ft9.service.impl.TransactionService;
 
 public class ServiceManager {
 	private static Logger log = Logger.getLogger(ServiceManager.class);
@@ -22,7 +23,8 @@ public class ServiceManager {
 		serviceMap.put("CategoryService", CategoryService.getInstance());
 		serviceMap.put("ProductService", ProductService.getInstance());
 		serviceMap.put("MemberService", MemberService.getInstance());
-
+		serviceMap.put("TransactionService", TransactionService.getInstance());
+		serviceMap.put("PaymentService", TransactionService.getInstance());
 		log.info("Initial Successful");
 	}
 	

@@ -41,7 +41,7 @@ public class AddMemberPanel extends javax.swing.JPanel {
    
    public AddMemberPanel(MemberBean _memberBean, int _type) throws ServiceNotFoundException{
 	   initComponents();
-	   this.clearAllTextArea();
+	   this.clearAllTxtArea();
 	   memberService = (MemberService) ServiceManager.getService("Member");
 	   this.memberBean = _memberBean;
 	   this.type = _type;
@@ -69,11 +69,11 @@ public class AddMemberPanel extends javax.swing.JPanel {
    
 	
 
-//
-//private void clearAllTxtArea() {
-//	// TODO Auto-generated method stub
-//	
-//}
+
+private void clearAllTxtArea() {
+	// TODO Auto-generated method stub
+	
+}
 
 /**
     * This method is called from within the constructor to initialize the form.
@@ -269,7 +269,7 @@ public class AddMemberPanel extends javax.swing.JPanel {
 	
 	private MemberBean generateDataBean(){
 		if (!checkIfAllTxtFullfilled()){
-			JOptionPane.showMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showInternalMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
 		    return null;
 		}else{
 			if(type == ADD_NEW_MEMBER && memberService.isCodeExist(jTextField1.getText())){

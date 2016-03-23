@@ -5,7 +5,7 @@ package com.ft9.util;
  * Version:  $Revision$
  * Modify record:
  * NO. |     Date       |    Name           |      Content
- * 1   | 2015�??12�??9�??        | China)caiyicheng  | original version
+ * 1   | 2015�??12�??9�??        | China)caiyicheng  | original version
  */
 
 
@@ -17,7 +17,7 @@ import java.util.IllegalFormatConversionException;
  * class name:TimeUtil <BR>
  * class description: please write your description <BR>
  * Remark: <BR>
- * @version 1.00 2015�??12�??9�??
+ * @version 1.00 2015�??12�??9�??
  * @author GElement)caiyicheng
  */
 public class TimeUtil {
@@ -59,16 +59,24 @@ public class TimeUtil {
 	 * @return  boolean<BR>
 	 */
 	public static boolean isCurrentTimeOutOfLimit(TimeUtil originalTime,String timeLimited){
-		if(originalTime==null||timeLimited==null){
-			return false;
-		}
+
 		TimeUtil timePeriod=new TimeUtil(timeLimited);
 		return TimeUtil.GetCurrentTime().greatThan(originalTime.add(timePeriod));
 	}
 	
+	public static TimeUtil getTimeUtilByStandardDateFormat(String dateStr){
+		String[] dateArr=dateStr.split("-");
+		if(dateArr.length!=3){
+			throw new IllegalArgumentException("The Format Can not be recognized"+dateStr);
+		}
+		TimeUtil timeUtil=new TimeUtil(dateArr[0]+"Y"+dateArr[1]+"M"+dateArr[2]+"D",TimeUtil.DATE);
+		return timeUtil;
+	}
+	
+	
 	/**
 	 * Method name: checkTimeInTimeInterval <BR>
-	 * Description: �??查某个时间是否在规定的时间间隔中<BR>
+	 * Description: �??查某个时间是否在规定的时间间隔中<BR>
 	 * Remark: <BR>
 	 * @param originalTime
 	 * @param mutualTime
@@ -84,6 +92,22 @@ public class TimeUtil {
 		TimeUtil timeFloor=originalTime.addSecond((int) (second-bias));
 		TimeUtil timeUpper=originalTime.addSecond((int) (second+bias));
 		return !(checkTime.lessThan(timeFloor)||checkTime.greatThan(timeUpper));
+	}
+	
+	public static boolean checkTimeInPeriod(TimeUtil startTime,TimeUtil endTime,TimeUtil checkTime){
+		return !(checkTime.lessThan(startTime)||checkTime.greatThan(endTime));
+	}
+	
+	public static boolean checkDateInPeriod(String startDate,String endDate,String checkDate){
+		return checkDateAfter(startDate,checkDate)&&checkDateBefore(endDate,checkDate);
+	}
+	
+	public static boolean checkDateAfter(String startDate,String checkDate){
+		return checkDate.compareTo(startDate)>=0;
+	}
+	
+	public static boolean checkDateBefore(String endDate,String checkDate){
+		return checkDate.compareTo(endDate)<=0;
 	}
 	
 	/**
@@ -140,7 +164,7 @@ public class TimeUtil {
 	 * Remark: <BR>  void<BR>
 	 */
 	public TimeUtil() {
-		// TODO 自动生成的方法存�??
+		// TODO 自动生成的方法存�??
 		
 	}
 	
@@ -846,5 +870,9 @@ public class TimeUtil {
 			sec+=second;
 		}
 		return sec;
+	}
+	
+	public String getDate(){
+		return year+"-"+month+"-"+day;
 	}
 }
