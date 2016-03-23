@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.ft9.dao.DaoException;
 import com.ft9.service.impl.DiscountService;
+import com.ft9.service.impl.MemberService;
 import com.ft9.service.impl.StoreKeeperService;
 
 public class ServiceManager {
@@ -16,6 +17,7 @@ public class ServiceManager {
 		log.info("Initialing Service...");
 		serviceMap.put("StoreKeeperService", StoreKeeperService.getInstance());
 		serviceMap.put("DiscountService", DiscountService.getInstance());
+		serviceMap.put("MemberService", MemberService.getInstance());
 		log.info("Initial Successful");
 	}
 	
