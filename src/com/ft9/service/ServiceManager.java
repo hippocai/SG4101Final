@@ -9,6 +9,7 @@ import com.ft9.dao.DaoException;
 import com.ft9.service.impl.CategoryService;
 import com.ft9.service.impl.DiscountService;
 import com.ft9.service.impl.ProductService;
+import com.ft9.service.impl.MemberService;
 import com.ft9.service.impl.StoreKeeperService;
 
 public class ServiceManager {
@@ -20,6 +21,7 @@ public class ServiceManager {
 		serviceMap.put("DiscountService", DiscountService.getInstance());
 		serviceMap.put("CategoryService", CategoryService.getInstance());
 		serviceMap.put("ProductService", ProductService.getInstance());
+		serviceMap.put("MemberService", MemberService.getInstance());
 
 		log.info("Initial Successful");
 	}
