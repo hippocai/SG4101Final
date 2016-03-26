@@ -53,7 +53,7 @@ public class HelpPanel extends javax.swing.JPanel {
        ));
        jScrollPane1.setViewportView(jTable1);
 
-       jButton1.setText("jButton1");
+//       jButton1.setText("jButton1");
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);
