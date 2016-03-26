@@ -13,6 +13,9 @@ public interface IPaymentService {
 	public MemberBean getMemberById(String id);
 	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean);
 	public ProductBean getProductBeanByBarcode(String barcode);
+	public ProductBean getProductBeanById(String id);
 	public boolean updateMemberInfo(MemberBean memberBean);
 	public int addTransactionInfo(List<TransactionBean>transactionInfoBeanList);
+	public int getMaxTransId();
+	public boolean updateProduct(ProductBean productBean);
 }

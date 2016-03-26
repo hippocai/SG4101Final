@@ -24,7 +24,7 @@ public class PaymentService implements IPaymentService {
 	private ITransactionService transService;
 	private IProductService productService;
 	private IMemberService memberService;
-	private static MemberBean nonMember=new MemberBean();
+	public static MemberBean nonMember=new MemberBean();
 	public static PaymentService getInstance() throws ServiceNotFoundException{
 		if(paymentService==null){
 			paymentService=new PaymentService();
@@ -51,7 +51,7 @@ public class PaymentService implements IPaymentService {
 	public boolean isNewMember(String id) {
 		// TODO 自动生成的方法存根
 		
-		return isMember(id)&&!getMemberById(id).getLoyaltyPoint().equals("-1");
+		return isMember(id)&&getMemberById(id).getLoyaltyPoint().equals("-1");
 	}
 
 	@Override
@@ -73,18 +73,30 @@ public class PaymentService implements IPaymentService {
 			memberBean=nonMember;
 		}
 		Map<String,String>discountSearchMap=new HashMap<String,String>();
-		if(!memberBean.getId().equals("PUBLIC")){
-			discountSearchMap.put("memberApplicable", "M");
+		if(memberBean.getId().equals("PUBLIC")){
+			discountSearchMap.put("memberApplicable", "A");
+		}else{
 		}
+		
 		List<DiscountBean>availableDiscountList=discountService.getDiscountByMap(discountSearchMap);
+		
+		if(!this.isNewMember(memberBean.getId())){
+			for(int i=0;i<availableDiscountList.size();++i){
+				if(availableDiscountList.get(i).getCode().equals("MEMBER_FIRST")){
+					availableDiscountList.remove(i);
+					break;
+				}
+			}
+		}
 		int maxDiscountRate=-1;
 		DiscountBean selectedDiscountBean=null;
 		for(DiscountBean discountBean:availableDiscountList){
 			String startTime=discountBean.getStartDate();
-			String period=discountBean.getDiscountPeriod()+"d";
+			String period=discountBean.getDiscountPeriod();
 			if(startTime.equals("ALWAYS")){
 				if(Integer.parseInt(discountBean.getDiscountPercentage())>maxDiscountRate){
 					selectedDiscountBean=discountBean;
+					maxDiscountRate=Integer.parseInt(discountBean.getDiscountPercentage());
 					continue;
 				}else{
 					//DoNothing
@@ -93,16 +105,18 @@ public class PaymentService implements IPaymentService {
 			else if(period.equals("ALWAYS")&&TimeUtil.GetCurrentTime().greatThan(TimeUtil.getTimeUtilByStandardDateFormat(discountBean.getDiscountPeriod()))){
 				if(Integer.parseInt(discountBean.getDiscountPercentage())>maxDiscountRate){
 					selectedDiscountBean=discountBean;
+					maxDiscountRate=Integer.parseInt(discountBean.getDiscountPercentage());
 					continue;
 				}else{
 					//DoNothing
 				}
 			}
-			else if(TimeUtil.isCurrentTimeOutOfLimit(TimeUtil.getTimeUtilByStandardDateFormat(startTime), period)){
+			else if(TimeUtil.isCurrentTimeOutOfLimit(TimeUtil.getTimeUtilByStandardDateFormat(startTime), period+"D")){
 				continue;
 			}else{
 				if(Integer.parseInt(discountBean.getDiscountPercentage())>maxDiscountRate){
 					selectedDiscountBean=discountBean;
+					maxDiscountRate=Integer.parseInt(discountBean.getDiscountPercentage());
 					continue;
 				}else{
 					//DoNothing
@@ -135,6 +149,28 @@ public class PaymentService implements IPaymentService {
 		// TODO 自动生成的方法存根
 		
 		return transService.addTransactionByBeanList(transactionInfoBeanList);
+	}
+
+	@Override
+	public int getMaxTransId() {
+		// TODO 自动生成的方法存根
+		return transService.getMaxTransactionID();
+	}
+
+	@Override
+	public ProductBean getProductBeanById(String id) {
+		// TODO 自动生成的方法存根
+		List<ProductBean>productList=productService.getProductByKey("id", id);
+		if(productList==null||productList.size()==0){
+			return null;
+		}
+		return productList.get(0);
+	}
+
+	@Override
+	public boolean updateProduct(ProductBean productBean) {
+		// TODO 自动生成的方法存根
+		return productService.updateProductByBean(productBean);
 	}
 
 }

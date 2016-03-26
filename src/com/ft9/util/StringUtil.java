@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -141,5 +143,13 @@ public class StringUtil {
 			}
 		}
 		return str+"}";
+	}
+	
+	public static List<String>transStringArr2List(String[]arr){
+		List<String> stringList=new ArrayList<String>();
+		for(String str:arr){
+			stringList.add(str);
+		}
+		return stringList;
 	}
 }

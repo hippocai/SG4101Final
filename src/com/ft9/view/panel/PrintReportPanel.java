@@ -1,6 +1,11 @@
 package com.ft9.view.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.ft9.annotation.Menu;
+import com.ft9.view.ViewManager;
+import com.ft9.view.panel.subFunctionPanel.ReportTransactionPanel;
 
 
 /**
@@ -38,6 +43,14 @@ public class PrintReportPanel extends javax.swing.JPanel {
         jButton2.setText("Available Product Info");
 
         jButton3.setText("Transactions");
+        jButton3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO 自动生成的方法存根
+				ViewManager.goToSubFunctionScreen(new ReportTransactionPanel());
+			}
+		});
 
         jButton4.setText("Members Info");
 

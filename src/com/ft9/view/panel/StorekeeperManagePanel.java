@@ -86,7 +86,7 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 //        ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonBack.setText("Back");
+       // jButtonBack.setText("Back");
 
         jButtonAdd.setText("Add");
 

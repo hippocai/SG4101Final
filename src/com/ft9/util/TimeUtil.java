@@ -69,7 +69,7 @@ public class TimeUtil {
 		if(dateArr.length!=3){
 			throw new IllegalArgumentException("The Format Can not be recognized"+dateStr);
 		}
-		TimeUtil timeUtil=new TimeUtil(dateArr[0]+"Y"+dateArr[1]+"M"+dateArr[2]+"D",TimeUtil.DATE);
+		TimeUtil timeUtil=new TimeUtil(dateArr[0]+"Y"+dateArr[1]+"M"+dateArr[2]+"D0h0m0s",TimeUtil.DATE);
 		return timeUtil;
 	}
 	

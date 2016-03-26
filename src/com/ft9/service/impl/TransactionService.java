@@ -92,4 +92,17 @@ public class TransactionService implements ITransactionService {
 		return transactionBeanList.size();
 	}
 
+	@Override
+	public int getMaxTransactionID() {
+		// TODO 自动生成的方法存根
+		List<TransactionBean>transList=this.getAllTransactions();
+		int maxId=-1;
+		for(TransactionBean transBean:transList){
+			if(Integer.parseInt(transBean.getId())>maxId){
+				maxId=Integer.parseInt(transBean.getId());
+			}
+		}
+		return maxId+1;
+	}
+
 }

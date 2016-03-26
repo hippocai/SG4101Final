@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,6 +28,7 @@ import com.ft9.view.panel.actionListener.GoHomeListener;
 
 public class ViewManager {
 	private static Logger log = Logger.getLogger(ViewManager.class);
+	private static String[] treeSeq={"Payment","Entry&Replenish","Manage","StoreKeeper","Print","Help"};
 	@SuppressWarnings("rawtypes")
 	private static Map<String,HashMap<String,Class>>panelMap=new HashMap<String,HashMap<String,Class>>();
 
@@ -66,13 +68,17 @@ public class ViewManager {
 	public static JButton createGoHomeButton(){
 		JButton goHomeButton=new JButton();
 		goHomeButton.addActionListener(new GoHomeListener());
-		goHomeButton.setText("home");
+		 ImageIcon image = new ImageIcon("src/com/icon/home.png"); 
+		//goHomeButton.setText("home");
+		goHomeButton.setIcon(image);
+		goHomeButton.setBounds(5, 5, 500, 200);
 		return goHomeButton;
 	}
 	
 	public static JButton createGoBackButton(){
 		JButton goBackButton=new JButton();
-		goBackButton.setText("Back");
+		ImageIcon image = new ImageIcon("src/com/icon/arrow-round.png");
+		goBackButton.setIcon(image);
         goBackButton.addActionListener(new GoBackListener());
         return goBackButton;
 	}
@@ -156,8 +162,9 @@ public class ViewManager {
 	public static void goBack(){
 		if(!panelStack.isEmpty()){
 			JPanel jpanel=panelStack.pop();
-			jpanel.putClientProperty("Refresh", "True");
 			rightPanel.setViewportView(jpanel);
+			jpanel.putClientProperty("Refresh", "True");
+			
 			
 		}
 	}
@@ -165,6 +172,11 @@ public class ViewManager {
 	public static void callRefreshCurrentPanel(){
 		JPanel jPanel=(JPanel)rightPanel.getViewport().getView();
 		jPanel.putClientProperty("Refresh", "True");
+	}
+	
+	public static void refreshCurrentPanel() throws InstantiationException, IllegalAccessException{
+		JPanel jPanel=(JPanel)rightPanel.getViewport().getView();
+		rightPanel.setViewportView(jPanel.getClass().newInstance());
 	}
 
 	
@@ -201,7 +213,11 @@ public class ViewManager {
 		log.info("Creating Tree....");
 		 DefaultMutableTreeNode top = new DefaultMutableTreeNode("root");
          Map<String,ArrayList<String>> nodeNameMap=ViewManager.getMenuList();
-         for(String fatherNodeName:nodeNameMap.keySet()){
+         for(int i=0;i<treeSeq.length;++i){
+        	 String fatherNodeName=treeSeq[i];
+        	 if(!nodeNameMap.containsKey(fatherNodeName)){
+        		 continue;
+        	 }
 	       	  DefaultMutableTreeNode node = new DefaultMutableTreeNode(fatherNodeName);
 	       	  List<String>childNodeNameList=nodeNameMap.get(fatherNodeName);
 	       	  for(String childNodeName:childNodeNameList){
@@ -241,7 +257,6 @@ public class ViewManager {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} 
-		
 	}
 	//Get the menu list by panelMap
 	@SuppressWarnings("rawtypes")

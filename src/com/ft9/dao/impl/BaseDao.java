@@ -27,15 +27,17 @@ import com.ft9.util.StringUtil;
 public abstract class BaseDao {
 	private static Logger log = Logger.getLogger(BaseDao.class);
 	private FileUtil fileUtil=null;
-	List<Object>savedBeans;
+	//List<Object>savedBeans;
 	/**
 	 * @param map
 	 * @return
 	 */
 	protected List<Object> getBeanByMap(Map<String,String>map){
 		log.info("(DAO)Get Bean By Map:"+StringUtil.transferStringmap2String(map));
+		
 		List<Object>selectedBeanList=new ArrayList<Object>();
 		try {
+			List<Object>savedBeans=this.getAllTheBeansFromFile();
 			List<Object>beansList=savedBeans;
 			
 			if(map==null||map.isEmpty()){
@@ -68,7 +70,7 @@ public abstract class BaseDao {
 			}
 			String record=this.transBeanToStringRecord(bean);
 			fileUtil.writeToFile(record, FileUtil.APPEND);
-			this.savedBeans=this.getAllTheBeansFromFile();
+			//this.savedBeans=this.getAllTheBeansFromFile();
 			return true;
 			
 		} catch (Exception e) {
@@ -86,6 +88,7 @@ public abstract class BaseDao {
 	protected int deleteBeanByMap(Map<String,String>map){
 		try{
 			log.info("(DAO)Delete Bean By Map:"+StringUtil.transferStringmap2String(map));
+			List<Object> savedBeans=this.getAllTheBeansFromFile();
 			List<Object>selectedBeanList=this.getBeanByMap(map);
 			for(Object bean:selectedBeanList){
 				if(BeanUtil.getBeanName(bean)==null||!BeanUtil.getBeanName(bean).equals(this.getSubClassName())){
@@ -111,7 +114,7 @@ public abstract class BaseDao {
 		try{
 			log.info("(DAO)Update Bean,New Bean"+StringUtil.transferStringmap2String(BeanUtil.transBean2Map(newBean))
 					+" Select Map:"+StringUtil.transferStringmap2String(map));
-			
+			List<Object>savedBeans=this.getAllTheBeansFromFile();
 			List<Object>selectedBeanList=this.getBeanByMap(map);
 			for(Object bean:selectedBeanList){
 				if(BeanUtil.getBeanName(bean)==null||!BeanUtil.getBeanName(bean).equals(this.getSubClassName())){
@@ -141,7 +144,7 @@ public abstract class BaseDao {
 	}
 	public BaseDao(String filePath) throws FileNotFoundException, IOException{
 		this.fileUtil=new FileUtil(filePath);
-		savedBeans=this.getAllTheBeansFromFile();
+		List<Object>savedBeans=this.getAllTheBeansFromFile();
 	}
 	protected FileUtil getFileUtil(){
 		return fileUtil;

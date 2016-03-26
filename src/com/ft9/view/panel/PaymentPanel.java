@@ -1,30 +1,62 @@
 package com.ft9.view.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 import com.ft9.annotation.Menu;
+import com.ft9.bean.DiscountBean;
+import com.ft9.bean.MemberBean;
+import com.ft9.bean.ProductBean;
+import com.ft9.bean.TransactionBean;
+import com.ft9.common.RedeemConfig;
+import com.ft9.common.Session;
 import com.ft9.service.IPaymentService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.PaymentService;
+import com.ft9.util.StringUtil;
+import com.ft9.util.TimeUtil;
+import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
+import com.ft9.view.panel.subFunctionPanel.PrintPanel;
 
 /**
 *
 * @author apple
 */
 @Menu(name = "Checkout", fatherName = "Payment")
-public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
+public class PaymentPanel extends javax.swing.JPanel implements KeyListener, FocusListener ,PropertyChangeListener{
 
    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	String[] MemberTableHeader=new String [] {"Param","Value"};
+	String[] TransactionTableHeader=new String [] {"Name", "Quantity", "Price", "Total Price"};
+	List<TransactionBean> transList=new ArrayList<TransactionBean>();
 	private IPaymentService payService=null;
+	private MemberBean memberBean=null;
+	private DiscountBean discountBean=null;
 /**
     * Creates new form PaymentPanel
  * @throws ServiceNotFoundException 
@@ -45,6 +77,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
 
        jScrollPane1 = new javax.swing.JScrollPane();
        memberInfoTable = new javax.swing.JTable();
+       memberInfoTable.getTableHeader().setVisible(false);
        jScrollPane2 = new javax.swing.JScrollPane();
        transPanel = new javax.swing.JTable();
        discountTxtField = new JTextField();
@@ -61,6 +94,24 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
        barcodeTxtField = new javax.swing.JTextField();
        quantityTxtField = new javax.swing.JTextField();
        clearBtn = new javax.swing.JButton();
+       ImageIcon image = new ImageIcon("src/com/icon/recycle-full.png");
+       clearBtn.setIcon(image);
+       clearBtn.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO 自动生成的方法存根
+			try {
+				ViewManager.refreshCurrentPanel();
+			} catch (InstantiationException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+		}
+	});
        goToHomeBtn = ViewManager.createGoHomeButton();
        payBtn = new javax.swing.JButton();
 
@@ -71,14 +122,9 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
            }
        ));
        jScrollPane1.setViewportView(memberInfoTable);
-
+       this.addPropertyChangeListener("Refresh", this);
        transPanel.setModel(new javax.swing.table.DefaultTableModel(
-           new Object [][] {
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null}
-           },
+           new Object [][] {},
            new String [] {
                "Name", "Quantity", "Price", "Total Price"
            }
@@ -93,6 +139,8 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
        actualTxtField.setEnabled(false);
        loyalUseTxtField.setText("0");
        loyalUseTxtField.addKeyListener(this);
+       loyalUseTxtField.addFocusListener(this);
+       loyalUseTxtField.setEnabled(false);
        cashTxtField.setText("0");
        cashTxtField.setEnabled(false);
        jLabel1.setText("Discount");
@@ -117,14 +165,27 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
        
        memberIdTxtField.setText("Student/Staff ID");
        memberIdTxtField.addKeyListener(this);
+       memberIdTxtField.addFocusListener(this);
+       
        barcodeTxtField.setText("Barcode No.");
        barcodeTxtField.addKeyListener(this);
+       barcodeTxtField.setEnabled(false);
+       barcodeTxtField.addFocusListener(this);
        quantityTxtField.setText("1");
        quantityTxtField.addKeyListener(this);
-       clearBtn.setText("Clear");
+       quantityTxtField.setEnabled(false);
      //  goToHomeBtn.setText("MainMenu");
 
        payBtn.setText("Pay");
+       payBtn.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO 自动生成的方法存根
+			payExec();
+			
+		}
+	});
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);
@@ -246,17 +307,243 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
 				memberSearchExec();
 			}else if(arg0.getSource()==loyalUseTxtField){
 				calcLoyalPoint();
+			}else if(arg0.getSource()==barcodeTxtField){
+				addPurchaseExec();
+			}else if(arg0.getSource()==quantityTxtField){
+				addPurchaseExec();
+				barcodeTxtField.grabFocus();
 			}
 		}
 	}
 	
+	private void payExec(){
+		if(transList.size()==0){
+			JOptionPane.showMessageDialog(null, "Nothing in the list", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		if(!this.checkLoyalPoint()){
+			loyalUseTxtField.setText("0");
+			JOptionPane.showMessageDialog(null, "No Enough Point", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		reCalcPrice();
+
+		double cash=Float.parseFloat(cashTxtField.getText());
+		double actualPrice=Float.parseFloat(actualTxtField.getText());
+		double totalPrice=Float.parseFloat(totalTxtField.getText());
+
+		if(memberBean!=PaymentService.nonMember){
+			if(memberBean.getLoyaltyPoint().equals("-1")){
+				memberBean.setLoyaltyPoint("0");
+			}
+			int redeem=Integer.parseInt(loyalUseTxtField.getText());
+			int currentloyPoint=Integer.parseInt(memberBean.getLoyaltyPoint());
+			currentloyPoint=currentloyPoint-redeem+RedeemConfig.intdoolar2Redeem((int)cash);
+			memberBean.setLoyaltyPoint(currentloyPoint+"");
+			payService.updateMemberInfo(memberBean);
+		}
+		payService.addTransactionInfo(transList);
+		List<HashMap<String,String>> viewList=new ArrayList<HashMap<String,String>>();
+		for(TransactionBean transBean:transList){
+			HashMap<String,String>viewMap=new HashMap<String,String>();
+			ProductBean productBean=payService.getProductBeanById(transBean.getProductId());
+			int quantityAvailable=str2Int(productBean.getQuantityAvailable());
+			viewMap.put("Name", productBean.getName());
+			viewMap.put("Quantity", transBean.getQuantityPurchased());
+			viewMap.put("Unit Price", productBean.getPrice());
+			double singlePrice=Float.parseFloat(productBean.getPrice());
+			int purchaseNum=str2Int(transBean.getQuantityPurchased());
+			viewMap.put("Total", (singlePrice*purchaseNum)+"");
+			productBean.setQuantityAvailable((quantityAvailable-purchaseNum)+"");
+			payService.updateProduct(productBean);
+			viewList.add(viewMap);
+		}
+		
+		Entry<String,String>addInfo=new AbstractMap.SimpleEntry<String,String>("Store Keeper:",Session.getSession("UserName"));
+		HashMap<String,String>viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "In Total");
+		viewMap.put("Total",totalPrice+"");
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Discount");
+		viewMap.put("Total",discountTxtField.getText());
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Actual");
+		viewMap.put("Total",actualPrice+"");
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Redeem");
+		viewMap.put("Quantity", loyalUseTxtField.getText());
+		viewMap.put("Total","-"+RedeemConfig.redeem2Dollar(str2Int(loyalUseTxtField.getText())));
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Cash");
+		viewMap.put("Total",cash+"");
+		viewList.add(viewMap);
+		String[] receiptTableHeader=new String [] {"Name", "Quantity", "Unit Price", "Total"};
+		ViewManager.goToSubFunctionScreen(new PrintPanel(StringUtil.transStringArr2List(receiptTableHeader),viewList,addInfo));
+		
+	}
+	private void addPurchaseExec(){
+		if(memberBean==null){
+			JOptionPane.showMessageDialog(null, "Please Enter ID First", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		String barcode=barcodeTxtField.getText();
+		ProductBean productBean=payService.getProductBeanByBarcode(barcode);
+		if(productBean==null){
+			JOptionPane.showMessageDialog(null, "Barcode Error", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		int quantityPurchased=str2Int(quantityTxtField.getText());
+		int quantityRemained=str2Int(productBean.getQuantityAvailable());
+		if(quantityRemained<quantityPurchased){
+			JOptionPane.showMessageDialog(null, "No Enough Products In The Store", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		TransactionBean transBean=searchTransListByProductId(productBean.getId());
+		if(transBean==null){
+			transBean=new TransactionBean();
+			transBean.setDate(TimeUtil.GetCurrentTime().toString("Y-M-D"));
+			transBean.setId(generateTransId()+"");
+			transBean.setMemberId(memberBean.getId());
+			transBean.setProductId(productBean.getId());
+			transBean.setQuantityPurchased(quantityTxtField.getText());
+			if(this.str2Int(productBean.getQuantityAvailable())-str2Int(quantityTxtField.getText())<this.str2Int(productBean.getReorderQuantity())){
+				this.alertLowStorage(productBean.getName(),(this.str2Int(productBean.getQuantityAvailable())-str2Int(quantityTxtField.getText()))+"", productBean.getReorderQuantity());
+			}
+			transList.add(transBean);
+		}else{
+			String currentQuantity=transBean.getQuantityPurchased();
+			String newQuantity=(str2Int(currentQuantity)+str2Int(quantityTxtField.getText()))+"";
+			transBean.setQuantityPurchased(newQuantity);
+		}
+		refreshTransactionTable();
+		reCalcPrice();
+		
+	}
+	
+	private void reCalcPrice(){
+		double totalPriceSum=0;
+		for(TransactionBean transBean:transList){
+
+			ProductBean productBean=payService.getProductBeanById(transBean.getProductId());
+
+			double singlePrice=Float.parseFloat(productBean.getPrice());
+			double purchaseNum=str2Int(transBean.getQuantityPurchased());
+			double totalPrice=singlePrice*purchaseNum;
+			totalPriceSum+=totalPrice;
+		}
+		totalTxtField.setText(totalPriceSum+"");
+		String discountStr=discountTxtField.getText();
+		discountStr=discountStr.substring(0, discountStr.length()-1);
+		double actualPrice=totalPriceSum*(1-(double)str2Int(discountStr)/100.0);
+		actualTxtField.setText(actualPrice+"");
+		double cash=actualPrice-RedeemConfig.redeem2Dollar(str2Int(loyalUseTxtField.getText()));
+		cashTxtField.setText(cash+"");
+		
+	}
+	private void refreshTransactionTable(){
+		List<HashMap<String,String>> viewList=new ArrayList<HashMap<String,String>>();
+		for(TransactionBean transBean:transList){
+			HashMap<String,String>viewMap=new HashMap<String,String>();
+			ProductBean productBean=payService.getProductBeanById(transBean.getProductId());
+			viewMap.put("Name", productBean.getName());
+			viewMap.put("Quantity", transBean.getQuantityPurchased());
+			viewMap.put("Price", productBean.getPrice());
+			double singlePrice=Float.parseFloat(productBean.getPrice());
+			double purchaseNum=str2Int(transBean.getQuantityPurchased());
+			viewMap.put("Total Price", (singlePrice*purchaseNum)+"");
+			viewList.add(viewMap);
+		}
+		transPanel.setModel(ViewUtil.transferMapListToDTModel(StringUtil.transStringArr2List(TransactionTableHeader), viewList));
+	}
+	private TransactionBean searchTransListByProductId(String productId){
+		for(TransactionBean transBean:transList){
+			String transProductId=transBean.getProductId();
+			if(transProductId.equals(productId)){
+				return transBean;
+			}
+		}
+		return null;
+	}
+	private int generateTransId(){
+		int currentMaxId=0;
+		if(transList.size()==0){
+			return payService.getMaxTransId();
+		}
+		for(TransactionBean transBean:transList){
+			String id=transBean.getId();
+			if(this.str2Int(id)>currentMaxId){
+				currentMaxId=Integer.parseInt(id);
+			}
+		}
+		return currentMaxId+1;
+	}
+	private void alertLowStorage(String productName,String currentQuantity,String threshold){
+		JOptionPane.showMessageDialog(null, "The Product:"+productName+" is  lower than threshold,Current storage:"+currentQuantity+" threshold:"+threshold, "Low Storage", JOptionPane.OK_OPTION);
+	}
 	private void memberSearchExec(){
-		System.out.println("MemberSearch");
+		String memberId=memberIdTxtField.getText();
+		if(payService.isMember(memberId)){
+			memberBean=payService.getMemberById(memberId);
+			loyalUseTxtField.setEnabled(true);
+		}else{
+			memberBean=PaymentService.nonMember;
+			loyalUseTxtField.setText("0");
+		}
+		discountBean=payService.getBestDiscountByMemberBean(memberBean);
+		List<HashMap<String,String>>paramList=new ArrayList<HashMap<String,String>>();
+		HashMap<String,String>map=new HashMap<String,String>();
+		map.put("Param", "Member Name:");
+		map.put("Value", memberBean.getName());
+		paramList.add(map);
+		map=new HashMap<String,String>();
+		map.put("Param", "Member ID:");
+		map.put("Value", memberBean.getId());
+		paramList.add(map);
+		map=new HashMap<String,String>();
+		map.put("Param", "Loyalt Point:");
+		map.put("Value", memberBean.getLoyaltyPoint());
+		paramList.add(map);
+		map=new HashMap<String,String>();
+		map.put("Param", "Discount Available");
+		if(discountBean==null){
+			map.put("Value", "None");
+			discountTxtField.setText("0%");
+		}else{
+			map.put("Value", discountBean.getDescription());
+			discountTxtField.setText(discountBean.getDiscountPercentage()+"%");
+		}
+		
+		paramList.add(map);
+		
+		memberInfoTable.setModel(ViewUtil.transferMapListToDTModel(StringUtil.transStringArr2List(MemberTableHeader), paramList));
+		memberIdTxtField.setEnabled(false);
+		barcodeTxtField.setEnabled(true);
+		quantityTxtField.setEnabled(true);
 		barcodeTxtField.grabFocus();
 		
 	}
+	private int str2Int(String str){
+		return Integer.parseInt(str);
+	}
 	private void calcLoyalPoint(){
+		
+		if(!this.checkLoyalPoint()){
+			loyalUseTxtField.setText("0");
+			JOptionPane.showMessageDialog(null, "No Enough Point", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		reCalcPrice();
 		loyalUseTxtField.transferFocus();
+	}
+	
+	private boolean checkLoyalPoint(){
+		int lp=str2Int(memberBean.getLoyaltyPoint());
+		return (payService.isNewMember(memberBean.getId())&&lp==-1)||(str2Int(loyalUseTxtField.getText())<=lp);
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
@@ -269,5 +556,55 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener {
 		// TODO 自动生成的方法存根
 		
 	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO 自动生成的方法存根
+		if(arg0.getSource()==loyalUseTxtField){
+			loyalUseTxtField.setText("");
+		}else if(arg0.getSource()==memberIdTxtField){
+				memberIdTxtField.setText("");
+		}else if(arg0.getSource()==barcodeTxtField){
+			barcodeTxtField.setText("");
+		}
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		// TODO 自动生成的方法存根
+		if(arg0.getSource()==loyalUseTxtField){
+			if(loyalUseTxtField.getText().equals("")){
+				loyalUseTxtField.setText("0");
+			}
+			calcLoyalPoint();
+		}else if(arg0.getSource()==memberIdTxtField){
+			if(memberIdTxtField.getText().equals("")){
+				memberIdTxtField.setText("Student/Staff ID");
+			}
+		}else if(arg0.getSource()==barcodeTxtField){
+			if(barcodeTxtField.getText().equals("")){
+				barcodeTxtField.setText("Barcode No.");
+			}
+		}
+		
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		// TODO 自动生成的方法存根
+		try {
+			ViewManager.refreshCurrentPanel();
+		} catch (InstantiationException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
+	}
+
+
 	
 }

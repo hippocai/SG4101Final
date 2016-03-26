@@ -1,5 +1,25 @@
 package com.ft9.view.panel.subFunctionPanel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.ImageIcon;
+
+import com.ft9.bean.ProductBean;
+import com.ft9.bean.TransactionBean;
+import com.ft9.service.IProductService;
+import com.ft9.service.ITransactionService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
+import com.ft9.service.impl.ProductService;
+import com.ft9.service.impl.TransactionService;
+import com.ft9.util.StringUtil;
+import com.ft9.util.ViewUtil;
+import com.ft9.view.ViewManager;
+
 
 /**
  *
@@ -10,10 +30,30 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReportTransactionPanel
      */
+	
+	String[]tableHeader={"ID","Product Id","Product Name","Description","Member","Quantity","Date"};
+	ITransactionService transService=null;
+	IProductService productService=null;
     public ReportTransactionPanel() {
+    	initServices();
         initComponents();
+        initDatas();
     }
-
+    
+    private void initDatas(){
+    	startdateTxtField.setText("");
+    	endDateTxtField.setText("");
+    	this.setTableData(transService.getAllTransactions());
+    }
+    private void initServices(){
+    	try {
+			transService=(TransactionService)ServiceManager.getService("Transaction");
+			productService=(ProductService)ServiceManager.getService("Product");
+		} catch (ServiceNotFoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -24,14 +64,14 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButtonPrint = new javax.swing.JButton();
-        jButtonBack = new javax.swing.JButton();
+        jTable1 = ViewUtil.createUneditableTable();
+        printBtn = new javax.swing.JButton();
+        backBtn = ViewManager.createGoBackButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButtonSearch = new javax.swing.JButton();
+        startdateTxtField = new javax.swing.JTextField();
+        endDateTxtField = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -46,20 +86,25 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonPrint.setText("Print");
-
-        jButtonBack.setText("Back");
-
+        ImageIcon image = new ImageIcon("src/com/icon/print.png");
+        printBtn.setIcon(image);
         jLabel1.setText("Strat Date:");
 
         jLabel2.setText("End Date:");
 
-        jTextField1.setText("24/12/2015");
+        startdateTxtField.setText("24/12/2015");
 
-        jTextField2.setText("28/12/2015");
+        endDateTxtField.setText("28/12/2015");
 
-        jButtonSearch.setText("Search");
-
+        searchBtn.setText("Search");
+        searchBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				searchExec();
+			}
+		});
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,15 +122,15 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(31, 31, 31)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(startdateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(endDateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(46, 46, 46)
-                            .addComponent(jButtonSearch)
+                            .addComponent(searchBtn)
                             .addGap(368, 368, 368)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66))))
         );
         layout.setVerticalGroup(
@@ -96,35 +141,60 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(startdateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(endDateTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
 
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButtonPrint;
-    private javax.swing.JButton jButtonBack;
-    private javax.swing.JButton jButtonSearch;
+    private javax.swing.JButton printBtn;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JButton searchBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField startdateTxtField;
+    private javax.swing.JTextField endDateTxtField;
     // End of variables declaration                   
+    private void searchExec(){
+    	List<TransactionBean>transBeanList=transService.getTransactionsByTimePeriod(startdateTxtField.getText(), endDateTxtField.getText());
+    	setTableData(transBeanList);
+    }
+    
+    private void setTableData(List<TransactionBean> transList){
+    	List<HashMap<String,String>>viewList=new ArrayList<HashMap<String,String>>();
+    	for(TransactionBean transBean:transList){
+    		List<ProductBean> productBeanList=productService.getProductByKey("id", transBean.getProductId());
+    		ProductBean productBean=null;
+    		if(productBeanList!=null&&productBeanList.size()>0){
+    			productBean=productBeanList.get(0);
+    		}
+    		HashMap<String,String>map=new HashMap<String,String>();
+    		map.put("ID", transBean.getId());
+    		map.put("Product Id", productBean.getId());
+    		map.put("Product Name", productBean.getName());
+    		map.put("Description", productBean.getDescription());
+    		map.put("Member", transBean.getMemberId());
+    		map.put("Quantity", transBean.getQuantityPurchased());
+    		map.put("Date", transBean.getDate());
+    		viewList.add(map);
+    	}
+    	jTable1.setModel(ViewUtil.transferMapListToDTModel(StringUtil.transStringArr2List(tableHeader), viewList));
+    }
 }
 

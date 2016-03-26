@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 
@@ -37,6 +39,8 @@ public class PrintPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        ImageIcon image = new ImageIcon("src/com/icon/print.png");
+        jButton1.setIcon(image);
         jButton2 = ViewManager.createGoBackButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -46,16 +50,16 @@ public class PrintPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(800, 610));
         setRequestFocusEnabled(false);
 
-        jButton1.setText("Print");
+ 
 
 
       
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("ËÎÌו", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel1.setText("Additional:");
 
-        jLabel2.setFont(new java.awt.Font("ËÎÌו", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel2.setText("Value");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

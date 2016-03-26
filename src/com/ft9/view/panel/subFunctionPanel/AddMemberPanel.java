@@ -96,10 +96,6 @@ private void clearAllTxtArea() {
        jButton3 = new javax.swing.JButton();
        jButton4 = new javax.swing.JButton();
 
-       jButton1.setText("jButton1");
-
-       jButton2.setText("jButton2");
-
        jTextField1.setText("jTextField1");
 
        jTextField2.setText("jTextField2");
