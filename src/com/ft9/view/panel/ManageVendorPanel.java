@@ -85,7 +85,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
        jTable1 = ViewUtil.createUneditableTable();
        jComboBox1 = new javax.swing.JComboBox<>();
 
-       jButton1.setText("Back");
+      
 
        jTextField1.addActionListener(new java.awt.event.ActionListener() {
            public void actionPerformed(java.awt.event.ActionEvent evt) {
