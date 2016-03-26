@@ -1,5 +1,18 @@
 package com.ft9.view.panel.subFunctionPanel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import com.ft9.service.IMemberService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
+import com.ft9.service.impl.MemberService;
+import com.ft9.util.ViewUtil;
+import com.ft9.view.ViewManager;
+
 /**
 *
 * @author apple
@@ -7,10 +20,19 @@ package com.ft9.view.panel.subFunctionPanel;
 public class ReportMemberInfoPanel extends javax.swing.JPanel {
 
    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	IMemberService memberService = null;
+/**
     * Creates new form ReportMemberInfoPanel
+ * @throws ServiceNotFoundException 
     */
-   public ReportMemberInfoPanel() {
-       initComponents();
+   public ReportMemberInfoPanel() throws ServiceNotFoundException {
+	   memberService = (MemberService) ServiceManager.getService("Member");
+	   initComponents();
+       initDatas();
+      
    }
 
    /**
@@ -23,26 +45,36 @@ public class ReportMemberInfoPanel extends javax.swing.JPanel {
    private void initComponents() {
 
        jScrollPane1 = new javax.swing.JScrollPane();
-       jTable1 = new javax.swing.JTable();
+       jTable1 = ViewUtil.createUneditableTable();
+//       jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(memberService.getAllMemberInfo(), "Member"));
        jButtonPrint = new javax.swing.JButton();
-       jButtonBack = new javax.swing.JButton();
+       jButtonBack = ViewManager.createGoBackButton();
 
-       jTable1.setModel(new javax.swing.table.DefaultTableModel(
-           new Object [][] {
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null}
-           },
-           new String [] {
-               "Title 1", "Title 2", "Title 3", "Title 4"
-           }
-       ));
+//       jTable1.setModel(new javax.swing.table.DefaultTableModel(
+//           new Object [][] {
+//               {null, null, null, null},
+//               {null, null, null, null},
+//               {null, null, null, null},
+//               {null, null, null, null}
+//           },
+//           new String [] {
+//               "Title 1", "Title 2", "Title 3", "Title 4"
+//           }
+//       ));
        jScrollPane1.setViewportView(jTable1);
 
        jButtonPrint.setText("Print");
 
-       jButtonBack.setText("Back");
+       jButtonPrint.addActionListener(new ActionListener() {
+    	   
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	});
+
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);
@@ -73,6 +105,11 @@ public class ReportMemberInfoPanel extends javax.swing.JPanel {
    }// </editor-fold>                        
 
 
+   public void initDatas(){
+	  DefaultTableModel dft=ViewUtil.transferBeanList2DefaultTableModel(memberService.getAllMemberInfo(), "Member"); 
+	  jTable1.setModel(dft);
+   }
+   
    // Variables declaration - do not modify                     
    private javax.swing.JButton jButtonPrint;
    private javax.swing.JButton jButtonBack;
