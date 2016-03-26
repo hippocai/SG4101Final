@@ -282,7 +282,7 @@ private void deleteExcu() {
 			vendorService.deleteVendorByMap(NameConverter.convertViewMap2PhysicMap(map, "Vendor"));
 		}
 	}
-	this.initDatas();s
+	this.initDatas();
 	
 }
 }
