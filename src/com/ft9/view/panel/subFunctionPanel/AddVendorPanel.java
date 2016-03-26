@@ -84,9 +84,7 @@ public class AddVendorPanel extends javax.swing.JPanel {
        jButton3 = new javax.swing.JButton();
        jButton4 = new javax.swing.JButton();
 
-       jButton1.setText("Back");
-
-       jButton2.setText("Home");
+     
 
        jLabel1.setText("Name");
 
@@ -236,7 +234,7 @@ public class AddVendorPanel extends javax.swing.JPanel {
 				ViewManager.goBack();
 			}
 		}
-		
+		clearAllTxtArea();
 	}
 	
    private VendorBean generateDataBean(){

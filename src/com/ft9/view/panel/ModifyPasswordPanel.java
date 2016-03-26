@@ -6,7 +6,7 @@ import com.ft9.annotation.Menu;
  *ddd
  * @author hippo
  */
-@Menu(name="ModifyPassword",fatherName="StoreKeeper")
+//@Menu(name="ModifyPassword",fatherName="StoreKeeper")
 public class ModifyPasswordPanel extends javax.swing.JPanel {
 
     /**
