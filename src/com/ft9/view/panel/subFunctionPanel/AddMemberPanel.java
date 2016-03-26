@@ -270,7 +270,7 @@ private void clearAllTxtArea() {
 		}else{
 			if(type == ADD_NEW_MEMBER && memberService.isCodeExist(jTextField1.getText())){
 				ViewUtil.setJTextError(jTextField1);
-				JOptionPane.showMessageDialog(null, "The Discount Code Has Already Existed", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "The Member Name Has Already Existed", "Error", JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 		}
