@@ -4,15 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.ft9.annotation.Menu;
-
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.subFunctionPanel.ReportTransactionPanel;
-
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.subFunctionPanel.ReportCategoryPanel;
 import com.ft9.view.panel.subFunctionPanel.ReportMemberInfoPanel;
+import com.ft9.view.panel.subFunctionPanel.ReportProductInfoPanel;
 
 
 /**
@@ -67,6 +66,19 @@ public class PrintReportPanel extends javax.swing.JPanel {
 		});
 
         jButton2.setText("Available Product Info");
+        jButton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO 自动生成的方法存根
+				try {
+					ViewManager.goToSubFunctionScreen(new ReportProductInfoPanel());
+				} catch (ServiceNotFoundException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
 
         jButton3.setText("Transactions");
         jButton3.addActionListener(new ActionListener() {

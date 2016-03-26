@@ -1,5 +1,12 @@
 package com.ft9.view.panel.subFunctionPanel;
 
+import com.ft9.service.IProductService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
+import com.ft9.service.impl.ProductService;
+import com.ft9.util.ViewUtil;
+import com.ft9.view.ViewManager;
+
 /**
 *
 * @author apple
@@ -13,8 +20,17 @@ public class ReportProductInfoPanel extends javax.swing.JPanel {
 /**
     * Creates new form ReportProductInfoPanel
     */
-   public ReportProductInfoPanel() {
-       initComponents();
+	IProductService productService=null;
+   public ReportProductInfoPanel() throws ServiceNotFoundException {
+       productService=(ProductService)ServiceManager.getService("Product");
+       
+	   initComponents();
+	   initDatas();
+       
+   }
+   
+   private void initDatas(){
+	   jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(productService.getAllProducts(), "Product"));;
    }
 
    /**
@@ -27,26 +43,14 @@ public class ReportProductInfoPanel extends javax.swing.JPanel {
    private void initComponents() {
 
        jScrollPane1 = new javax.swing.JScrollPane();
-       jTable1 = new javax.swing.JTable();
+       jTable1 =ViewUtil.createUneditableTable();
        jButtonPrint = new javax.swing.JButton();
-       jButtonBack = new javax.swing.JButton();
+       jButtonBack = ViewManager.createGoBackButton();
 
-       jTable1.setModel(new javax.swing.table.DefaultTableModel(
-           new Object [][] {
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null},
-               {null, null, null, null}
-           },
-           new String [] {
-               "Title 1", "Title 2", "Title 3", "Title 4"
-           }
-       ));
        jScrollPane1.setViewportView(jTable1);
 
        jButtonPrint.setText("Print");
 
-       jButtonBack.setText("Back");
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);
