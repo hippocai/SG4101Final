@@ -208,6 +208,7 @@ import com.ft9.view.ViewManager;
 		if (storekeeperService.addStoreKeeper(storekeeperBean.getName(),storekeeperBean.getPassword())){
 			JOptionPane.showMessageDialog(null, "Your Information Added Sucessfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 		}
+		clearAllTxtField();
 		
 	}
 	    
