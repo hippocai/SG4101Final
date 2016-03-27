@@ -78,7 +78,7 @@ import com.ft9.view.ViewManager;
 				}
 	        });
 
-	        jButton2.setText("Cancel");
+//	        jButton2.setText("Cancel");
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 	        this.setLayout(layout);

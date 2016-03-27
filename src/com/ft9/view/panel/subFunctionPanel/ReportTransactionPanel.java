@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import com.ft9.bean.ProductBean;
 import com.ft9.bean.TransactionBean;
@@ -28,6 +29,10 @@ import com.ft9.view.ViewManager;
 public class ReportTransactionPanel extends javax.swing.JPanel {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form ReportTransactionPanel
      */
 	
@@ -88,7 +93,16 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
 
         ImageIcon image = new ImageIcon("src/com/icon/print.png");
         printBtn.setIcon(image);
-        jLabel1.setText("Strat Date:");
+        printBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		});
+        
+        jLabel1.setText("Start Date:");
 
         jLabel2.setText("End Date:");
 

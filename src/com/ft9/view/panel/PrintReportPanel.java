@@ -45,13 +45,12 @@ public class PrintReportPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButtonMember = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButton5 = ViewManager.createGoHomeButton();
+//        jButton6 = new javax.swing.JButton();
 
         jButtonCategory.setText("Categories & Categories ID");
         
         jButtonCategory.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -106,9 +105,9 @@ public class PrintReportPanel extends javax.swing.JPanel {
 			}
 		});
 
-        jButton5.setText("MainMenu");
+//        jButton5.setText("MainMenu");
 
-        jButton6.setText("Back");
+//        jButton6.setText("Back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,7 +127,6 @@ public class PrintReportPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(51, 51, 51)
-                .addComponent(jButton6)
                 .addGap(101, 101, 101))
         );
         layout.setVerticalGroup(
@@ -145,9 +143,9 @@ public class PrintReportPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
-                    .addComponent(jButton6))
+       
                 .addGap(58, 58, 58))
-        );
+        ));
     }// </editor-fold>                        
 
 
@@ -157,6 +155,6 @@ public class PrintReportPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonMember;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+//    private javax.swing.JButton jButton6;
     // End of variables declaration                   
 }

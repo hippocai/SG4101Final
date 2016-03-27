@@ -160,6 +160,7 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 		List<HashMap<String, String>> selectedData = ViewUtil.getSelectedData(jTable1);
 		if (selectedData.size() < 1){
 			JOptionPane.showMessageDialog(null, "Please at least choose one storekeeper to delete !", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this " + selectedData.size() + " storekeeper?", "Confirm", JOptionPane.YES_NO_OPTION);
 		if (option == 1){

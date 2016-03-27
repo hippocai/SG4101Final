@@ -2,18 +2,17 @@ package com.ft9.view.panel.subFunctionPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.ft9.service.ICategoryService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.CategoryService;
-import com.ft9.service.impl.MemberService;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
+import com.sun.prism.Image;
 
 /**
 *
@@ -55,6 +54,8 @@ public class ReportCategoryPanel extends javax.swing.JPanel {
        jTable1 = ViewUtil.createUneditableTable();
        jButtonPrint = new javax.swing.JButton();
        
+       ImageIcon image = new ImageIcon("src/com/icon/print.png");
+       jButtonPrint.setIcon(image);
        jButtonPrint.addActionListener(new ActionListener() {
 		
 		@Override
@@ -79,9 +80,9 @@ public class ReportCategoryPanel extends javax.swing.JPanel {
 //       ));
        jScrollPane1.setViewportView(jTable1);
 
-       jButtonPrint.setText("Print");
+//       jButtonPrint.setText("Print");
 
-       jButtonBack.setText("Back");
+//       jButtonBack.setText("Back");
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);

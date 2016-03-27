@@ -3,6 +3,7 @@ package com.ft9.view.panel.subFunctionPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,7 +64,10 @@ public class ReportMemberInfoPanel extends javax.swing.JPanel {
 //       ));
        jScrollPane1.setViewportView(jTable1);
 
-       jButtonPrint.setText("Print");
+//       jButtonPrint.setText("Print");
+       
+       ImageIcon image = new ImageIcon("src/com/icon/print.png");
+       jButtonPrint.setIcon(image);
 
        jButtonPrint.addActionListener(new ActionListener() {
     	   
