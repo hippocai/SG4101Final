@@ -103,11 +103,17 @@ public class TimeUtil {
 	}
 	
 	public static boolean checkDateAfter(String startDate,String checkDate){
-		return checkDate.compareTo(startDate)>=0;
+		TimeUtil startDateTime=TimeUtil.getTimeUtilByStandardDateFormat(startDate);
+		TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
+		System.out.println(checkDateTime.lessThan(startDateTime));
+		return !checkDateTime.lessThan(startDateTime);
 	}
 	
 	public static boolean checkDateBefore(String endDate,String checkDate){
-		return checkDate.compareTo(endDate)<=0;
+		//System.out.println(checkDate.compareTo(endDate));
+		TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
+		TimeUtil endDateTime=TimeUtil.getTimeUtilByStandardDateFormat(endDate);
+		return !checkDateTime.greatThan(endDateTime);
 	}
 	
 	/**
@@ -613,7 +619,7 @@ public class TimeUtil {
 		return second==right.second&&
 			   minute==right.minute&&
 			   hour==right.hour&&
-			   day==right.year&&
+			   day==right.day&&
 			   month==right.month&&
 			   year==right.year;
 	}
