@@ -16,6 +16,7 @@ import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.ProductService;
 import com.ft9.service.impl.TransactionService;
+import com.ft9.util.ClientMainCalendar;
 import com.ft9.util.StringUtil;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
@@ -91,11 +92,14 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
         jLabel1.setText("Strat Date:");
 
         jLabel2.setText("End Date:");
-
-        startdateTxtField.setText("24/12/2015");
-
-        endDateTxtField.setText("28/12/2015");
-
+        ClientMainCalendar startDateCalendar=ClientMainCalendar.getInstance();
+        startDateCalendar.register(startdateTxtField);
+        //startdateTxtField.setText("24/12/2015");
+        ClientMainCalendar endDateCalendar=ClientMainCalendar.getInstance();
+        endDateCalendar.register(endDateTxtField);
+       
+        //endDateTxtField.setText("28/12/2015");
+        
         searchBtn.setText("Search");
         searchBtn.addActionListener(new ActionListener() {
 			
@@ -172,6 +176,7 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
     private javax.swing.JTextField endDateTxtField;
     // End of variables declaration                   
     private void searchExec(){
+    	//System.out.println(endDateTxtField.getText());
     	List<TransactionBean>transBeanList=transService.getTransactionsByTimePeriod(startdateTxtField.getText(), endDateTxtField.getText());
     	setTableData(transBeanList);
     }
