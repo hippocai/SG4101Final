@@ -43,6 +43,7 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
     }
     
     public void initDatas(){
+    	//Get the Storekeeper info into the table.
     	jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(storekeeperService.getAllStoreKeeper(), "StoreKeeper"));
     }
     
@@ -68,6 +69,7 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
+        //make the table uneditable
         jTable1 = ViewUtil.createUneditableTable();
         jButtonBack = ViewManager.createGoHomeButton();
         jButtonAdd = new javax.swing.JButton();
@@ -140,6 +142,8 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		Object source = arg0.getSource();
+		// if user presses the "Add button", the screen skip to the AddStorekeeper screen,
+		// if user presses other buttons, excute the corresponding functions
 		if (source == jButtonAdd){
 			try {
 				ViewManager.goToSubFunctionScreen(new AddStorekeeperPanel());
