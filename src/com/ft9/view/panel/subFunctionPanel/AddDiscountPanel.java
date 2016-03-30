@@ -10,6 +10,7 @@ import com.ft9.service.IDiscountService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.DiscountService;
+import com.ft9.util.ClientMainCalendar;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.actionListener.GoBackListener;
@@ -95,6 +96,8 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         codeTxtField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         startDateTxtField = new javax.swing.JTextField();
+        ClientMainCalendar calendar=ClientMainCalendar.getInstance();
+        calendar.register(startDateTxtField);
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         periodTxtField = new javax.swing.JTextField();
