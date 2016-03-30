@@ -32,6 +32,20 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener,K
 	public static interface LoginSuccessfulEventListener{
 		public void afterLoginSuccessful();
 	}
+	
+	public static void showLoginDiagram() throws ServiceNotFoundException{
+		 LoginDiagram lgD=new LoginDiagram();
+			
+		 lgD.setVisible(true);	 
+		 lgD.setLoginSuccessfulActionListener(new LoginDiagram.LoginSuccessfulEventListener() {
+			@Override
+			public void afterLoginSuccessful() {
+				// TODO 自动生成的方法存根
+				MainFrame mainFrame=new MainFrame();
+		            mainFrame.setVisible(true);
+			}
+		});	 
+	}
 	private LoginSuccessfulEventListener loginSuccessfulActionListener=null;
 	
 	/**

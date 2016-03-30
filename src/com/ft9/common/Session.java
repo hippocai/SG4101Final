@@ -19,5 +19,11 @@ public class Session {
 		sessionMap.put(key, value);
 	}
 	
+	public static void removeSession(String key){
+		if(sessionMap.containsKey(key)){
+			sessionMap.remove(key);
+		}
+	}
+	
 	
 }

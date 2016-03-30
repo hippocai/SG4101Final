@@ -22,9 +22,11 @@ import org.apache.log4j.Logger;
 import com.ft9.annotation.Menu;
 import com.ft9.common.StructConst;
 import com.ft9.util.ClassUtils;
+import com.ft9.view.panel.HelpPanel;
 import com.ft9.view.panel.StartupPanel;
 import com.ft9.view.panel.actionListener.GoBackListener;
 import com.ft9.view.panel.actionListener.GoHomeListener;
+import com.icon.IconManager;
 
 public class ViewManager {
 	private static Logger log = Logger.getLogger(ViewManager.class);
@@ -45,6 +47,7 @@ public class ViewManager {
 		//Put all panel classes into the list
 		panelStack=new Stack<JPanel>();
 		List<Class> allPanels=ClassUtils.getAllClassByFatherClass(JPanel.class, StructConst.PanelPackage);
+		
 		for(int i=0;i<allPanels.size();++i){
 			Class cls=allPanels.get(i);
 			//check if the panel class has the annotation
@@ -62,23 +65,24 @@ public class ViewManager {
 				//Do Nothing...
 			}
 		}
+		IconManager.initIcon();
 		log.info("Initial Successful");
 	}
 	
 	public static JButton createGoHomeButton(){
 		JButton goHomeButton=new JButton();
 		goHomeButton.addActionListener(new GoHomeListener());
-		 ImageIcon image = new ImageIcon("src/com/icon/home.png"); 
+		 //ImageIcon image = new ImageIcon("src/com/icon/home.png"); 
 		//goHomeButton.setText("home");
-		goHomeButton.setIcon(image);
+		goHomeButton.setIcon(IconManager.getIcon("home"));
 		goHomeButton.setBounds(5, 5, 500, 200);
 		return goHomeButton;
 	}
 	
 	public static JButton createGoBackButton(){
 		JButton goBackButton=new JButton();
-		ImageIcon image = new ImageIcon("src/com/icon/arrow-round.png");
-		goBackButton.setIcon(image);
+		
+		goBackButton.setIcon(IconManager.getIcon("back"));
         goBackButton.addActionListener(new GoBackListener());
         return goBackButton;
 	}

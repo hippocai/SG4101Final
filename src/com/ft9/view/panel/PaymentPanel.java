@@ -39,6 +39,7 @@ import com.ft9.util.TimeUtil;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.subFunctionPanel.PrintPanel;
+import com.icon.IconManager;
 
 /**
 *
@@ -94,8 +95,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
        barcodeTxtField = new javax.swing.JTextField();
        quantityTxtField = new javax.swing.JTextField();
        clearBtn = new javax.swing.JButton();
-       ImageIcon image = new ImageIcon("src/com/icon/recycle-full.png");
-       clearBtn.setIcon(image);
+       clearBtn.setIcon(IconManager.getIcon("clear"));
        clearBtn.addActionListener(new ActionListener() {
 		
 		@Override
