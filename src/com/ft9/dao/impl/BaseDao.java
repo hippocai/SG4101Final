@@ -21,16 +21,25 @@ import com.ft9.dao.KeyNotExistException;
 import com.ft9.util.BeanUtil;
 import com.ft9.util.FileUtil;
 import com.ft9.util.StringUtil;
+
 /**
- * @author CaiYicheng
+ * class name:BaseDao <BR>
+ * class description: please write your description <BR>
+ * Remark: <BR>
+ * @version 1.00 2016Äê3ÔÂ30ÈÕ
+ * @author caiyicheng
  */
 public abstract class BaseDao {
 	private static Logger log = Logger.getLogger(BaseDao.class);
 	private FileUtil fileUtil=null;
 	//List<Object>savedBeans;
+
 	/**
+	 * Method name: getBeanByMap <BR>
+	 * Description: getBeanByMap <BR>
+	 * Remark: <BR>
 	 * @param map
-	 * @return
+	 * @return  List<Object><BR>
 	 */
 	protected List<Object> getBeanByMap(Map<String,String>map){
 		log.info("(DAO)Get Bean By Map:"+StringUtil.transferStringmap2String(map));
