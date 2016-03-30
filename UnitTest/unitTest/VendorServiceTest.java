@@ -49,6 +49,7 @@ public class VendorServiceTest {
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("name", "testName");
 		List<VendorBean> testBeanList=vendorService.getVendorByMap(map);
+		assertTrue(vendorService.isCodeExist("testName"));
 		assertNotNull(testBeanList);
 		assertTrue(testBeanList.size()==1);
 		assertEquals("test123456", testBeanList.get(0).getDescription());
