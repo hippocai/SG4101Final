@@ -15,6 +15,13 @@ import com.ft9.service.IDiscountService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.impl.DiscountService;
 
+/**
+ * class name:DiscountServiceTest <BR>
+ * class description: Test the functions in DiscountSerivice<BR>
+ * Remark: <BR>
+ * @version 1.00 2016Äê3ÔÂ30ÈÕ
+ * @author Guo Qi
+ */
 public class DiscountServiceTest {
 	IDiscountService discountService;
 	@Before
