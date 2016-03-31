@@ -233,7 +233,7 @@ public class ProductsEntryPanel extends javax.swing.JPanel {
 	   	if(productBean==null){
 	   		return;
 	   	}
-	   	if(productService.addProductByByBean(productBean)){
+	   	if(productService.addProductByBean(productBean)){
        		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
        		int options=JOptionPane.showConfirmDialog(null, "Continue to add a new product?", "Info",JOptionPane.YES_NO_OPTION);
     		if(options==1){

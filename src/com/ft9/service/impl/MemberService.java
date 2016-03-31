@@ -15,6 +15,14 @@ import com.ft9.dao.intl.IMemberDao;
 import com.ft9.service.IMemberService;
 import com.ft9.util.BeanUtil;
 
+/**
+ * class name:MemberService <BR>
+ * class description: Implements of the functions in IMemberService <BR>
+ * Remark: <BR>
+ * @version 1.00
+ * @author Guo Qi
+ */
+
 public class MemberService implements IMemberService {
 	private IMemberDao memberDao=null;
 	private static MemberService memberService=null;
@@ -22,6 +30,13 @@ public class MemberService implements IMemberService {
 		memberDao=(MemberDao)DAOer.getDao("Member");
 	}
 	
+	/**
+	 * Method name: getInstance <BR>
+	 * Description: Get An Instance Of The MemberService <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws DaoNotExistException  MemberService<BR>
+	 */
 	public static MemberService getInstance() throws DaoNotExistException{
 		if(memberService == null){
 			memberService = new MemberService();

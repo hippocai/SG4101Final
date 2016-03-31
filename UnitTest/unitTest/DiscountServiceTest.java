@@ -19,7 +19,7 @@ import com.ft9.service.impl.DiscountService;
  * class name:DiscountServiceTest <BR>
  * class description: Test the functions in DiscountSerivice<BR>
  * Remark: <BR>
- * @version 1.00 2016Äê3ÔÂ30ÈÕ
+ * @version 1.00  
  * @author Guo Qi
  */
 public class DiscountServiceTest {
@@ -40,20 +40,27 @@ public class DiscountServiceTest {
 		discountBean.setDiscountPeriod("7");
 		discountBean.setMemberApplicable("A");
 		discountBean.setStartDate("2016-12-25");
+		//add a new discount
 		discountService.addNewDiscount(discountBean);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("code", "Christmas Discount");
 		List<DiscountBean> discountBeanList = discountService.getDiscountByMap(map);
+		//after new discount record added
+		//test if the record is successfully added 
 		assertTrue(discountService.isCodeExist("Christmas Discount"));
 		assertNotNull(discountBeanList);
 		assertTrue(discountBeanList.size() == 1);
 		assertEquals("Merry Christmas", discountBeanList.get(0).getDescription());
+		//modify a record of discount
 		discountBean.setDescription("Christmas!");
 		discountService.updateDiscount(discountBean);
 		discountBeanList = discountService.getDiscountByMap(map);
+		//test if the record is successfully modified
 		assertEquals("Christmas!", discountBeanList.get(0).getDescription());
+		//delete the record
 		discountService.deleteDiscountByMap(map);
 		discountBeanList = discountService.getDiscountByMap(map);
+		//test if the record is successfully deleted
 		assertTrue(discountBeanList.size() == 0);
 		
 	}

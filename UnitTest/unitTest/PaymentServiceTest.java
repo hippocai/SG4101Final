@@ -68,7 +68,7 @@ public class PaymentServiceTest {
 		productBean.setDescription("TestDesc");
 		productBean.setName("testName");
 		productBean.setOrderQuantity("100");
-		productService.addProductByByBean(productBean);
+		productService.addProductByBean(productBean);
 		assertEquals(productBean.getName(), paymentService.getProductBeanById(productBean.getId()).getName());
 		assertEquals(productBean.getName(), paymentService.getProductBeanByBarcode(productBean.getBarCode()).getName());
 		productBean.setDescription("TestDesc2");

@@ -18,6 +18,13 @@ import com.ft9.service.IVendorService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.impl.VendorService;
 
+/**
+ * class name:VendorServiceTest <BR>
+ * class description: Test the functions of VendorService <BR>
+ * Remark: <BR>
+ * @version 1.00 
+ * @author Guo Qi
+ */
 public class VendorServiceTest {
 
 	IVendorService vendorService;
@@ -45,20 +52,27 @@ public class VendorServiceTest {
 		VendorBean vendorBean=new VendorBean();
 		vendorBean.setDescription("test123456");
 		vendorBean.setName("testName");
+		//add a new vendor
 		vendorService.addNewVendor(vendorBean);
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("name", "testName");
 		List<VendorBean> testBeanList=vendorService.getVendorByMap(map);
+		//after the new vendor is added
+		//test if the new record is successfully added
 		assertTrue(vendorService.isCodeExist("testName"));
 		assertNotNull(testBeanList);
 		assertTrue(testBeanList.size()==1);
 		assertEquals("test123456", testBeanList.get(0).getDescription());
+		//modify the new record
 		vendorBean.setDescription("testModified");
 		vendorService.updateVendor(vendorBean);
 		testBeanList=vendorService.getVendorByMap(map);
+		//test if the record is successfully modified
 		assertEquals("testModified", testBeanList.get(0).getDescription());
+		//delete the record
 		vendorService.deleteVendorByMap(map);
 		testBeanList=vendorService.getVendorByMap(map);
+		//test if the record is successfully deleted
 		assertTrue(testBeanList.size()==0);
 	}
 

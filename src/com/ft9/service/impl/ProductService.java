@@ -103,7 +103,7 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public boolean addProductByByBean(ProductBean productBean) {
+	public boolean addProductByBean(ProductBean productBean) {
 		// TODO 自动生成的方法存根
 		if(productBean==null){
 			return false;

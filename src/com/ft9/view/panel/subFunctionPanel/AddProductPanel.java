@@ -263,7 +263,7 @@ public class AddProductPanel extends javax.swing.JPanel {
    	}
    	
    	if(this.type==AddDiscountPanel.ADD_NEW_DISCOUNT){
-   		if(productService.addProductByByBean(productBean)){
+   		if(productService.addProductByBean(productBean)){
        		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
        	}else{
        		//TODO:........
