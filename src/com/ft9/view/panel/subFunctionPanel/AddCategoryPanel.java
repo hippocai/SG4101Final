@@ -134,6 +134,12 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
    			ViewUtil.setJTextError(codeTxtArea);
    			JOptionPane.showMessageDialog(null, "The Category Code Has Already Existed", "Error", JOptionPane.ERROR_MESSAGE);
    			return null;
+   		}else{
+   			if(codeTxtArea.getText().length() != 3){
+   			ViewUtil.setJTextError(codeTxtArea);
+   			JOptionPane.showMessageDialog(null, "The Category Code Need To Be 3 Characters!", "Error", JOptionPane.ERROR_MESSAGE);
+   			return null;
+   			}
    		}
    	}
     CategoryBean categoryBean=new CategoryBean();

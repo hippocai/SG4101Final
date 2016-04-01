@@ -16,6 +16,13 @@ import com.ft9.dao.intl.IProductDao;
 import com.ft9.service.IProductService;
 import com.ft9.util.BeanUtil;
 
+/**
+ * class name:ProductService <BR>
+ * class description: please write your description <BR>
+ * Remark: <BR>
+ * @version 1.00 2016Äê4ÔÂ1ÈÕ
+ * @author Guo Qi
+ */
 public class ProductService implements IProductService {
 
 	private static ProductService productService=null;

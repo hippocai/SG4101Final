@@ -12,6 +12,8 @@ import com.ft9.service.impl.MemberService;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 
+import jdk.nashorn.internal.scripts.JO;
+
 /**
 *
 * @author apple
@@ -86,7 +88,7 @@ private void clearAllTxtArea() {
 
        jButton1 = ViewManager.createGoBackButton();
        jButton2 = ViewManager.createGoHomeButton();
-       jSeparator1 = new javax.swing.JSeparator();
+//       jSeparator1 = new javax.swing.JSeparator();
        jTextField1 = new javax.swing.JTextField();
        jTextField2 = new javax.swing.JTextField();
        jTextField3 = new javax.swing.JTextField();
@@ -134,7 +136,7 @@ private void clearAllTxtArea() {
        this.setLayout(layout);
        layout.setHorizontalGroup(
            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-           .addComponent(jSeparator1)
+//           .addComponent(jSeparator1)
            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                .addContainerGap(240, Short.MAX_VALUE)
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +171,7 @@ private void clearAllTxtArea() {
                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .addGap(31, 31, 31)
-               .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+//               .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addGap(56, 56, 56)
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,6 +192,14 @@ private void clearAllTxtArea() {
        );
    }// </editor-fold>                        
 
+   	private boolean checkTxtNumberical(){
+   		if (!ViewUtil.isJTextNumberical(jTextField3)){
+   			ViewUtil.setJTextError(jTextField3);
+   			return false;
+   		}
+   		return true;
+   	}
+   
    	private void clearAllTextAreaError(){
    		ViewUtil.clearJTextError(jTextField1);
    		ViewUtil.clearJTextError(jTextField2);
@@ -214,9 +224,12 @@ private void clearAllTxtArea() {
 		// TODO Auto-generated method stub
 		if (type == ADD_NEW_MEMBER){
 			jTextField1.setText("");
+			jTextField3.setText("-1");
+		}else{
+			jTextField3.setText("");
 		}
 		jTextField2.setText("");
-		jTextField3.setText("");
+		
 		this.clearAllTextAreaError();
 	}
 
@@ -228,7 +241,7 @@ private void clearAllTxtArea() {
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
-   private javax.swing.JSeparator jSeparator1;
+//   private javax.swing.JSeparator jSeparator1;
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField2;
    private javax.swing.JTextField jTextField3;
@@ -272,6 +285,17 @@ private void clearAllTxtArea() {
 				ViewUtil.setJTextError(jTextField1);
 				JOptionPane.showMessageDialog(null, "The Member Name Has Already Existed", "Error", JOptionPane.ERROR_MESSAGE);
 				return null;
+			}else{
+				if(!checkTxtNumberical()){
+					JOptionPane.showMessageDialog(null, "The Loyalty Number Must Be Integer!", "Error", JOptionPane.ERROR_MESSAGE);
+					return null;
+				}else{
+					if(Integer.parseInt(jTextField3.getText()) < -1){
+						ViewUtil.setJTextError(jTextField3);
+						JOptionPane.showMessageDialog(null, "The Loyalty Number Can't Be Less Than -1!", "Error", JOptionPane.ERROR_MESSAGE);
+						return null;
+					}
+				}
 			}
 		}
 		MemberBean memberBean = new MemberBean();
