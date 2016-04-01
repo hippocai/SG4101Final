@@ -13,6 +13,13 @@ import com.ft9.dao.intl.ITransactionDao;
 import com.ft9.service.ITransactionService;
 import com.ft9.util.TimeUtil;
 
+/**
+ * class name:TransactionService <BR>
+ * class description: Implements Of The Functions In TransactionService <BR>
+ * Remark: <BR>
+ * @version 1.00
+ * @author Guo Qi
+ */
 public class TransactionService implements ITransactionService {
 
 	private static TransactionService transactionService=null;
@@ -27,6 +34,15 @@ public class TransactionService implements ITransactionService {
 		transDao=(TransactionDao)DAOer.getDao("Transaction");
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#getTransactionByMap(java.util.Map) <BR>
+	 * Method name: getTransactionByMap <BR>
+	 * Description: Get Transactions By Map <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return List <BR>
+	*/
 	@Override
 	public List<TransactionBean> getTransactionByMap(Map<String, String> map) {
 		// TODO 自动生成的方法存根
@@ -36,12 +52,30 @@ public class TransactionService implements ITransactionService {
 		return transDao.getTransactionsByMap(map);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#getAllTransactions() <BR>
+	 * Method name: getAllTransactions <BR>
+	 * Description: Get All Transaction Information <BR>
+	 * Remark: <BR>
+	 * @return List <BR>
+	*/
 	@Override
 	public List<TransactionBean> getAllTransactions() {
 		// TODO 自动生成的方法存根
 		return this.getTransactionByMap(new HashMap<String,String>());
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#getTransactionsByTimePeriod(java.lang.String, java.lang.String) <BR>
+	 * Method name: getTransactionsByTimePeriod <BR>
+	 * Description: Get Transaction By Time Period Selected By User <BR>
+	 * Remark: <BR>
+	 * @param startDate
+	 * @param endDate
+	 * @return List <BR>
+	*/
 	@Override
 	public List<TransactionBean> getTransactionsByTimePeriod(String startDate,String endDate) {
 		// TODO 自动生成的方法存根
@@ -74,12 +108,30 @@ public class TransactionService implements ITransactionService {
 		return selectedBeanList;
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#addTransaction(com.ft9.bean.TransactionBean) <BR>
+	 * Method name: addTransaction <BR>
+	 * Description: Add New Transaction <BR>
+	 * Remark: <BR>
+	 * @param transactionBean
+	 * @return boolean <BR>
+	*/
 	@Override
 	public boolean addTransaction(TransactionBean transactionBean) {
 		// TODO 自动生成的方法存根
 		return transDao.insertTransactionByBean(transactionBean);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#addTransactionByBeanList(java.util.List) <BR>
+	 * Method name: addTransactionByBeanList <BR>
+	 * Description: Add Transaction By BeanList <BR>
+	 * Remark: <BR>
+	 * @param transactionBeanList
+	 * @return int <BR>
+	*/
 	@Override
 	public int addTransactionByBeanList(List<TransactionBean> transactionBeanList) {
 		// TODO 自动生成的方法存根
@@ -92,6 +144,14 @@ public class TransactionService implements ITransactionService {
 		return transactionBeanList.size();
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.ITransactionService#getMaxTransactionID() <BR>
+	 * Method name: getMaxTransactionID <BR>
+	 * Description: Get Auto-Increased TransactionID <BR>
+	 * Remark: <BR>
+	 * @return int <BR>
+	*/
 	@Override
 	public int getMaxTransactionID() {
 		// TODO 自动生成的方法存根

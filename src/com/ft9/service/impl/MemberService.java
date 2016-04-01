@@ -23,6 +23,7 @@ import com.ft9.util.BeanUtil;
  * @author Guo Qi
  */
 
+
 public class MemberService implements IMemberService {
 	private IMemberDao memberDao=null;
 	private static MemberService memberService=null;
@@ -34,7 +35,7 @@ public class MemberService implements IMemberService {
 	 * Method name: getInstance <BR>
 	 * Description: Get An Instance Of The MemberService <BR>
 	 * Remark: <BR>
-	 * @return
+	 * @return memberService
 	 * @throws DaoNotExistException  MemberService<BR>
 	 */
 	public static MemberService getInstance() throws DaoNotExistException{
@@ -43,6 +44,15 @@ public class MemberService implements IMemberService {
 		}
 		return memberService;
 	}
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#getMemberByMap(java.util.Map) <BR>
+	 * Method name: getMemberByMap <BR>
+	 * Description: Get Member By Map, Store Into A List <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return List <BR>
+	*/
 	@Override
 	public List<MemberBean> getMemberByMap(Map<String, String> map){
 		if(map != null){
@@ -51,11 +61,29 @@ public class MemberService implements IMemberService {
 		return null;
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#getAllMemberInfo() <BR>
+	 * Method name: getAllMemberInfo <BR>
+	 * Description: Get All Member Information Into A List <BR>
+	 * Remark: <BR>
+	 * @return List <BR>
+	*/
 	@Override
 	public List<MemberBean> getAllMemberInfo(){
 		return this.getMemberByMap(new HashMap<String, String>());
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#searchMemberByKey(java.lang.String, java.lang.String) <BR>
+	 * Method name: searchMemberByKey <BR>
+	 * Description: Search Member By Key <BR>
+	 * Remark: <BR>
+	 * @param key
+	 * @param valuelike
+	 * @return List <BR>
+	*/
 	@Override 
 	public List<MemberBean> searchMemberByKey(String key, String valuelike){
 		List<MemberBean> memberList = getAllMemberInfo();
@@ -75,6 +103,15 @@ public class MemberService implements IMemberService {
 		
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#deleteMemberByMap(java.util.Map) <BR>
+	 * Method name: deleteMemberByMap <BR>
+	 * Description: Delete Member By Map <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return int <BR>
+	*/
 	@Override
 	public int deleteMemberByMap(Map<String, String> map){
 		if(map == null){
@@ -84,6 +121,15 @@ public class MemberService implements IMemberService {
 		
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#deleteMemberByCode(java.lang.String) <BR>
+	 * Method name: deleteMemberByCode <BR>
+	 * Description: Delete Member By Key Member ID <BR>
+	 * Remark: <BR>
+	 * @param code
+	 * @return boolean <BR>
+	*/
 	@Override
 	public boolean deleteMemberByCode(String code){
 		Map<String, String> map = new HashMap<String, String>();
@@ -91,6 +137,15 @@ public class MemberService implements IMemberService {
 		return this.deleteMemberByMap(map) > 0;
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#isCodeExist(java.lang.String) <BR>
+	 * Method name: isCodeExist <BR>
+	 * Description: Check If The Member ID Existed <BR>
+	 * Remark: <BR>
+	 * @param code
+	 * @return boolean <BR>
+	*/
 	@Override
 	public boolean isCodeExist(String code) {
 		// TODO Auto-generated method stub
@@ -99,6 +154,15 @@ public class MemberService implements IMemberService {
 		return this.getMemberByMap(map).size() > 0;
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#addNewMember(com.ft9.bean.MemberBean) <BR>
+	 * Method name: addNewMember <BR>
+	 * Description: Add New Member <BR>
+	 * Remark: <BR>
+	 * @param memberBean
+	 * @return boolean <BR>
+	*/
 	@Override
 	public boolean addNewMember(MemberBean memberBean) {
 		// TODO Auto-generated method stub
@@ -109,6 +173,15 @@ public class MemberService implements IMemberService {
 		return memberDao.insertMemberByBean(memberBean);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IMemberService#updateMember(com.ft9.bean.MemberBean) <BR>
+	 * Method name: updateMember <BR>
+	 * Description: Modify Member Infomation <BR>
+	 * Remark: <BR>
+	 * @param memberBean
+	 * @return boolean <BR>
+	*/
 	@Override
 	public boolean updateMember(MemberBean memberBean) {
 		// TODO Auto-generated method stub
