@@ -38,9 +38,7 @@ public class PrintPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        ImageIcon image = new ImageIcon("src/com/icon/print.png");
-        jButton1.setIcon(image);
+        jButton1 = ViewManager.createPrintButton();
         jButton2 = ViewManager.createGoBackButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
