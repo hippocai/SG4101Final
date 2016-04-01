@@ -45,7 +45,7 @@ public class PaymentServiceTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws NumberFormatException, IllegalArgumentException, Exception {
 		MemberBean memberBean=new MemberBean();
 		String newMemberId="E0000000";
 		String newMemberName="Eason"; 

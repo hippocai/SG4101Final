@@ -266,14 +266,14 @@ public class AddProductPanel extends javax.swing.JPanel {
    		if(productService.addProductByBean(productBean)){
        		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
        	}else{
-       		//TODO:........
+       		JOptionPane.showMessageDialog(null, "OOPs,Something error!", "Error", JOptionPane.ERROR_MESSAGE);
        	}
    	}else{
    		if(productService.updateProductByBean(productBean)){
    			JOptionPane.showMessageDialog(null, "Your Information updated Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
    			ViewManager.goBack();
    		}else{
-   			//TODO....
+   			JOptionPane.showMessageDialog(null, "OOPs,Something error!", "Error", JOptionPane.ERROR_MESSAGE);
    		}
    	}
    	
@@ -285,8 +285,9 @@ public class AddProductPanel extends javax.swing.JPanel {
    	if(!checkIfAllTxtFulfilled()){
    		JOptionPane.showMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
    		return null;
-   	}else{
-   		
+   	}else if(!checkTxtNumberical()){
+   		JOptionPane.showMessageDialog(null, "Column must be number!", "Error", JOptionPane.ERROR_MESSAGE);
+   		return null;
    	}
    	ProductBean newProductBean=new ProductBean();
    	newProductBean.setBarCode(barcodeTxtField.getText());
@@ -305,6 +306,22 @@ public class AddProductPanel extends javax.swing.JPanel {
    	return newProductBean;
    }
    
+   private boolean checkTxtNumberical(){
+	   if(!ViewUtil.isJTextNumberical(orderQuantityTxtField)){
+		   ViewUtil.setJTextError(orderQuantityTxtField);
+		   return false;
+	   }else if(!ViewUtil.isJTextNumberical(quantityTxtField)){
+		   ViewUtil.setJTextError(quantityTxtField);
+		   return false;
+	   }else if(!ViewUtil.isJTextNumberical(thresholdTxtField)){
+		   ViewUtil.setJTextError(thresholdTxtField);
+		   return false;
+	   }else if(!ViewUtil.isJTextDecimal(priceTxtField)){
+		   ViewUtil.setJTextError(priceTxtField);
+		   return false;
+	   }
+	   return true;
+   }
    private boolean checkIfAllTxtFulfilled(){
    	
    	if(ViewUtil.isJTextEmpty(nameTxtField)){

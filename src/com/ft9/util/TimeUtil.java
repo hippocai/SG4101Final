@@ -64,7 +64,7 @@ public class TimeUtil {
 		return TimeUtil.GetCurrentTime().greatThan(originalTime.add(timePeriod));
 	}
 	
-	public static TimeUtil getTimeUtilByStandardDateFormat(String dateStr){
+	public static TimeUtil getTimeUtilByStandardDateFormat(String dateStr)throws Exception{
 		String[] dateArr=dateStr.split("-");
 		if(dateArr.length!=3){
 			throw new IllegalArgumentException("The Format Can not be recognized"+dateStr);
@@ -103,17 +103,29 @@ public class TimeUtil {
 	}
 	
 	public static boolean checkDateAfter(String startDate,String checkDate){
-		TimeUtil startDateTime=TimeUtil.getTimeUtilByStandardDateFormat(startDate);
-		TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
-		System.out.println(checkDateTime.lessThan(startDateTime));
-		return !checkDateTime.lessThan(startDateTime);
+		try {
+			TimeUtil startDateTime=TimeUtil.getTimeUtilByStandardDateFormat(startDate);
+			TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
+			System.out.println(checkDateTime.lessThan(startDateTime));
+			return !checkDateTime.lessThan(startDateTime);
+		}catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public static boolean checkDateBefore(String endDate,String checkDate){
 		//System.out.println(checkDate.compareTo(endDate));
-		TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
-		TimeUtil endDateTime=TimeUtil.getTimeUtilByStandardDateFormat(endDate);
-		return !checkDateTime.greatThan(endDateTime);
+		try{
+			TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
+			TimeUtil endDateTime=TimeUtil.getTimeUtilByStandardDateFormat(endDate);
+			return !checkDateTime.greatThan(endDateTime);
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	/**

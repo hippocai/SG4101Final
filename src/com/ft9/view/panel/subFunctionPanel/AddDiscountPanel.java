@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import com.ft9.service.IDiscountService;
@@ -107,7 +108,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         aplicableCombo = new javax.swing.JComboBox<>();
         submitBtn = new javax.swing.JButton();
         clearBtn = new javax.swing.JButton();
-
+        alwaysCheckBox=new JCheckBox();
 
 
         jLabel1.setText("Discount Code:");
@@ -358,5 +359,6 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     private javax.swing.JTextField startDateTxtField;
     private javax.swing.JTextField periodTxtField;
     private javax.swing.JTextField percentageTxtField;
+    private JCheckBox alwaysCheckBox;
     // End of variables declaration                   
 }

@@ -52,8 +52,11 @@ public interface IPaymentService {
 	 * Remark: <BR>
 	 * @param memberBean
 	 * @return  DiscountBean<BR>
+	 * @throws Exception 
+	 * @throws IllegalArgumentException 
+	 * @throws NumberFormatException 
 	 */
-	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean);
+	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean) throws NumberFormatException, IllegalArgumentException, Exception;
 	/**
 	 * Method name: getProductBeanByBarcode <BR>
 	 * Description: Get ProductBean By Barcode <BR>

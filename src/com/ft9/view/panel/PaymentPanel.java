@@ -304,7 +304,12 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		// TODO 自动生成的方法存根
 		if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
 			if(arg0.getSource()==memberIdTxtField){
-				memberSearchExec();
+				try {
+					memberSearchExec();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
 			}else if(arg0.getSource()==loyalUseTxtField){
 				calcLoyalPoint();
 			}else if(arg0.getSource()==barcodeTxtField){
@@ -488,7 +493,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 	private void alertLowStorage(String productName,String currentQuantity,String threshold){
 		JOptionPane.showMessageDialog(null, "The Product:"+productName+" is  lower than threshold,Current storage:"+currentQuantity+" threshold:"+threshold, "Low Storage", JOptionPane.OK_OPTION);
 	}
-	private void memberSearchExec(){
+	private void memberSearchExec() throws NumberFormatException, IllegalArgumentException, Exception{
 		String memberId=memberIdTxtField.getText();
 		if(payService.isMember(memberId)){
 			memberBean=payService.getMemberById(memberId);

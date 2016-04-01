@@ -71,7 +71,6 @@ public class ViewUtil {
 		for(int i=0;i<((DefaultTableModel)jTable.getModel()).getColumnCount();++i){
 			tableHeaderList.add(((DefaultTableModel)jTable.getModel()).getColumnName(i));
 		}
-		//Object[]tableHeader=null;
 		for(int rowIndex:rowIndexs){
 			HashMap<String,String>map=new HashMap<String,String>();
 			List<String>rowDataList=getRowDataListFromTable(jTable, rowIndex);
@@ -88,6 +87,33 @@ public class ViewUtil {
 	public static boolean isJTextEmpty(JTextComponent jText){
 		return jText==null||jText.getText()==null||jText.getText().equals("");
 	}
+	
+	public static boolean isJTextNumberical(JTextComponent jText){
+		if(jText==null||jText.getText()==null||jText.getText().equals("")){
+			return false;
+		}
+		String content=jText.getText();
+		try{
+			Integer.parseInt(content);
+			return true;
+		}catch(Exception nfe){
+			return false;
+		}
+	}
+	
+	public static boolean isJTextDecimal(JTextComponent jText){
+		if(jText==null||jText.getText()==null||jText.getText().equals("")){
+			return false;
+		}
+		String content=jText.getText();
+		try{
+			Float.parseFloat(content);
+			return true;
+		}catch(Exception nfe){
+			return false;
+		}
+	}
+	
 	public static void setJTextError(JTextComponent jText){
 		jText.setBackground(new Color(253,13,53));
 		jText.setCaretColor(Color.WHITE);
@@ -97,4 +123,6 @@ public class ViewUtil {
 		jText.setBackground(Color.white);
 		jText.setCaretColor(Color.BLACK);
 	}
+	
+	
 }

@@ -67,7 +67,7 @@ public class PaymentService implements IPaymentService {
 	}
 
 	@Override
-	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean) {
+	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean) throws NumberFormatException, IllegalArgumentException, Exception {
 		// TODO 自动生成的方法存根
 		if(memberBean==null){
 			memberBean=nonMember;
