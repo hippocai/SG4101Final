@@ -26,6 +26,7 @@ import com.ft9.view.panel.HelpPanel;
 import com.ft9.view.panel.StartupPanel;
 import com.ft9.view.panel.actionListener.GoBackListener;
 import com.ft9.view.panel.actionListener.GoHomeListener;
+import com.ft9.view.panel.actionListener.PrintListener;
 import com.icon.IconManager;
 
 public class ViewManager {
@@ -85,6 +86,13 @@ public class ViewManager {
 		goBackButton.setIcon(IconManager.getIcon("back"));
         goBackButton.addActionListener(new GoBackListener());
         return goBackButton;
+	}
+	
+	public static JButton createPrintButton(){
+		JButton printButton=new JButton();
+		printButton.setIcon(IconManager.getIcon("print"));
+		printButton.addActionListener(new PrintListener());
+		return printButton;
 	}
 	//Expend the father tree by father tree name
 	public static void expandFatherTree(String fatherTreeName){
