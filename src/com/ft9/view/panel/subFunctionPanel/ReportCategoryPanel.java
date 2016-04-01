@@ -52,19 +52,7 @@ public class ReportCategoryPanel extends javax.swing.JPanel {
 
        jScrollPane1 = new javax.swing.JScrollPane();
        jTable1 = ViewUtil.createUneditableTable();
-       jButtonPrint = new javax.swing.JButton();
-       
-       ImageIcon image = new ImageIcon("src/com/icon/print.png");
-       jButtonPrint.setIcon(image);
-       jButtonPrint.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	});
-       
+       jButtonPrint = ViewManager.createPrintButton();
        jButtonBack = ViewManager.createGoBackButton();
 
 //       jTable1.setModel(new javax.swing.table.DefaultTableModel(

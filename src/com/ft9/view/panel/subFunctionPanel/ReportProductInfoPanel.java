@@ -50,23 +50,11 @@ public class ReportProductInfoPanel extends javax.swing.JPanel {
 
        jScrollPane1 = new javax.swing.JScrollPane();
        jTable1 =ViewUtil.createUneditableTable();
-       jButtonPrint = new javax.swing.JButton();
+       jButtonPrint = ViewManager.createPrintButton();
        jButtonBack = ViewManager.createGoBackButton();
 
        jScrollPane1.setViewportView(jTable1);
 
-//       jButtonPrint.setText("Print");
-       ImageIcon image = new ImageIcon("src/com/icon/print.png");
-       jButtonPrint.setIcon(image);
-       
-       jButtonPrint.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	});
 
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

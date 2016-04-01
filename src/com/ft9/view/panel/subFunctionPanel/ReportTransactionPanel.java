@@ -71,7 +71,7 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = ViewUtil.createUneditableTable();
-        printBtn = new javax.swing.JButton();
+        printBtn = ViewManager.createPrintButton();
         backBtn = ViewManager.createGoBackButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,29 +79,18 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
         endDateTxtField = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+//        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+//            new Object [][] {
+//                {null, null, null, null},
+//                {null, null, null, null},
+//                {null, null, null, null},
+//                {null, null, null, null}
+//            },
+//            new String [] {
+//                "Title 1", "Title 2", "Title 3", "Title 4"
+//            }
+//        ));
         jScrollPane1.setViewportView(jTable1);
-
-        ImageIcon image = new ImageIcon("src/com/icon/print.png");
-        printBtn.setIcon(image);
-        printBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		});
         
         jLabel1.setText("Start Date:");
 

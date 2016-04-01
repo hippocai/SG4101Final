@@ -48,7 +48,7 @@ public class ReportMemberInfoPanel extends javax.swing.JPanel {
        jScrollPane1 = new javax.swing.JScrollPane();
        jTable1 = ViewUtil.createUneditableTable();
 //       jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(memberService.getAllMemberInfo(), "Member"));
-       jButtonPrint = new javax.swing.JButton();
+       jButtonPrint = ViewManager.createPrintButton();
        jButtonBack = ViewManager.createGoBackButton();
 
 //       jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -66,18 +66,6 @@ public class ReportMemberInfoPanel extends javax.swing.JPanel {
 
 //       jButtonPrint.setText("Print");
        
-       ImageIcon image = new ImageIcon("src/com/icon/print.png");
-       jButtonPrint.setIcon(image);
-
-       jButtonPrint.addActionListener(new ActionListener() {
-    	   
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(null, "Printer Not Found !", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	});
 
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
