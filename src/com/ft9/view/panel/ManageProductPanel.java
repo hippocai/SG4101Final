@@ -124,7 +124,7 @@ public class ManageProductPanel extends javax.swing.JPanel implements ActionList
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(searchBtn)))
-                        .addGap(434, 434, 434))))
+                        .addGap(400, 400, 400))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

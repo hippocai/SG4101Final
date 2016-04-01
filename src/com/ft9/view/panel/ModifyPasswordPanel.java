@@ -49,7 +49,7 @@ public class ModifyPasswordPanel extends javax.swing.JPanel {
        jLabel3 = new javax.swing.JLabel();
        jButton2 = ViewManager.createGoHomeButton();
 
-       setPreferredSize(new java.awt.Dimension(844, 700));
+       setPreferredSize(new java.awt.Dimension(800, 610));
 
        jButton1.setText("OK");
        jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +96,7 @@ public class ModifyPasswordPanel extends javax.swing.JPanel {
                        .addComponent(jButton1)))
                .addContainerGap(314, Short.MAX_VALUE))
            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-               .addGap(0, 0, Short.MAX_VALUE)
+               //.addGap(0, 0, Short.MAX_VALUE)
                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
        );
        layout.setVerticalGroup(
