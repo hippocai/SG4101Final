@@ -19,6 +19,10 @@ public class IconManager {
 		iconMap.put("member",  IconManager.class.getResource("member.png"));
 		iconMap.put("newProduct",  IconManager.class.getResource("newproduct.png"));
 		iconMap.put("logout", IconManager.class.getResource("logoff.png"));
+		iconMap.put("categoryInfo",  IconManager.class.getResource("Catalog.png"));
+		iconMap.put("memberInfo",  IconManager.class.getResource("memberinfo.png"));
+		iconMap.put("transactionInfo",  IconManager.class.getResource("transaction.png"));
+		iconMap.put("productInfo", IconManager.class.getResource("product.png"));
 	}
 	public static ImageIcon getIcon(String name){
 		if(!iconMap.containsKey(name)){

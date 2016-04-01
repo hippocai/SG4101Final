@@ -152,7 +152,7 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener,K
 			String userName=jTextField1.getText();
 			String password=jTextField2.getText();
 			if(storeKeeperService.userLogin(userName, password)){
-				JOptionPane.showMessageDialog(null, "Login Successful", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Login Successful", "Login Success", JOptionPane.INFORMATION_MESSAGE);
 				log.info("Login Successful");
 				Session.addSession("UserName", userName);
 				if(loginSuccessfulActionListener!=null){

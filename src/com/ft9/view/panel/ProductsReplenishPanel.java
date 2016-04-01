@@ -184,11 +184,21 @@ public class ProductsReplenishPanel extends javax.swing.JPanel implements Proper
 //		}
 		List<ProductBean>reorderSearchResult=new ArrayList<ProductBean>();
 		for(ProductBean productBean:reorderProductsList){
-			if(searchResult.contains(productBean)){
+			if(listContains(searchResult, productBean)){
 				reorderSearchResult.add(productBean);
 			}
 		}
 		jTable1.setModel(ViewUtil.transferBeanList2DefaultTableModel(reorderSearchResult,"Product"));
+	}
+	
+	private boolean listContains(List<ProductBean>searchResult,ProductBean productBean){
+		boolean contains=false;
+		for(ProductBean resultBean:searchResult){
+			if(resultBean.getId().equals(productBean.getId())){
+				return true;
+			}
+		}
+		return contains;
 	}
 	
 	private void replenishExec(){
