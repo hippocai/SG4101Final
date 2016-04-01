@@ -73,6 +73,17 @@ public class TimeUtil {
 		return timeUtil;
 	}
 	
+	public static boolean checkIfDateFormatValid(String dateFormat){
+		try {
+			getTimeUtilByStandardDateFormat(dateFormat);
+			return true;
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			//e.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * Method name: checkTimeInTimeInterval <BR>

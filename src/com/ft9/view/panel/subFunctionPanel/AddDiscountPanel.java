@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.ft9.service.IDiscountService;
 import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.service.impl.DiscountService;
 import com.ft9.util.ClientMainCalendar;
+import com.ft9.util.TimeUtil;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 import com.ft9.view.panel.actionListener.GoBackListener;
@@ -99,7 +102,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         startDateTxtField = new javax.swing.JTextField();
         ClientMainCalendar calendar=ClientMainCalendar.getInstance();
         calendar.register(startDateTxtField);
-        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator1 = null;
         jLabel4 = new javax.swing.JLabel();
         periodTxtField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -110,7 +113,24 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         clearBtn = new javax.swing.JButton();
         alwaysCheckBox=new JCheckBox();
         alwaysCheckBox.setText("Always");
-
+        alwaysCheckBox.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO 自动生成的方法存根
+				if(alwaysCheckBox.isSelected()){
+					startDateTxtField.setText("ALWAYS");
+					periodTxtField.setText("ALWAYS");
+					periodTxtField.setEnabled(false);
+					startDateTxtField.setEnabled(false);
+				}else{
+					startDateTxtField.setText("");
+					periodTxtField.setText("");
+					periodTxtField.setEnabled(true);
+					startDateTxtField.setEnabled(true);
+				}
+			}
+		});
         jLabel1.setText("Discount Code:");
 
         jLabel2.setText("Description:");
@@ -164,7 +184,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(goHomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+           // .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +235,7 @@ public class AddDiscountPanel extends javax.swing.JPanel {
                     .addComponent(goHomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+             //   .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -298,6 +318,9 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	if(!checkIfAllTxtFulfilled()){
     		JOptionPane.showMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
     		return null;
+    	}else if(!checkAllDataValid()){
+    		JOptionPane.showMessageDialog(null, "The Data is not valid", "Error", JOptionPane.ERROR_MESSAGE);
+    		return null;
     	}else{
     		if(type==ADD_NEW_DISCOUNT&&discountService.isCodeExist(codeTxtField.getText())){
     			ViewUtil.setJTextError(codeTxtField);
@@ -322,6 +345,27 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	return discountBean;
     }
     
+    private boolean checkAllDataValid(){
+    	if(!ViewUtil.isJTextDecimal(percentageTxtField)){
+    		ViewUtil.setJTextError(percentageTxtField);
+    		return false;
+    	}
+    	
+    	if(alwaysCheckBox.isSelected()){
+    		return true;
+    	}else{
+    		if(!ViewUtil.isJTextNumberical(periodTxtField)){
+    			ViewUtil.setJTextError(periodTxtField);
+    			return false;
+    		}
+    		
+    		if(!TimeUtil.checkIfDateFormatValid(startDateTxtField.getText())){
+    			ViewUtil.setJTextError(startDateTxtField);
+    			return false;
+    		}
+    	}
+    	return true;
+    }
     private boolean checkIfAllTxtFulfilled(){
     	
     	if(ViewUtil.isJTextEmpty(codeTxtField)){
