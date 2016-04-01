@@ -167,7 +167,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
        memberIdTxtField.addKeyListener(this);
        memberIdTxtField.addFocusListener(this);
        
-       barcodeTxtField.setText("Barcode No.");
+       barcodeTxtField.setText("Product No.");
        barcodeTxtField.addKeyListener(this);
        barcodeTxtField.setEnabled(false);
        barcodeTxtField.addFocusListener(this);
@@ -391,10 +391,13 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 			JOptionPane.showMessageDialog(null, "Please Enter ID First", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		String barcode=barcodeTxtField.getText();
-		ProductBean productBean=payService.getProductBeanByBarcode(barcode);
+		String productId=barcodeTxtField.getText();
+		
+		//ProductBean productBean=payService.getProductBeanByBarcode(barcode);
+		
+		ProductBean productBean=payService.getProductBeanById(productId);
 		if(productBean==null){
-			JOptionPane.showMessageDialog(null, "Barcode Error", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Product Id Error", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		int quantityPurchased=str2Int(quantityTxtField.getText());
@@ -584,7 +587,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 			}
 		}else if(arg0.getSource()==barcodeTxtField){
 			if(barcodeTxtField.getText().equals("")){
-				barcodeTxtField.setText("Barcode No.");
+				barcodeTxtField.setText("Product No.");
 			}
 		}
 		
