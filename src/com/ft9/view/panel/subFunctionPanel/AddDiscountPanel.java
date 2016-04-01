@@ -113,19 +113,23 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         clearBtn = new javax.swing.JButton();
         alwaysCheckBox=new JCheckBox();
         alwaysCheckBox.setText("Always");
+        
         alwaysCheckBox.addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO 自动生成的方法存根
+				//System.out.println("ST");
+				
 				if(alwaysCheckBox.isSelected()){
 					startDateTxtField.setText("ALWAYS");
 					periodTxtField.setText("ALWAYS");
 					periodTxtField.setEnabled(false);
 					startDateTxtField.setEnabled(false);
 				}else{
-					startDateTxtField.setText("");
-					periodTxtField.setText("");
+					
+					//startDateTxtField.setText("");
+					//periodTxtField.setText("");
 					periodTxtField.setEnabled(true);
 					startDateTxtField.setEnabled(true);
 				}
