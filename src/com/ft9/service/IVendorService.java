@@ -96,5 +96,5 @@ public interface IVendorService {
 	 */
 	public List<CategoryBean>getAllCategoriesByVendorName(String vendorName);
 	
-	
+	public boolean isNameExisted(String name);
 }

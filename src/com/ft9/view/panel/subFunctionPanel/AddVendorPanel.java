@@ -298,7 +298,12 @@ public class AddVendorPanel extends javax.swing.JPanel {
     		return;
     	}
     	if(type==ADD_NEW_VENDOR){
-    		addExec(vendorBean);
+    		if(!checkIfVendorNameExisted()){
+    			JOptionPane.showMessageDialog(null, "Vendor name has already existed", "Error", JOptionPane.ERROR_MESSAGE);
+    		}else{
+    			addExec(vendorBean);
+    		}
+    		
     	}else{
     		modifyExec(vendorBean);
     	}
@@ -331,6 +336,14 @@ public class AddVendorPanel extends javax.swing.JPanel {
  		   return false;
  	   }
  	   return true;
+    }
+    
+    private boolean checkIfVendorNameExisted(){
+    	if(vendorService.isNameExisted(nameTxtField.getText())){
+    		ViewUtil.setJTextError(nameTxtField);
+    		return false;
+    	}
+    	return true;
     }
     
     private VendorBean generateVendorBean(){

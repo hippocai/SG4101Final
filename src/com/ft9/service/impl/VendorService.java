@@ -229,6 +229,18 @@ public class VendorService implements IVendorService{
 		}
 		return false;
 	}
+
+	@Override
+	public boolean isNameExisted(String name) {
+		// TODO 自动生成的方法存根
+		List<VendorBean>vendorBeanList=this.getAllVendorInfo();
+		for(VendorBean vendorBean:vendorBeanList){
+			if(vendorBean.getName().equals(name)){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 
