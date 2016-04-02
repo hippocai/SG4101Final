@@ -17,7 +17,7 @@ public class FileConst {
 		fileNameMap.put("Member", "Members.dat");
 		fileNameMap.put("Transaction", "Transactions.dat");
 		fileNameMap.put("Discount", "Discounts.dat");
-		fileNameMap.put("Vendor", "VendorsMUG.dat");
+		//fileNameMap.put("Vendor", "VendorsMUG.dat");
 		fileNameMap.put("StoreKeeper", "StoreKeepers.dat");
 		
 	}

@@ -168,7 +168,7 @@ public class PaymentService implements IPaymentService {
 					//DoNothing
 				}
 			}
-			else if(TimeUtil.isCurrentTimeOutOfLimit(TimeUtil.getTimeUtilByStandardDateFormat(startTime), period+"D")){
+			else if(TimeUtil.isCurrentTimeOutOfLimit(TimeUtil.getTimeUtilByStandardDateFormat(startTime), period+"D")||!TimeUtil.checkDateAfter(startTime, TimeUtil.GetCurrentTime().toString("Y-M-D"))){
 				continue;
 			}else{
 				if(Integer.parseInt(discountBean.getDiscountPercentage())>maxDiscountRate){

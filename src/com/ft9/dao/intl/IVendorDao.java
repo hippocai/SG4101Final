@@ -1,8 +1,10 @@
 package com.ft9.dao.intl;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 import com.ft9.bean.VendorBean;
 
 
@@ -14,6 +16,7 @@ import com.ft9.bean.VendorBean;
  * @author caiyicheng
  */
 public interface IVendorDao {
+	public void setCategory(String category) throws IOException;
 	/**
 	 * Method name: getVendorsByMap <BR>
 	 * Description: Get the vendor by search map <BR>

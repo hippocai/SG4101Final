@@ -185,6 +185,16 @@ public abstract class BaseDao {
 		@SuppressWarnings("unused")
 		List<Object>savedBeans=this.getAllTheBeansFromFile();
 	}
+	
+	public BaseDao(){
+		
+	}
+	
+	protected void setFilepath(String filePath) throws IOException{
+		this.fileUtil=new FileUtil(filePath);
+		@SuppressWarnings("unused")
+		List<Object>savedBeans=this.getAllTheBeansFromFile();
+	}
 	/**
 	 * Method name: getFileUtil <BR>
 	 * Description: Get the file util <BR>

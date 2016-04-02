@@ -27,7 +27,7 @@ import com.ft9.dao.impl.VendorDao;
  */
 public class DAOer {
 	private static Logger log = Logger.getLogger(DAOer.class);
-	private static Map<String,BaseDao>daoMapper=new HashMap<String,BaseDao>();
+	private static Map<String,Object>daoMapper=new HashMap<String,Object>();
 	/**
 	 * Method name: getDao <BR>
 	 * Description: Get the dao instance by name <BR>
@@ -36,7 +36,7 @@ public class DAOer {
 	 * @return
 	 * @throws DaoNotExistException  BaseDao<BR>
 	 */
-	public static BaseDao getDao(String typeName) throws DaoNotExistException{
+	public static Object getDao(String typeName) throws DaoNotExistException{
 		if(!typeName.endsWith("Dao")){
 			typeName+="Dao";
 		}

@@ -45,24 +45,17 @@ public class FileUtil {
     private String path = "";
     private File file=null;
     
-    public FileUtil(String filePath){
+    public FileUtil(String filePath) throws IOException{
     	this.path=filePath;
     	file=new File(path);
+    	 if (!file.exists()) {
+             file.createNewFile();
+             log.info(file + "Created！");
+         }
     	
     }
+
     
-    /**
-     * 创建文本文件.
-     * Create a new file
-     * @throws IOException 
-     * 
-     */
-    public void creatFile() throws IOException{
-        if (!file.exists()) {
-            file.createNewFile();
-            log.info(file + "已创建！");
-        }
-    }
     
     /**
      * 检查文件是否存在

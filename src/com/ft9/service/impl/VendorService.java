@@ -1,16 +1,21 @@
 package com.ft9.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ft9.bean.CategoryBean;
 import com.ft9.bean.VendorBean;
 import com.ft9.dao.DAOer;
 import com.ft9.dao.DaoNotExistException;
 import com.ft9.dao.impl.VendorDao;
 import com.ft9.dao.intl.IVendorDao;
+import com.ft9.service.ICategoryService;
 import com.ft9.service.IVendorService;
+import com.ft9.service.ServiceManager;
+import com.ft9.service.ServiceNotFoundException;
 import com.ft9.util.BeanUtil;
 
 /**
@@ -23,10 +28,12 @@ import com.ft9.util.BeanUtil;
 public class VendorService implements IVendorService{
 	
 	private IVendorDao vendorDao = null;
+	private ICategoryService categoryService=null;
 	private static VendorService vendorService = null;
 	
-	private VendorService() throws DaoNotExistException{
+	private VendorService() throws DaoNotExistException, ServiceNotFoundException{
 		vendorDao = (VendorDao)DAOer.getDao("Vendor");
+		categoryService=(CategoryService)ServiceManager.getService("Category");
 	}
 	
 	/**
@@ -35,66 +42,93 @@ public class VendorService implements IVendorService{
 	 * Remark: <BR>
 	 * @return
 	 * @throws DaoNotExistException  VendorService<BR>
+	 * @throws ServiceNotFoundException 
 	 */
-	public static VendorService getInstance() throws DaoNotExistException{
+	public static VendorService getInstance() throws DaoNotExistException, ServiceNotFoundException{
 		if(vendorService == null){
 			vendorService = new VendorService();
 		}
 		return vendorService;
 	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#getVendorByMap(java.util.Map) <BR>
-	 * Method name: getVendorByMap <BR>
-	 * Description: get the vendor info into a map <BR>
-	 * Remark: if not exist, return null<BR>
-	 * @param map
-	 * @return map <BR>
-	*/
+
+	@Override
+	public List<VendorBean> getVendorByCategory(String categoryCode) {
+		// TODO 自动生成的方法存根
+		try {
+			vendorDao.setCategory(categoryCode);
+			return vendorDao.getVendorsByMap(new HashMap<String,String>());
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
 	@Override
 	public List<VendorBean> getVendorByMap(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		if (map != null){
-			return vendorDao.getVendorsByMap(map);
+		// TODO 自动生成的方法存根
+		try{
+			List<CategoryBean>categoryList=categoryService.getAllCategorys();
+			List<VendorBean>vendorList=new ArrayList<VendorBean>();
+			if(map.containsKey("category")){
+				String categoryName=map.get("category");
+				map.remove("category");
+				vendorDao.setCategory(categoryName);
+				return vendorDao.getVendorsByMap(map);
+			}else{
+				for(CategoryBean categoryBean:categoryList){
+					vendorDao.setCategory(categoryBean.getCode());
+					List<VendorBean>selectedVendorList=vendorDao.getVendorsByMap(map);
+					for(VendorBean vendorBean:selectedVendorList){
+						if(!this.vendorListContains(vendorList, vendorBean)){
+							vendorList.add(vendorBean);
+						}
+					}
+					
+				}
+				return vendorList;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#getAllVendorInfo() <BR>
-	 * Method name: getAllVendorInfo <BR>
-	 * Description: get all vendor info and store in a list<BR>
-	 * Remark: <BR>
-	 * @return list <BR>
-	*/
+
 	@Override
 	public List<VendorBean> getAllVendorInfo() {
-		// TODO Auto-generated method stub
-		
-		return this.getVendorByMap(new HashMap<String, String>());
+		// TODO 自动生成的方法存根
+		return this.getVendorByMap(new HashMap<String,String>());
 	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#searchVendorByKey(java.lang.String, java.lang.String) <BR>
-	 * Method name: searchVendorByKey <BR>
-	 * Description: search the vendor by value "key" <BR>
-	 * Remark: <BR>
-	 * @param key
-	 * @param valuelike
-	 * @return list <BR>
-	*/
+
 	@Override
-	public List<VendorBean> searchVendorByKey(String key, String valuelike) {
-		// TODO Auto-generated method stub
+	public boolean deleteVendorByNameInCategory(String name, String category) {
+		// TODO 自动生成的方法存根
+		try{
+			vendorDao.setCategory(category);
+			Map<String,String>map=new HashMap<String,String>();
+			map.put("name", name);
+			return vendorDao.deleteVendorByMap(map)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
+
+	@Override
+	public List<VendorBean> searchVendorByKey(String key, String valueLike) {
 		List<VendorBean> vendorList = getAllVendorInfo();
-		if(key == null || valuelike == ""){
+		if(key == null || valueLike == ""){
 			return vendorList;
 		}
 		List<VendorBean> searchResult = new ArrayList<VendorBean>();
 		for (VendorBean vendorBean : vendorList){
 			Map<String, String> vendorMap = BeanUtil.transBean2Map(vendorBean);
 			if (vendorMap.containsKey(key)){
-				if (vendorMap.get(key).contains(valuelike)){
+				if (vendorMap.get(key).contains(valueLike)){
 					searchResult.add(vendorBean);
 				}
 			}
@@ -102,87 +136,100 @@ public class VendorService implements IVendorService{
 		
 		return searchResult;
 	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#deleteVendorByMap(java.util.Map) <BR>
-	 * Method name: deleteVendorByMap <BR>
-	 * Description: delete the vendor by map <BR>
-	 * Remark: <BR>
-	 * @param map
-	 * @return int <BR>
-	*/
+
 	@Override
-	public int deleteVendorByMap(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		if (map != null){
-			return vendorDao.deleteVendorByMap(map);
-		}
-		return -1;
-	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#deleteVendorByName(java.lang.String) <BR>
-	 * Method name: deleteVendorByName <BR>
-	 * Description: delete the value by value "name" <BR>
-	 * Remark: <BR>
-	 * @param code
-	 * @return boolean <BR>
-	*/
-	@Override
-	public boolean deleteVendorByName(String code) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("name", code);
-		return this.deleteVendorByMap(map) > 0;
-	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#isCodeExist(java.lang.String) <BR>
-	 * Method name: isCodeExist <BR>
-	 * Description: check if the code exist <BR>
-	 * Remark: <BR>
-	 * @param code
-	 * @return boolean <BR>
-	*/
-	@Override
-	public boolean isCodeExist(String code) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("name", code);
-		return this.getVendorByMap(map).size() > 0;
-	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#addNewVendor(com.ft9.bean.VendorBean) <BR>
-	 * Method name: addNewVendor <BR>
-	 * Description: add new vendor into the Dao <BR>
-	 * Remark: <BR>
-	 * @param vendorBean
-	 * @return boolean <BR>
-	*/
-	@Override
-	public boolean addNewVendor(VendorBean vendorBean) {
-		// TODO Auto-generated method stub
-		if(vendorBean == null){
+	public boolean deleteVendorByMap(Map<String, String> map) {
+		// TODO 自动生成的方法存根
+		try{
+			int affectedRowNumber=0;
+			if(map.containsKey("category")){
+				String categoryName=map.get("category");
+				map.remove("category");
+				vendorDao.setCategory(categoryName);
+				return vendorDao.deleteVendorByMap(map)>0;
+			}else{
+				List<CategoryBean>categoryBeanList=categoryService.getAllCategorys();
+				for(CategoryBean categoryBean:categoryBeanList){
+					String categoryCode=categoryBean.getCode();
+					vendorDao.setCategory(categoryCode);
+					affectedRowNumber+=vendorDao.deleteVendorByMap(map);
+				}
+				System.out.println(affectedRowNumber);
+				return affectedRowNumber>0;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
-		return vendorDao.insertVendorByBean(vendorBean);
 	}
-	/**
-	 * @Override
-	 * @see com.ft9.service.IVendorService#updateVendor(com.ft9.bean.VendorBean) <BR>
-	 * Method name: updateVendor <BR>
-	 * Description: update the vendor into the Dao <BR>
-	 * Remark: <BR>
-	 * @param vendorBean
-	 * @return boolean <BR>
-	*/
+
 	@Override
-	public boolean updateVendor(VendorBean vendorBean) {
-		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("name", vendorBean.getName());
-		return vendorDao.updateVendor(vendorBean, map) > 0;
+	public List<CategoryBean> getAllCategoriesByVendorName(String name) {
+		// TODO 自动生成的方法存根
+		try {
+			Map<String,String>map=new HashMap<String,String>();
+			map.put("name", name);
+			List<CategoryBean>selectedCategoryList=new ArrayList<CategoryBean>();
+			List<CategoryBean>allCategories=categoryService.getAllCategorys();
+			for(CategoryBean categoryBean:allCategories){
+				vendorDao.setCategory(categoryBean.getCode());
+				List<VendorBean>vendorList=vendorDao.getVendorsByMap(map);
+				if(vendorList!=null&&vendorList.size()!=0){
+					selectedCategoryList.add(categoryBean);
+				}
+			}
+			return selectedCategoryList;
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
+
+	@Override
+	public boolean addNewVendorInCategoryBeanList(VendorBean vendorBean,
+			List<CategoryBean> categoryBeanList) {
+		// TODO 自动生成的方法存根
+		try {
+			for(CategoryBean categoryBean:categoryBeanList){
+				vendorDao.setCategory(categoryBean.getCode());
+				vendorDao.insertVendorByBean(vendorBean);
+			}
+			return true;
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateVendorByCategoryList(VendorBean vendorBean,List<CategoryBean> categoryBeanList) {
+		// TODO 自动生成的方法存根
+		try {
+			Map<String,String>map=new HashMap<String,String>();
+			map.put("name", vendorBean.getName());
+			this.deleteVendorByMap(map);
+			this.addNewVendorInCategoryBeanList(vendorBean, categoryBeanList);
+			return true;
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private boolean vendorListContains(List<VendorBean>vendorList,VendorBean vendorBean){
+		//Map<String,String>vendorMap=BeanUtil.transBean2Map(vendorBean);
+		for(VendorBean vendorBeanInList:vendorList){
+			if(vendorBeanInList.getName().equals(vendorBean.getName())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 
 }

@@ -19,6 +19,7 @@ import com.ft9.dao.intl.IVendorDao;
  */
 public class VendorDao extends BaseDao implements IVendorDao {
 	private static VendorDao vendorDao=null;
+	private String categoryName=null;
 	/**
 	 * Method name: VendorDao<BR>
 	 * Description: The Constructor of vendor dao<BR>
@@ -27,7 +28,7 @@ public class VendorDao extends BaseDao implements IVendorDao {
 	 * @throws IOException <BR>
 	 */
 	private VendorDao() throws FileNotFoundException, IOException{
-		super(FileConst.getFileNameByBeanName("Vendor"));
+		//super(FileConst.getFileNameByBeanName("Vendor"));
 	}
 
 	/**
@@ -100,5 +101,12 @@ public class VendorDao extends BaseDao implements IVendorDao {
 	*/
 	public int updateVendor(VendorBean vendorBean,Map<String,String>map){
 		return super.updateBeanByMap(vendorBean, map);
+	}
+
+	@Override
+	public void setCategory(String category) throws IOException {
+		// TODO 自动生成的方法存根
+		super.setFilepath("Vendors"+category+".dat");
+		
 	}
 }

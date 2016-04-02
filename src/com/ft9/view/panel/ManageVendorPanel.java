@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.ft9.annotation.Menu;
@@ -20,6 +21,7 @@ import com.ft9.util.BeanUtil;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.NameConverter;
 import com.ft9.view.ViewManager;
+import com.ft9.view.frame.ShowCategoriesFrame;
 import com.ft9.view.panel.subFunctionPanel.AddVendorPanel;
 
 /**
@@ -96,6 +98,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
        jButtonAdd = new javax.swing.JButton();
        jButtonDelete = new javax.swing.JButton();
        jButtonUpdate = new javax.swing.JButton();
+       showCategoryBtn=new JButton();
        jScrollPane1 = new javax.swing.JScrollPane();
        jTable1 = ViewUtil.createUneditableTable();
        jComboBox1 = new javax.swing.JComboBox<>();
@@ -114,7 +117,23 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
        });
 
        jButtonAdd.setText("Add");
-
+       showCategoryBtn.setText("Show Categories");
+       showCategoryBtn.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			List<HashMap<String, String>> selectedData = ViewUtil.getSelectedData(jTable1);
+			if (selectedData.size() != 1){
+				JOptionPane.showMessageDialog(null, "Please Choose 1 Vendor To Modify !", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Map<String, String> selectedMap = NameConverter.convertViewMap2PhysicMap(selectedData.get(0), "Vendor");
+			VendorBean selectedVendorBean = new VendorBean();
+			BeanUtil.transMap2Bean(selectedMap, selectedVendorBean);
+			new ShowCategoriesFrame(vendorService.getAllCategoriesByVendorName(selectedVendorBean.getName())).setVisible(true);
+			
+		}
+	});
        jButtonDelete.setText("Delete");
 
        jButtonUpdate.setText("Modify");
@@ -143,10 +162,13 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                            .addGroup(layout.createSequentialGroup()
                                .addComponent(jButtonAdd)
-                               .addGap(31, 31, 31)
+                               .addGap(33, 33, 33)
                                .addComponent(jButtonDelete)
                                .addGap(33, 33, 33)
-                               .addComponent(jButtonUpdate))
+                               .addComponent(jButtonUpdate)
+                               .addGap(33, 33, 33)
+                               .addComponent(showCategoryBtn))
+                               
                            .addGroup(layout.createSequentialGroup()
                                .addComponent(jLabel1)
                                .addGap(10, 10, 10)
@@ -155,7 +177,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                .addGap(10, 10, 10)
                                .addComponent(jButtonSearch)))
-                       .addGap(434, 434, 434))))
+                       .addGap(300, 300, 300))))
        );
        layout.setVerticalGroup(
            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +194,8 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                    .addComponent(jButtonAdd)
                    .addComponent(jButtonDelete)
-                   .addComponent(jButtonUpdate))
+                   .addComponent(jButtonUpdate)
+                   .addComponent(showCategoryBtn))
                .addGap(18, 18, 18)
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addGap(23, 23, 23))
@@ -185,6 +208,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
    private javax.swing.JButton jButtonAdd;
    private javax.swing.JButton jButtonDelete;
    private javax.swing.JButton jButtonUpdate;
+   private javax.swing.JButton showCategoryBtn;
    private javax.swing.JComboBox<String> jComboBox1;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JScrollPane jScrollPane1;
@@ -225,7 +249,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
 	if (source == jButtonAdd){
 		try {
 			ViewManager.goToSubFunctionScreen(new AddVendorPanel());
-		} catch (ServiceNotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -255,8 +279,8 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
 	VendorBean selectedVendorBean = new VendorBean();
 	BeanUtil.transMap2Bean(selectedMap, selectedVendorBean);
 	try {
-		ViewManager.goToSubFunctionScreen(new AddVendorPanel(selectedVendorBean, AddVendorPanel.UPDATE_NEW_VENDOR));
-	} catch (ServiceNotFoundException e) {
+		ViewManager.goToSubFunctionScreen(new AddVendorPanel(selectedVendorBean, AddVendorPanel.UPDATE_VENDOR));
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
