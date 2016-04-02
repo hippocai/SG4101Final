@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
 	    	super.dispose();
 			super.setUndecorated(true);
 			this.setLocationByPlatform(true);
+			this.setResizable(false);
 			log.info("Initial Successful");
 	        rootPane.setWindowDecorationStyle(JRootPane.FRAME);
 			rootPane.setFont(new Font("Lucida Grande", Font.PLAIN, 11));

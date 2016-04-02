@@ -89,7 +89,7 @@ public ProductsReplenishPanel() throws ServiceNotFoundException {
 			}
        	});
 
-       jLabel1.setText("Search Keyword£º");
+       jLabel1.setText("Search Keyword:");
        replenishBtn.setText("Replenish");
        replenishBtn.addActionListener(new ActionListener() {
 		@Override

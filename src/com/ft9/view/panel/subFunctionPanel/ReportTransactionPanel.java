@@ -194,9 +194,16 @@ public class ReportTransactionPanel extends javax.swing.JPanel {
     		}
     		HashMap<String,String>map=new HashMap<String,String>();
     		map.put("ID", transBean.getId());
-    		map.put("Product Id", productBean.getId());
-    		map.put("Product Name", productBean.getName());
-    		map.put("Description", productBean.getDescription());
+    		if(productBean!=null){
+    			map.put("Product Id", productBean.getId());
+        		map.put("Product Name", productBean.getName());
+        		map.put("Description", productBean.getDescription());
+    		}
+    		else{
+    			map.put("Product Id", "LOST");
+        		map.put("Product Name", "LOST");
+        		map.put("Description", "LOST");
+    		}
     		map.put("Member", transBean.getMemberId());
     		map.put("Quantity", transBean.getQuantityPurchased());
     		map.put("Date", transBean.getDate());
