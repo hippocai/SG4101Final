@@ -45,7 +45,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public List<TransactionBean> getTransactionByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		if(map==null){
 			return null;
 		}
@@ -62,7 +61,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public List<TransactionBean> getAllTransactions() {
-		// TODO 自动生成的方法存根
 		return this.getTransactionByMap(new HashMap<String,String>());
 	}
 
@@ -78,7 +76,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public List<TransactionBean> getTransactionsByTimePeriod(String startDate,String endDate) {
-		// TODO 自动生成的方法存根
 		List<TransactionBean>selectedBeanList=new ArrayList<TransactionBean>();
 		List<TransactionBean>allBeanList=this.getAllTransactions();
 		if((startDate==null||startDate.equals(""))&&(endDate==null||endDate.equals(""))){
@@ -119,7 +116,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public boolean addTransaction(TransactionBean transactionBean) {
-		// TODO 自动生成的方法存根
 		return transDao.insertTransactionByBean(transactionBean);
 	}
 
@@ -134,7 +130,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public int addTransactionByBeanList(List<TransactionBean> transactionBeanList) {
-		// TODO 自动生成的方法存根
 		if(transactionBeanList==null){
 			return 0;
 		}
@@ -154,7 +149,6 @@ public class TransactionService implements ITransactionService {
 	*/
 	@Override
 	public int getMaxTransactionID() {
-		// TODO 自动生成的方法存根
 		List<TransactionBean>transList=this.getAllTransactions();
 		int maxId=-1;
 		for(TransactionBean transBean:transList){

@@ -2,21 +2,27 @@ package com.ft9.view.panel.actionListener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import com.ft9.view.ViewManager;
 
+/**
+ * class name:GoBackListener <BR>
+ * class description: Go Back Function <BR>
+ * Remark: <BR>
+ * @version 1.00
+ * @author Guo Qi
+ */
 public class GoBackListener implements ActionListener {
 
+	/**
+	 * @Override
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent) <BR>
+	 * Method name: actionPerformed <BR>
+	 * Description: Go Back <BR>
+	 * Remark: <BR>
+	 * @param arg0  <BR>
+	*/
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO 自动生成的方法存根
-//		int options=JOptionPane.showConfirmDialog(null, "Are you ready to Go Back?", "Info",JOptionPane.YES_NO_OPTION);
-//		if(options==0){
-//			ViewManager.goBack();
-//		}
-		
 		ViewManager.goBack();
 	}
 

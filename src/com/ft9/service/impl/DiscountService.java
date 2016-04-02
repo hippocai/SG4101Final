@@ -52,7 +52,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public List<DiscountBean> getDiscountByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		if(map!=null){
 			return discountDao.getDiscountsByMap(map);
 		}
@@ -69,7 +68,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public List<DiscountBean> getAllDiscountInfo() {
-		// TODO 自动生成的方法存根
 		return this.getDiscountByMap(new HashMap<String,String>());
 	}
 
@@ -85,7 +83,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public List<DiscountBean> searchDiscountByKey(String key, String valueLike) {
-		// TODO 自动生成的方法存根
 		List<DiscountBean>discountList=this.getAllDiscountInfo();
 		if(valueLike==null||valueLike.equals("")){
 			return discountList;
@@ -113,7 +110,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public int deleteDiscountByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		if(map==null){
 			return -1;
 		}
@@ -131,7 +127,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public boolean deleteDiscountByCode(String code) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("code", code);
 		return this.deleteDiscountByMap(map)>0;
@@ -148,7 +143,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public boolean isCodeExist(String code) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("code", code);
 		return this.getDiscountByMap(map).size()>0;
@@ -165,7 +159,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public boolean addNewDiscount(DiscountBean discountBean) {
-		// TODO 自动生成的方法存根
 		if(discountBean==null){
 			return false;
 		}
@@ -183,7 +176,6 @@ public class DiscountService implements IDiscountService {
 	*/
 	@Override
 	public boolean updateDiscount(DiscountBean discountBean) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("code", discountBean.getCode());
 		

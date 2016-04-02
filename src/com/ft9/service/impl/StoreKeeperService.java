@@ -1,6 +1,5 @@
 package com.ft9.service.impl;
 
-import java.awt.event.KeyListener;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -53,7 +52,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public boolean userLogin(String userName, String password) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("name", userName);
 		try {
@@ -61,8 +59,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 		} catch (InvalidKeyException | NoSuchAlgorithmException
 				| NoSuchPaddingException | UnsupportedEncodingException
 				| IllegalBlockSizeException | BadPaddingException e) {
-			// TODO 自动生成的 catch 块
-			//e.printStackTrace();
 			return false;
 		}
 		List<StoreKeeperBean> storeKeepers=this.getStoreKeeperByMap(map);
@@ -84,7 +80,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public boolean isUserNameExisted(String userName) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("name", userName);
 		List<StoreKeeperBean>storeKeepers=this.getStoreKeeperByMap(map);
@@ -105,7 +100,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public List<StoreKeeperBean> getAllStoreKeeper() {
-		// TODO 自动生成的方法存根
 		return this.getStoreKeeperByMap(new HashMap<String,String>());
 	}
 
@@ -120,7 +114,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public List<StoreKeeperBean> getStoreKeeperByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		return storeKeeperDao.getStoreKeepersByMap(map);
 	}
 
@@ -137,7 +130,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public boolean updatePassword(String userName, String oldPassword,String newPassword) {
-		// TODO 自动生成的方法存根
 		try {
 			StoreKeeperBean storeKeeperBean=new StoreKeeperBean();
 			storeKeeperBean.setName(userName);
@@ -147,7 +139,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 			map.put("password", QEncodeUtil.encryptAES(oldPassword,Key.ENCODE_KEY));
 			return storeKeeperDao.updateStoreKeeper(storeKeeperBean, map)>0;
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return false;
 		} 
@@ -164,7 +155,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public boolean deleteUserByName(String userName) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("name", userName);
 		return storeKeeperDao.deleteStoreKeeperByMap(map)>0;
@@ -181,7 +171,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 	*/
 	@Override
 	public boolean addStoreKeeper(String userName,String password) {
-		// TODO 自动生成的方法存根
 		try {
 			StoreKeeperBean storeKeeperBean=new StoreKeeperBean();
 			if(userName==null||password==null){
@@ -195,7 +184,6 @@ public class StoreKeeperService implements IStoreKeeperService{
 			
 			return storeKeeperDao.insertStoreKeeperByBean(storeKeeperBean);
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return false;
 		} 

@@ -1,9 +1,17 @@
 package com.ft9.view.panel;
 
 import com.ft9.annotation.Menu;
-import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 
+/**
+ * class name:HelpPanel <BR>
+ * class description: The Help Panel(Developers' Information) <BR>
+ * Remark: <BR>
+ * @version 1.00
+ * @author Guo Qi
+ */
+
+//Define The Jtree Name
 @Menu(name = "About Us", fatherName = "Help")
 /**
 *
@@ -22,11 +30,17 @@ public class HelpPanel extends javax.swing.JPanel {
        initComponents();
    }
 
-   private void initComponents() {
+   /**
+ * Method name: initComponents <BR>
+ * Description: Init All The Information In This Panel <BR>
+ * Remark: <BR>  void<BR>
+ */
+private void initComponents() {
 
        jLabel1 = new javax.swing.JLabel();
        jScrollPane1 = new javax.swing.JScrollPane();
        jTable1 = new javax.swing.JTable();
+       //Create Go Home Button
        jButton1 = ViewManager.createGoHomeButton();
 
        jLabel1.setText("This Application Is Developed By FT Group 9");
@@ -44,10 +58,8 @@ public class HelpPanel extends javax.swing.JPanel {
                "Name", "ID"
            }
        ));
+       
        jScrollPane1.setViewportView(jTable1);
-
-//       jButton1.setText("jButton1");
-
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
        this.setLayout(layout);
        layout.setHorizontalGroup(

@@ -7,10 +7,6 @@ import java.util.Map;
 import com.ft9.bean.CategoryBean;
 
 /**
- * @author hippo
- *
- */
-/**
  * class name:ICategoryService <BR>
  * class description: The Interfaces of CategoryService <BR>
  * Remark: <BR>
