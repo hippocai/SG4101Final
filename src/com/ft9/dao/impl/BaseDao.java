@@ -12,6 +12,8 @@ import java.util.Map;
 
 
 
+
+
 import org.apache.log4j.Logger;
 
 import com.ft9.common.FileConst;
@@ -24,19 +26,19 @@ import com.ft9.util.StringUtil;
 
 /**
  * class name:BaseDao <BR>
- * class description: please write your description <BR>
+ * class description: Provide the implementation of all necessary methods for each specific Dao<BR>
  * Remark: <BR>
  * @version 1.00 2016年3月30日
  * @author caiyicheng
  */
 public abstract class BaseDao {
 	private static Logger log = Logger.getLogger(BaseDao.class);
+	//Manage the file
 	private FileUtil fileUtil=null;
-	//List<Object>savedBeans;
 
 	/**
 	 * Method name: getBeanByMap <BR>
-	 * Description: getBeanByMap <BR>
+	 * Description: Get the bean by search map <BR>
 	 * Remark: <BR>
 	 * @param map
 	 * @return  List<Object><BR>
@@ -61,14 +63,17 @@ public abstract class BaseDao {
 			}
 			
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return selectedBeanList;
 	}
+	
 	/**
+	 * Method name: addBean <BR>
+	 * Description: Add a new bean into file <BR>
+	 * Remark: <BR>
 	 * @param bean
-	 * @return
+	 * @return  boolean<BR>
 	 */
 	protected boolean addBean(Object bean){
 		try {
@@ -83,16 +88,19 @@ public abstract class BaseDao {
 			return true;
 			
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return false;
 		}
 		
 	}
 	
+	
 	/**
+	 * Method name: deleteBeanByMap <BR>
+	 * Description: Delete the bean by the search map <BR>
+	 * Remark: <BR>
 	 * @param map
-	 * @return
+	 * @return  int<BR>
 	 */
 	protected int deleteBeanByMap(Map<String,String>map){
 		try{
@@ -114,15 +122,20 @@ public abstract class BaseDao {
 			return 0;
 		}
 	}
+
 	/**
+	 * Method name: updateBeanByMap <BR>
+	 * Description: Update the Record by the new bean and search map <BR>
+	 * Remark: <BR>
 	 * @param newBean
 	 * @param map
-	 * @return
+	 * @return  int<BR>
 	 */
 	protected int updateBeanByMap(Object newBean,Map<String,String> map){
 		try{
 			log.info("(DAO)Update Bean,New Bean"+StringUtil.transferStringmap2String(BeanUtil.transBean2Map(newBean))
 					+" Select Map:"+StringUtil.transferStringmap2String(map));
+			@SuppressWarnings("unused")
 			List<Object>savedBeans=this.getAllTheBeansFromFile();
 			List<Object>selectedBeanList=this.getBeanByMap(map);
 			for(Object bean:selectedBeanList){
@@ -133,7 +146,7 @@ public abstract class BaseDao {
 				fileUtil.replaceRowByStr(oldRecord, this.transBeanToStringRecord(newBean));
 				
 			}
-			savedBeans=this.getAllTheBeansFromFile();
+			
 			log.info("(DAO) "+selectedBeanList.size()+"Rows Affected");
 			return selectedBeanList.size();
 		}catch(Exception e){
@@ -141,6 +154,14 @@ public abstract class BaseDao {
 			return 0;
 		}
 	}
+	/**
+	 * Method name: getAllTheBeansFromFile <BR>
+	 * Description: Get all the record from the file <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException  List<Object><BR>
+	 */
 	protected List<Object>getAllTheBeansFromFile() throws FileNotFoundException, IOException{
 		List<String> recordList=fileUtil.readWholeFileSplitToList();
 		recordList.remove("");
@@ -151,18 +172,46 @@ public abstract class BaseDao {
 		return beanList;
 		
 	}
+	/**
+	 * Method name: BaseDao<BR>
+	 * Description: The constructor of the base dao<BR>
+	 * Remark: The file path can be get from the FileConst<BR>
+	 * @param filePath
+	 * @throws FileNotFoundException
+	 * @throws IOException <BR>
+	 */
 	public BaseDao(String filePath) throws FileNotFoundException, IOException{
 		this.fileUtil=new FileUtil(filePath);
+		@SuppressWarnings("unused")
 		List<Object>savedBeans=this.getAllTheBeansFromFile();
 	}
+	/**
+	 * Method name: getFileUtil <BR>
+	 * Description: Get the file util <BR>
+	 * Remark: <BR>
+	 * @return  FileUtil<BR>
+	 */
 	protected FileUtil getFileUtil(){
 		return fileUtil;
 	}
+	/**
+	 * Method name: transferBean2Map <BR>
+	 * Description: Transfer the bean to HashMap <BR>
+	 * Remark: <BR>
+	 * @param bean
+	 * @return  Map<String,String><BR>
+	 */
 	protected Map<String,String>transferBean2Map(Object bean){
 		
 		return BeanUtil.transBean2Map(bean);
 	}
 	
+	/**
+	 * Method name: getSubClassName <BR>
+	 * Description: Get the current dao class name which is derived from the base dao<BR>
+	 * Remark: <BR>
+	 * @return  String<BR>
+	 */
 	private String getSubClassName(){
 		String classFullName=this.getClass().getName();
 		String className=null;
@@ -174,8 +223,15 @@ public abstract class BaseDao {
 		return className;
 	}
 	
-	
-	
+	/**
+	 * Method name: mapAIsSubsetOfMapB <BR>
+	 * Description: Check if the map A is a subset of the map B<BR>
+	 * Remark: <BR>
+	 * @param A
+	 * @param B
+	 * @return
+	 * @throws KeyNotExistException  boolean<BR>
+	 */
 	private boolean mapAIsSubsetOfMapB(Map<String,String> A,Map<String,String> B)throws KeyNotExistException{
 		boolean meetTheSelectRequirement=true;
 		for(String key:A.keySet()){
@@ -193,10 +249,25 @@ public abstract class BaseDao {
 		return meetTheSelectRequirement;
 	}
 	
+	/**
+	 * Method name: getFileContent <BR>
+	 * Description: Get all the content from the file,and put each line into a list <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException  List<String><BR>
+	 */
 	protected List<String>getFileContent() throws FileNotFoundException, IOException{
 		return fileUtil.readWholeFileSplitToList();
 	}
 	
+	/**
+	 * Method name: transBeanToStringRecord <BR>
+	 * Description: Transfer each bean to a String with specific format <BR>
+	 * Remark: <BR>
+	 * @param bean
+	 * @return  String<BR>
+	 */
 	private String transBeanToStringRecord(Object bean){
 		List<String>formatList=FileConst.getRecordFormatList(BeanUtil.getBeanName(bean));
 		Map<String,String>beanMap=BeanUtil.transBean2Map(bean);
@@ -210,6 +281,13 @@ public abstract class BaseDao {
 		return record;
 	}
 	
+	/**
+	 * Method name: transferStringRecoderToBean <BR>
+	 * Description: Transfer String record to the bean,with the specific format <BR>
+	 * Remark: <BR>
+	 * @param recorder
+	 * @return  Object<BR>
+	 */
 	private Object transferStringRecoderToBean(String recorder){
 		try {
 			List<String>formatList=FileConst.getRecordFormatList(this.getSubClassName());
@@ -221,19 +299,20 @@ public abstract class BaseDao {
 			Object bean=Class.forName(StructConst.BeanPackage+"."+this.getSubClassName()+"Bean").newInstance();
 			BeanUtil.transMap2Bean(beanMap,bean);
 			return bean;
-		} catch (InstantiationException e) {
-			// TODO 自动生成的 catch 块
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
+		} 
 		return null;
 	}
 	
+	/**
+	 * Method name: transferObj2Bean <BR>
+	 * Description: Transfer an object to a specific bean <BR>
+	 * Remark: <BR>
+	 * @param obj
+	 * @return
+	 * @throws DaoException  T<BR>
+	 */
 	@SuppressWarnings("unchecked")
 	protected <T>T transferObj2Bean(Object obj)throws DaoException{
 		Object testObj=(T)new Object();
@@ -242,6 +321,14 @@ public abstract class BaseDao {
 		}
 		return (T)obj;
 	}
+	/**
+	 * Method name: transferObjectList2BeanList <BR>
+	 * Description: Transfer an object list to a specific bean list <BR>
+	 * Remark: <BR>
+	 * @param objList
+	 * @return
+	 * @throws DaoException  List<T><BR>
+	 */
 	protected <T>List<T>transferObjectList2BeanList(List<Object>objList) throws DaoException{
 		List<T> beanList=new ArrayList<T>();
 		for(Object beanObj:objList){

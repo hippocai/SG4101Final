@@ -3,7 +3,6 @@ package com.ft9.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.ft9.bean.DiscountBean;
 import com.ft9.bean.MemberBean;
 import com.ft9.bean.ProductBean;
@@ -17,6 +16,13 @@ import com.ft9.service.ServiceManager;
 import com.ft9.service.ServiceNotFoundException;
 import com.ft9.util.TimeUtil;
 
+/**
+ * class name:PaymentService <BR>
+ * class description: please write your description <BR>
+ * Remark: <BR>
+ * @version 1.00 2016年4月2日
+ * @author caiyicheng
+ */
 public class PaymentService implements IPaymentService {
 
 	private static PaymentService paymentService=null;
@@ -25,6 +31,13 @@ public class PaymentService implements IPaymentService {
 	private IProductService productService;
 	private IMemberService memberService;
 	public static MemberBean nonMember=new MemberBean();
+	/**
+	 * Method name: getInstance <BR>
+	 * Description: Get The Instance Of PaymentService <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws ServiceNotFoundException  PaymentService<BR>
+	 */
 	public static PaymentService getInstance() throws ServiceNotFoundException{
 		if(paymentService==null){
 			paymentService=new PaymentService();
@@ -32,6 +45,12 @@ public class PaymentService implements IPaymentService {
 		return paymentService;
 	}
 	
+	/**
+	 * Method name: PaymentService<BR>
+	 * Description: Constructor of PaymentService<BR>
+	 * Remark: <BR>
+	 * @throws ServiceNotFoundException <BR>
+	 */
 	private PaymentService() throws ServiceNotFoundException{
 		discountService=(DiscountService)ServiceManager.getService("Discount");
 		transService=(TransactionService)ServiceManager.getService("Transaction");
@@ -41,22 +60,45 @@ public class PaymentService implements IPaymentService {
 		nonMember.setName("N/A");
 		nonMember.setLoyaltyPoint("0");
 	}
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#isMember(java.lang.String) <BR>
+	 * Method name: isMember <BR>
+	 * Description: Check is member by user id <BR>
+	 * Remark: <BR>
+	 * @param id
+	 * @return  <BR>
+	*/
 	@Override
 	public boolean isMember(String id) {
-		// TODO 自动生成的方法存根
 		return getMemberById(id)!=null;
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#isNewMember(java.lang.String) <BR>
+	 * Method name: isNewMember <BR>
+	 * Description: Check is new member by user id <BR>
+	 * Remark: <BR>
+	 * @param id
+	 * @return  <BR>
+	*/
 	@Override
 	public boolean isNewMember(String id) {
-		// TODO 自动生成的方法存根
-		
 		return isMember(id)&&getMemberById(id).getLoyaltyPoint().equals("-1");
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#getMemberById(java.lang.String) <BR>
+	 * Method name: getMemberById <BR>
+	 * Description: Get the member by member id <BR>
+	 * Remark: <BR>
+	 * @param id
+	 * @return  <BR>
+	*/
 	@Override
 	public MemberBean getMemberById(String id) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("id", id);
 		List<MemberBean>memberList=memberService.getMemberByMap(map);
@@ -66,20 +108,34 @@ public class PaymentService implements IPaymentService {
 		return memberList.get(0);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#getBestDiscountByMemberBean(com.ft9.bean.MemberBean) <BR>
+	 * Method name: getBestDiscountByMemberBean <BR>
+	 * Description: get the best discount by memberBean <BR>
+	 * Remark: <BR>
+	 * @param memberBean
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IllegalArgumentException
+	 * @throws Exception  <BR>
+	*/
 	@Override
 	public DiscountBean getBestDiscountByMemberBean(MemberBean memberBean) throws NumberFormatException, IllegalArgumentException, Exception {
-		// TODO 自动生成的方法存根
 		if(memberBean==null){
 			memberBean=nonMember;
 		}
 		Map<String,String>discountSearchMap=new HashMap<String,String>();
+		//If the user is not member,find the discount which is applicable for public
 		if(memberBean.getId().equals("PUBLIC")){
 			discountSearchMap.put("memberApplicable", "A");
 		}else{
+			//Do Nothing
 		}
 		
 		List<DiscountBean>availableDiscountList=discountService.getDiscountByMap(discountSearchMap);
 		
+		//if it is new member,find the MEMBER_FIRST discount
 		if(!this.isNewMember(memberBean.getId())){
 			for(int i=0;i<availableDiscountList.size();++i){
 				if(availableDiscountList.get(i).getCode().equals("MEMBER_FIRST")){
@@ -90,6 +146,7 @@ public class PaymentService implements IPaymentService {
 		}
 		int maxDiscountRate=-1;
 		DiscountBean selectedDiscountBean=null;
+		//Find the valid discount
 		for(DiscountBean discountBean:availableDiscountList){
 			String startTime=discountBean.getStartDate();
 			String period=discountBean.getDiscountPeriod();
@@ -127,9 +184,17 @@ public class PaymentService implements IPaymentService {
 		return selectedDiscountBean;
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#getProductBeanByBarcode(java.lang.String) <BR>
+	 * Method name: getProductBeanByBarcode <BR>
+	 * Description: Get the product by the product barcode <BR>
+	 * Remark: <BR>
+	 * @param barcode
+	 * @return  <BR>
+	*/
 	@Override
 	public ProductBean getProductBeanByBarcode(String barcode) {
-		// TODO 自动生成的方法存根
 		List<ProductBean>productList=productService.getProductByKey("barCode", barcode);
 		if(productList==null||productList.size()==0){
 			return null;
@@ -137,29 +202,58 @@ public class PaymentService implements IPaymentService {
 		return productList.get(0);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#updateMemberInfo(com.ft9.bean.MemberBean) <BR>
+	 * Method name: updateMemberInfo <BR>
+	 * Description: update the member info <BR>
+	 * Remark: <BR>
+	 * @param memberBean
+	 * @return  <BR>
+	*/
 	@Override
 	public boolean updateMemberInfo(MemberBean memberBean) {
-		// TODO 自动生成的方法存根
-		
 		return memberService.updateMember(memberBean);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#addTransactionInfo(java.util.List) <BR>
+	 * Method name: addTransactionInfo <BR>
+	 * Description: Add the transaction info by bean list <BR>
+	 * Remark: <BR>
+	 * @param transactionInfoBeanList
+	 * @return  <BR>
+	*/
 	@Override
 	public int addTransactionInfo(List<TransactionBean> transactionInfoBeanList) {
-		// TODO 自动生成的方法存根
-		
 		return transService.addTransactionByBeanList(transactionInfoBeanList);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#getMaxTransId() <BR>
+	 * Method name: getMaxTransId <BR>
+	 * Description: To generate a new transaction id <BR>
+	 * Remark: Returns the current max transaction id+1<BR>
+	 * @return  <BR>
+	*/
 	@Override
 	public int getMaxTransId() {
-		// TODO 自动生成的方法存根
 		return transService.getMaxTransactionID();
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#getProductBeanById(java.lang.String) <BR>
+	 * Method name: getProductBeanById <BR>
+	 * Description: Get the product bean by product id <BR>
+	 * Remark: <BR>
+	 * @param id
+	 * @return  <BR>
+	*/
 	@Override
 	public ProductBean getProductBeanById(String id) {
-		// TODO 自动生成的方法存根
 		List<ProductBean>productList=productService.getProductByKey("id", id);
 		if(productList==null||productList.size()==0){
 			return null;
@@ -167,9 +261,17 @@ public class PaymentService implements IPaymentService {
 		return productList.get(0);
 	}
 
+	/**
+	 * @Override
+	 * @see com.ft9.service.IPaymentService#updateProduct(com.ft9.bean.ProductBean) <BR>
+	 * Method name: updateProduct <BR>
+	 * Description: update the product by product bean <BR>
+	 * Remark: <BR>
+	 * @param productBean
+	 * @return  <BR>
+	*/
 	@Override
 	public boolean updateProduct(ProductBean productBean) {
-		// TODO 自动生成的方法存根
 		return productService.updateProductByBean(productBean);
 	}
 

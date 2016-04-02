@@ -12,73 +12,97 @@ import com.ft9.dao.DaoException;
 import com.ft9.dao.intl.IProductDao;
 
 
+/**
+ * class name:ProductDao <BR>
+ * class description: The implement of productdao <BR>
+ * Remark: <BR>
+ * @version 1.00 2016年4月2日
+ * @author caiyicheng
+ */
 public class ProductDao extends BaseDao implements IProductDao{
 
+	private static ProductDao productDao=null;
+	/**
+	 * Method name: ProductDao<BR>
+	 * Description: The constructor of productdao<BR>
+	 * Remark: <BR>
+	 * @throws FileNotFoundException
+	 * @throws IOException <BR>
+	 */
 	private ProductDao() throws FileNotFoundException, IOException{
 		super(FileConst.getFileNameByBeanName("Product"));
 	}
 	
-	private static ProductDao productDao=null;
+	/**
+	 * Method name: getInstance <BR>
+	 * Description: Get the instance of product dao <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException  ProductDao<BR>
+	 */
 	public static ProductDao getInstance() throws FileNotFoundException, IOException{
 		if(productDao==null){
 			productDao=new ProductDao();
 		}
 		return productDao;
 	}
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IProductDao#getProductsByMap(java.util.Map) <BR>
+	 * Method name: getProductsByMap <BR>
+	 * Description:Get product by search map<BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return  <BR>
+	*/
 	public List<ProductBean>getProductsByMap(Map<String,String>map){
 		try {
 			return super.<ProductBean>transferObjectList2BeanList(super.getBeanByMap(map));
 		} catch (DaoException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IProductDao#insertProductByBean(com.ft9.bean.ProductBean) <BR>
+	 * Method name: insertProductByBean <BR>
+	 * Description: Insert Product Record by bean <BR>
+	 * Remark: <BR>
+	 * @param productBean
+	 * @return  <BR>
+	*/
 	public boolean insertProductByBean(ProductBean productBean){
 		return super.addBean(productBean);
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IProductDao#deleteProductByMap(java.util.Map) <BR>
+	 * Method name: deleteProductByMap <BR>
+	 * Description: Delete product record by map <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return  <BR>
+	*/
 	public int deleteProductByMap(Map<String,String>map){
 		return super.deleteBeanByMap(map);
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IProductDao#updateProduct(com.ft9.bean.ProductBean, java.util.Map) <BR>
+	 * Method name: updateProduct <BR>
+	 * Description: Update product record by bean and search map <BR>
+	 * Remark: <BR>
+	 * @param productBean
+	 * @param map
+	 * @return  <BR>
+	*/
 	public int updateProduct(ProductBean productBean,Map<String,String>map){
 		return super.updateBeanByMap(productBean, map);
 	}
-	
-/*	  public static void main(String[] s)  {
-	    	//FileUtil fileUtil=new FileUtil("Products.dat");
-	    	
-	    	try {
-	    		//fileUtil.creatFile();
-	    		ProductDao productDao=new ProductDao();
-	    		productDao.getProductsByMap(new HashMap<String,String>());
-	    		ProductBean productBean=new ProductBean();
-	    		productBean.setBarCode("1001001001");
-	    		productBean.setDescription("THIS IS DESCRIPTION");
-	    		productBean.setId("ID24");
-	    		productBean.setName("THIS IS NAMEsdasdasd");
-	    		productBean.setOrderQuantity("123456");
-	    		productBean.setPrice("123456");
-	    		productBean.setQuantityAvailable("qwdaf");
-	    		productBean.setReorderQuantity("asdasds");
-	    		productDao.addBean(productBean);
-	    		Map<String,String>map=new HashMap<String,String>();
-	    		map.put("id", "ID");
-	    		map.put("barCode", "1001001001");
-	    		List<ProductBean>beans=productDao.getProductsByMap(map);
-	    		
-	    		for(ProductBean bean:beans){
-	    			
-	    			System.out.println(BeanUtil.outputBean(bean));
-	    		}
-	    		System.out.println(productDao.updateProduct(productBean, map));
-			} catch (Exception e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
-			}
-
-	    }*/
 
 }

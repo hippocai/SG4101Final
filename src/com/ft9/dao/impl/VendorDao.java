@@ -10,36 +10,94 @@ import com.ft9.common.FileConst;
 import com.ft9.dao.DaoException;
 import com.ft9.dao.intl.IVendorDao;
 
+/**
+ * class name:VendorDao <BR>
+ * class description: The implement of the IVendorDao <BR>
+ * Remark: <BR>
+ * @version 1.00 2016年4月2日
+ * @author caiyicheng
+ */
 public class VendorDao extends BaseDao implements IVendorDao {
+	private static VendorDao vendorDao=null;
+	/**
+	 * Method name: VendorDao<BR>
+	 * Description: The Constructor of vendor dao<BR>
+	 * Remark: <BR>
+	 * @throws FileNotFoundException
+	 * @throws IOException <BR>
+	 */
 	private VendorDao() throws FileNotFoundException, IOException{
 		super(FileConst.getFileNameByBeanName("Vendor"));
 	}
-	
-	private static VendorDao vendorDao=null;
+
+	/**
+	 * Method name: getInstance <BR>
+	 * Description: Get the instance of Dao <BR>
+	 * Remark: <BR>
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException  VendorDao<BR>
+	 */
 	public static VendorDao getInstance() throws FileNotFoundException, IOException{
 		if(vendorDao==null){
 			vendorDao=new VendorDao();
 		}
 		return vendorDao;
 	}
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IVendorDao#getVendorsByMap(java.util.Map) <BR>
+	 * Method name: getVendorsByMap <BR>
+	 * Description: Get the vendor by search map <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return  <BR>
+	*/
 	public List<VendorBean>getVendorsByMap(Map<String,String>map){
 		try {
 			return super.<VendorBean>transferObjectList2BeanList(super.getBeanByMap(map));
 		} catch (DaoException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IVendorDao#insertVendorByBean(com.ft9.bean.VendorBean) <BR>
+	 * Method name: insertVendorByBean <BR>
+	 * Description: Insert record by bean <BR>
+	 * Remark: <BR>
+	 * @param vendorBean
+	 * @return  <BR>
+	*/
 	public boolean insertVendorByBean(VendorBean vendorBean){
 		return super.addBean(vendorBean);
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IVendorDao#deleteVendorByMap(java.util.Map) <BR>
+	 * Method name: deleteVendorByMap <BR>
+	 * Description: Delete vendor record by search map <BR>
+	 * Remark: <BR>
+	 * @param map
+	 * @return  <BR>
+	*/
 	public int deleteVendorByMap(Map<String,String>map){
 		return super.deleteBeanByMap(map);
 	}
 	
+	/**
+	 * @Override
+	 * @see com.ft9.dao.intl.IVendorDao#updateVendor(com.ft9.bean.VendorBean, java.util.Map) <BR>
+	 * Method name: updateVendor <BR>
+	 * Description: Update vendor record by new Vendor bean and search Map<BR>
+	 * Remark: <BR>
+	 * @param vendorBean
+	 * @param map
+	 * @return  <BR>
+	*/
 	public int updateVendor(VendorBean vendorBean,Map<String,String>map){
 		return super.updateBeanByMap(vendorBean, map);
 	}

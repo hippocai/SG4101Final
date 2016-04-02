@@ -2,6 +2,13 @@ package com.ft9.dao;
 /**
  * @author CaiYicheng
  */
+/**
+ * class name:KeyNotExistException <BR>
+ * class description: Key not found exception <BR>
+ * Remark: <BR>
+ * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @author caiyicheng
+ */
 public class KeyNotExistException extends DaoException {
 
 	/**
