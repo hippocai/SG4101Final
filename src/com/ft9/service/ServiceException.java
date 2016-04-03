@@ -4,7 +4,7 @@ package com.ft9.service;
  * class name:ServiceException <BR>
  * class description: Exception in the service <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê3ÔÂ31ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class ServiceException extends Exception {

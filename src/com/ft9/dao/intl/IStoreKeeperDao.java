@@ -9,7 +9,7 @@ import com.ft9.bean.StoreKeeperBean;
  * class name:IStoreKeeperDao <BR>
  * class description: The interface of storekeeper dao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public interface IStoreKeeperDao {

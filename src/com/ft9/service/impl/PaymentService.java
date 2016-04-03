@@ -20,7 +20,7 @@ import com.ft9.util.TimeUtil;
  * class name:PaymentService <BR>
  * class description: please write your description <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class PaymentService implements IPaymentService {

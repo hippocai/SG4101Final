@@ -12,7 +12,7 @@ import com.ft9.bean.DiscountBean;
  * class name:IDiscountDao <BR>
  * class description: The Interface of discount dao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public interface IDiscountDao {

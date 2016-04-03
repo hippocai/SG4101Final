@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ft9.bean.VendorBean;
-import com.ft9.common.FileConst;
 import com.ft9.dao.DaoException;
 import com.ft9.dao.intl.IVendorDao;
 
@@ -14,11 +13,12 @@ import com.ft9.dao.intl.IVendorDao;
  * class name:VendorDao <BR>
  * class description: The implement of the IVendorDao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class VendorDao extends BaseDao implements IVendorDao {
 	private static VendorDao vendorDao=null;
+	@SuppressWarnings("unused")
 	private String categoryName=null;
 	/**
 	 * Method name: VendorDao<BR>

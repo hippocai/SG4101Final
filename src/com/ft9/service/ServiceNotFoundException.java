@@ -4,7 +4,7 @@ package com.ft9.service;
  * class name:ServiceNotFoundException <BR>
  * class description: The exception of service not found <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class ServiceNotFoundException extends ServiceException {

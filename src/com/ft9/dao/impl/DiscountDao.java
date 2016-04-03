@@ -14,7 +14,7 @@ import com.ft9.dao.intl.IDiscountDao;
  * class name:DiscountDao <BR>
  * class description: The implement of the IDiscountDao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class DiscountDao extends BaseDao implements IDiscountDao {

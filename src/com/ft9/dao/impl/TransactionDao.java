@@ -14,7 +14,7 @@ import com.ft9.dao.intl.ITransactionDao;
  * class name:TransactionDao <BR>
  * class description: The implement of the ITransactionDao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class TransactionDao extends BaseDao implements ITransactionDao{

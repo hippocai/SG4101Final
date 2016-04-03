@@ -22,7 +22,7 @@ import com.ft9.dao.impl.VendorDao;
  * class name:DAOer <BR>
  * class description: DAO management class <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class DAOer {

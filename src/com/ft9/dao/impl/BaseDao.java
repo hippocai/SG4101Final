@@ -28,7 +28,7 @@ import com.ft9.util.StringUtil;
  * class name:BaseDao <BR>
  * class description: Provide the implementation of all necessary methods for each specific Dao<BR>
  * Remark: <BR>
- * @version 1.00 2016Äê3ÔÂ30ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public abstract class BaseDao {
@@ -105,6 +105,7 @@ public abstract class BaseDao {
 	protected int deleteBeanByMap(Map<String,String>map){
 		try{
 			log.info("(DAO)Delete Bean By Map:"+StringUtil.transferStringmap2String(map));
+			@SuppressWarnings("unused")
 			List<Object> savedBeans=this.getAllTheBeansFromFile();
 			List<Object>selectedBeanList=this.getBeanByMap(map);
 			for(Object bean:selectedBeanList){

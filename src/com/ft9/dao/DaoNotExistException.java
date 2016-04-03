@@ -10,7 +10,7 @@ package com.ft9.dao;
  * class name:DaoNotExistException <BR>
  * class description: DAO not found exception <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class DaoNotExistException extends DaoException {

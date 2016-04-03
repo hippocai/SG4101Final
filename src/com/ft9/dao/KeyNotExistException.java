@@ -6,7 +6,7 @@ package com.ft9.dao;
  * class name:KeyNotExistException <BR>
  * class description: Key not found exception <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class KeyNotExistException extends DaoException {

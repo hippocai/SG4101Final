@@ -1,7 +1,6 @@
 package com.ft9.view.panel;
 
 import javax.swing.JOptionPane;
-
 import com.ft9.annotation.Menu;
 import com.ft9.common.Session;
 import com.ft9.service.IStoreKeeperService;
@@ -157,6 +156,7 @@ public class ModifyPasswordPanel extends javax.swing.JPanel {
    	}else{
    		JOptionPane.showMessageDialog(null, "Modify Successful.", "Success", JOptionPane.OK_OPTION);
    		this.clearAllTxt();
+   		ViewManager.goToHomePanel();
    		return;
    	}
    

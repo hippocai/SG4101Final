@@ -13,7 +13,7 @@ import com.ft9.bean.CategoryBean;
  * class name:ICategoryDao <BR>
  * class description: The Interface of category dao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public interface ICategoryDao {

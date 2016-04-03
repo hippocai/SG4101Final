@@ -9,7 +9,7 @@ import com.ft9.bean.ProductBean;
  * class name:IProductDao <BR>
  * class description: The interface of product dao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public interface IProductDao {

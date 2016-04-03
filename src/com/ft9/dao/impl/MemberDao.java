@@ -14,7 +14,7 @@ import com.ft9.dao.intl.IMemberDao;
  * class name:MemberDao <BR>
  * class description: The implement of the IMemberDao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class MemberDao extends BaseDao implements IMemberDao {

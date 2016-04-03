@@ -6,7 +6,7 @@ package com.ft9.dao;
  * class name:DaoException <BR>
  * class description: DAO Exception <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class DaoException extends Exception {

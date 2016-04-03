@@ -13,10 +13,14 @@ import com.ft9.service.impl.CategoryService;
 import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 
+
 /**
-*
-* @author hippo
-*/
+ * class name:AddCategoryPanel <BR>
+ * class description: Category Addition Panel <BR>
+ * Remark: <BR>
+ * @version 1.00
+ * @author Guo Qi
+ */
 public class AddCategoryPanel extends javax.swing.JPanel implements ActionListener {
 
 	
@@ -34,7 +38,12 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
        initComponents();
    }
 
-   private void initComponents() {
+   /**
+ * Method name: initComponents <BR>
+ * Description: Init Components In AddCategoryPanel <BR>
+ * Remark: <BR>  void<BR>
+ */
+private void initComponents() {
 	   
        goBackBtn = ViewManager.createGoBackButton();
        goHomeBtn = ViewManager.createGoHomeButton();
@@ -106,11 +115,15 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
                    .addComponent(submitBtn))
                .addContainerGap(306, Short.MAX_VALUE))
        );
-   }// </editor-fold>                        
+   }                   
 
 
-   private void clearAllTextArea() {                                         
-       // TODO add your handling code here:
+   /**
+ * Method name: clearAllTextArea <BR>
+ * Description: Clear All TextFields <BR>
+ * Remark: <BR>  void<BR>
+ */
+private void clearAllTextArea() {                                         
 	   codeTxtArea.setText("");
 	   nameTxtField.setText("");
        this.clearAllTextError();
@@ -118,7 +131,13 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
    }      
    
    
-   private CategoryBean generateDataBean(){
+   /**
+ * Method name: generateDataBean <BR>
+ * Description: Check All TextFields And Get Inputs <BR>
+ * Remark: <BR>
+ * @return  CategoryBean<BR>
+ */
+private CategoryBean generateDataBean(){
    	if(!checkIfAllTxtFulfilled()){
    		JOptionPane.showMessageDialog(null, "Every column can't be null", "Error", JOptionPane.ERROR_MESSAGE);
    		return null;
@@ -141,7 +160,12 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
    	return categoryBean;
    }
    
-   public void submitExec(){
+   /**
+ * Method name: submitExec <BR>
+ * Description: Submit Execute <BR>
+ * Remark: <BR>  void<BR>
+ */
+public void submitExec(){
    	this.clearAllTextError();
    	CategoryBean categoryBean=this.generateDataBean();
    	if(categoryBean==null){
@@ -155,6 +179,12 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
    	
    	}
    	
+    /**
+     * Method name: checkIfAllTxtFulfilled <BR>
+     * Description: Check If All Text Fulfilled <BR>
+     * Remark: <BR>
+     * @return  boolean<BR>
+     */
     private boolean checkIfAllTxtFulfilled(){
     	
     	if(ViewUtil.isJTextEmpty(codeTxtArea)){
@@ -167,13 +197,17 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
     	return true;
     }
     
+    /**
+     * Method name: clearAllTextError <BR>
+     * Description: Clear All Text Error <BR>
+     * Remark: <BR>  void<BR>
+     */
     private void clearAllTextError(){
     	ViewUtil.clearJTextError(codeTxtArea);
     	ViewUtil.clearJTextError(nameTxtField);
     	
     }
 
-   // Variables declaration - do not modify                     
    private javax.swing.JButton goHomeBtn;
    private javax.swing.JButton goBackBtn;
    private javax.swing.JButton submitBtn;
@@ -182,10 +216,18 @@ public class AddCategoryPanel extends javax.swing.JPanel implements ActionListen
    private javax.swing.JLabel jLabel2;
    private javax.swing.JTextField codeTxtArea;
    private javax.swing.JTextField nameTxtField;
-   // End of variables declaration                   
+   // End of variables declaration       
+   
+/**
+ * @Override
+ * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent) <BR>
+ * Method name: actionPerformed <BR>
+ * Description: Judge Which Button Is Pressed <BR>
+ * Remark: <BR>
+ * @param arg0  <BR>
+*/
 @Override
 public void actionPerformed(ActionEvent arg0) {
-	// TODO 自动生成的方法存根
 	if(arg0.getSource()==submitBtn){
 		submitExec();
 	}else if(arg0.getSource()==clearBtn){

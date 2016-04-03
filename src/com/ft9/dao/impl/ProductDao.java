@@ -16,7 +16,7 @@ import com.ft9.dao.intl.IProductDao;
  * class name:ProductDao <BR>
  * class description: The implement of productdao <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 public class ProductDao extends BaseDao implements IProductDao{
