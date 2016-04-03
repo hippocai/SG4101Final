@@ -95,7 +95,7 @@ public class AddProductPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Quantity:");
 
-        jLabel5.setText("Order Quantity:");
+        jLabel5.setText("Order:");
 
         jLabel6.setText("Description:");
 

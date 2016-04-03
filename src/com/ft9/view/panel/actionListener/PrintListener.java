@@ -23,7 +23,7 @@ public class PrintListener implements ActionListener {
 	*/
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		JOptionPane.showMessageDialog(null, "Can not find printer", "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Cannot find printer", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
 }

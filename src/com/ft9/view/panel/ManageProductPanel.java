@@ -225,7 +225,12 @@ public class ManageProductPanel extends javax.swing.JPanel implements ActionList
 			JOptionPane.showMessageDialog(null, "Please select at least 1 item to delete", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		int options=JOptionPane.showConfirmDialog(null, "Are you ready to delete this "+selectedDatas.size()+"Items?", "Info",JOptionPane.YES_NO_OPTION);
+		int options = 1;
+		if(selectedDatas.size() == 1){
+			options = JOptionPane.showConfirmDialog(null, "Are you ready to delete this Item ?", "Info",JOptionPane.YES_NO_OPTION);
+		}else{
+			options = JOptionPane.showConfirmDialog(null, "Are you ready to delete these "+selectedDatas.size()+" Items ?", "Info",JOptionPane.YES_NO_OPTION);
+		}
 		if(options==1){
 			return;
 		}

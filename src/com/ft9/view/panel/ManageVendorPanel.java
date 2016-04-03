@@ -316,7 +316,11 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
 		JOptionPane.showMessageDialog(null, "Please At Least Choose One Vendor To Delete !", "Error", JOptionPane.ERROR_MESSAGE);
 		return;
 	}
-	option = JOptionPane.showConfirmDialog(null, "Are You Sure To Delete The " + selectedData.size() + " Vendor ?", "Info", JOptionPane.YES_NO_OPTION);
+	if(selectedData.size() == 1){
+		option = JOptionPane.showConfirmDialog(null, "Are You Sure To Delete This Vendor ?", "Info", JOptionPane.YES_NO_OPTION);
+	}else{
+		option = JOptionPane.showConfirmDialog(null, "Are You Sure To Delete These " + selectedData.size() + " Vendors ?", "Info", JOptionPane.YES_NO_OPTION);
+	}
 	if (option == 1){
 		return;
 	}else {

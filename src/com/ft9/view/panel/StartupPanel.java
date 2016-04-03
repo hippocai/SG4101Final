@@ -44,8 +44,8 @@ public class StartupPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel2.setText("Welcome To Use University Souvenir Store Application");
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18));
+        jLabel2.setText("Welcome To University Souvenir Store Application");
 
         payBtn.setIcon(IconManager.getIcon("pay"));
         payBtn.addActionListener(new ActionListener() {

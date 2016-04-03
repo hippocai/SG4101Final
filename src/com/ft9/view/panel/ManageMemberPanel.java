@@ -282,7 +282,12 @@ public class ManageMemberPanel extends javax.swing.JPanel implements ActionListe
 			JOptionPane.showMessageDialog(null, "Please at least choose one member to delete !", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		int option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this " + selectedData.size() + "items ?", "info", JOptionPane.YES_NO_OPTION);
+		int option = 1;
+		if(selectedData.size() == 1){
+			option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this item ?", "info", JOptionPane.YES_NO_OPTION);
+		}else{
+			option = JOptionPane.showConfirmDialog(null, "Are you sure to delete these " + selectedData.size() + " items ?", "info", JOptionPane.YES_NO_OPTION);
+		}
 		if (option == 1){
 			return;
 		}else{

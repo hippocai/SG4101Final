@@ -147,7 +147,6 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 	*/
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		Object source = arg0.getSource();
 		// if user presses the "Add button", the screen skip to the AddStorekeeper screen,
 		// if user presses other buttons, excute the corresponding functions
@@ -155,7 +154,6 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 			try {
 				ViewManager.goToSubFunctionScreen(new AddStorekeeperPanel());
 			} catch (ServiceNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(source == jButtonDelete){
@@ -171,14 +169,18 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 	 * Remark: <BR>  void<BR>
 	 */
 	private void deleteExcu() {
-		// TODO Auto-generated method stub
 		int option;
 		List<HashMap<String, String>> selectedData = ViewUtil.getSelectedData(jTable1);
 		if (selectedData.size() < 1){
 			JOptionPane.showMessageDialog(null, "Please at least choose one storekeeper to delete !", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this " + selectedData.size() + " storekeeper?", "Confirm", JOptionPane.YES_NO_OPTION);
+		option = 1;
+		if(selectedData.size() == 1){
+			option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this " + selectedData.size() + " storekeeper ?", "Confirm", JOptionPane.YES_NO_OPTION);
+		}else{
+			option = JOptionPane.showConfirmDialog(null, "Are you sure to delete these " + selectedData.size() + " storekeepers ?", "Confirm", JOptionPane.YES_NO_OPTION);
+		}
 		if (option == 1){
 			return;
 		}else{
@@ -200,7 +202,6 @@ public class StorekeeperManagePanel extends javax.swing.JPanel implements Proper
 	*/
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if (this.getClientProperty("Refresh") != null && this.getClientProperty("Refresh").equals("True")){
 			initDatas();
 			putClientProperty("Refresh", "False");
