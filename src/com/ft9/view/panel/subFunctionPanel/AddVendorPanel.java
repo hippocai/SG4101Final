@@ -275,7 +275,7 @@ public class AddVendorPanel extends javax.swing.JPanel {
 		}
 		setTable();
     }
-    
+     
     private void clearAllTheData(){
     	descTxtField.setText("");
     	if(type==ADD_NEW_VENDOR){
