@@ -12,13 +12,13 @@ public class FileConst {
 	private static Map<String,String>fileNameMap=new HashMap<String,String>();
 	
 	static{
-		fileNameMap.put("Product", "Products.dat");
-		fileNameMap.put("Category", "Category.dat");
-		fileNameMap.put("Member", "Members.dat");
-		fileNameMap.put("Transaction", "Transactions.dat");
-		fileNameMap.put("Discount", "Discounts.dat");
+		fileNameMap.put("Product", "data/Products.dat");
+		fileNameMap.put("Category", "data/Category.dat");
+		fileNameMap.put("Member", "data/Members.dat");
+		fileNameMap.put("Transaction", "data/Transactions.dat");
+		fileNameMap.put("Discount", "data/Discounts.dat");
 		//fileNameMap.put("Vendor", "VendorsMUG.dat");
-		fileNameMap.put("StoreKeeper", "StoreKeepers.dat");
+		fileNameMap.put("StoreKeeper", "data/StoreKeepers.dat");
 		
 	}
 

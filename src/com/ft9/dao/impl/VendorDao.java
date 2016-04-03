@@ -106,7 +106,7 @@ public class VendorDao extends BaseDao implements IVendorDao {
 	@Override
 	public void setCategory(String category) throws IOException {
 		// TODO 自动生成的方法存根
-		super.setFilepath("Vendors"+category+".dat");
+		super.setFilepath("data/Vendors"+category+".dat");
 		
 	}
 }
