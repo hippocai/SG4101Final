@@ -15,11 +15,15 @@ import com.ft9.view.ViewManager;
  *
  * @author apple
  */
+/**
+ * class name:AddProductPanel <BR>
+ * class description: Add Product Panel <BR>
+ * Remark: <BR>
+ * @version 1.00 
+ * @author Guo Qi
+ */
 public class AddProductPanel extends javax.swing.JPanel {
 
-    /**  
-	 * define a field serialVersionUID which type is long
-	 */
 	private static final long serialVersionUID = 1L;
 	private static Logger log = Logger.getLogger(AddProductPanel.class);
 	private IProductService productService=null;
@@ -41,6 +45,11 @@ public class AddProductPanel extends javax.swing.JPanel {
        
    }
 
+   /**
+ * Method name: setDatas <BR>
+ * Description: Set Datas <BR>
+ * Remark: <BR>  void<BR>
+ */
    private void setDatas(){
    	if(productBean==null){
    		return;
@@ -60,6 +69,11 @@ public class AddProductPanel extends javax.swing.JPanel {
     }
    }
    
+    /**
+     * Method name: initComponents <BR>
+     * Description: Init Components <BR>
+     * Remark: <BR>  void<BR>
+     */
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -224,10 +238,14 @@ public class AddProductPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
         );
-    }// </editor-fold>  
+    }  
 
+    /**
+     * Method name: clearAllTextArea <BR>
+     * Description: Clear All TextArea <BR>
+     * Remark: <BR>  void<BR>
+     */
     private void clearAllTextArea() {                                         
-        // TODO add your handling code here:
         descTxtArea.setText("");
         nameTxtField.setText("");
         quantityTxtField.setText("");
@@ -239,6 +257,11 @@ public class AddProductPanel extends javax.swing.JPanel {
         
     }      
     
+    /**
+     * Method name: submitExec <BR>
+     * Description: Submit Execute <BR>
+     * Remark: <BR>  void<BR>
+     */
     public void submitExec(){
  	   log.info("submitExec");
     	this.clearAllTextError();
@@ -265,6 +288,12 @@ public class AddProductPanel extends javax.swing.JPanel {
     	
     }
     
+    /**
+     * Method name: generateDataBean <BR>
+     * Description: Check Datas <BR>
+     * Remark: <BR>
+     * @return  ProductBean<BR>
+     */
     private ProductBean generateDataBean(){
  	   log.info("Generate Bean");
     	if(!checkIfAllTxtFulfilled()){
@@ -291,6 +320,12 @@ public class AddProductPanel extends javax.swing.JPanel {
     	return newProductBean;
     }
     
+    /**
+     * Method name: checkTxtNumberical <BR>
+     * Description: Check Text Is Integer <BR>
+     * Remark: <BR>
+     * @return  boolean<BR>
+     */
     private boolean checkTxtNumberical(){
  	   if(!ViewUtil.isJTextNumberical(orderQuantityTxtField)){
  		   ViewUtil.setJTextError(orderQuantityTxtField);
@@ -307,6 +342,13 @@ public class AddProductPanel extends javax.swing.JPanel {
  	   }
  	   return true;
     }
+    
+    /**
+     * Method name: checkIfAllTxtFulfilled <BR>
+     * Description: Check If All Text Fulfilled <BR>
+     * Remark: <BR>
+     * @return  boolean<BR>
+     */
     private boolean checkIfAllTxtFulfilled(){
     	
     	if(ViewUtil.isJTextEmpty(nameTxtField)){
@@ -334,6 +376,11 @@ public class AddProductPanel extends javax.swing.JPanel {
     	return true;
     }
     
+    /**
+     * Method name: clearAllTextError <BR>
+     * Description: Clear All TextError <BR>
+     * Remark: <BR>  void<BR>
+     */
     private void clearAllTextError(){
     	ViewUtil.clearJTextError(nameTxtField);
     	ViewUtil.clearJTextError(descTxtArea);
@@ -344,7 +391,6 @@ public class AddProductPanel extends javax.swing.JPanel {
     	ViewUtil.clearJTextError(orderQuantityTxtField);
     }
 
-    // Variables declaration - do not modify                     
     private javax.swing.JButton backBtn;
     private javax.swing.JButton homeBtn;
     private javax.swing.JButton submitBtn;
