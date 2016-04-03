@@ -12,10 +12,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.ft9.bean.CategoryBean;
 import com.ft9.bean.VendorBean;
 import com.ft9.dao.DAOer;
+import com.ft9.service.ICategoryService;
 import com.ft9.service.IVendorService;
 import com.ft9.service.ServiceManager;
+import com.ft9.service.impl.CategoryService;
 import com.ft9.service.impl.VendorService;
 
 /**
@@ -28,6 +31,7 @@ import com.ft9.service.impl.VendorService;
 public class VendorServiceTest {
 
 	IVendorService vendorService;
+	ICategoryService categoryService;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -41,6 +45,7 @@ public class VendorServiceTest {
 		DAOer.initDao();
 		ServiceManager.init();
 		vendorService=(VendorService) ServiceManager.getService("Vendor");
+		categoryService=(CategoryService)ServiceManager.getService("Category");
 	}
 
 	@After
@@ -49,33 +54,10 @@ public class VendorServiceTest {
 
 	@Test
 	public void test() {
-		/*
 		VendorBean vendorBean=new VendorBean();
-		vendorBean.setDescription("test123456");
-		vendorBean.setName("testName");
-		//add a new vendor
-		vendorService.addNewVendor(vendorBean);
-		Map<String,String>map=new HashMap<String,String>();
-		map.put("name", "testName");
-		List<VendorBean> testBeanList=vendorService.getVendorByMap(map);
-		//after the new vendor is added
-		//test if the new record is successfully added
-		assertTrue(vendorService.isCodeExist("testName"));
-		assertNotNull(testBeanList);
-		assertTrue(testBeanList.size()==1);
-		assertEquals("test123456", testBeanList.get(0).getDescription());
-		//modify the new record
-		vendorBean.setDescription("testModified");
-		vendorService.updateVendor(vendorBean);
-		testBeanList=vendorService.getVendorByMap(map);
-		//test if the record is successfully modified
-		assertEquals("testModified", testBeanList.get(0).getDescription());
-		//delete the record
-		vendorService.deleteVendorByMap(map);
-		testBeanList=vendorService.getVendorByMap(map);
-		//test if the record is successfully deleted
-		assertTrue(testBeanList.size()==0);
-		*/
+		vendorBean.setDescription("A Company");
+		vendorBean.setName("Test Vendor");
+		List<CategoryBean>allCategoryList=categoryService.getAllCategorys();
 	}
 
 }
