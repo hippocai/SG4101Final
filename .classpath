@@ -9,7 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="src/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="quaqua.jar"/>
-	<classpathentry kind="lib" path="swing-layout.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

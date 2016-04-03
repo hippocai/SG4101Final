@@ -20,8 +20,21 @@ import org.apache.log4j.Logger;
 
 import com.ft9.annotation.Menu;
 import com.ft9.common.StructConst;
+import com.ft9.service.ServiceNotFoundException;
 import com.ft9.util.ClassUtils;
+import com.ft9.view.panel.DiscountManagePanel;
+import com.ft9.view.panel.HelpPanel;
+import com.ft9.view.panel.ManageCategoryPanel;
+import com.ft9.view.panel.ManageMemberPanel;
+import com.ft9.view.panel.ManageProductPanel;
+import com.ft9.view.panel.ManageVendorPanel;
+import com.ft9.view.panel.ModifyPasswordPanel;
+import com.ft9.view.panel.PaymentPanel;
+import com.ft9.view.panel.PrintReportPanel;
+import com.ft9.view.panel.ProductsEntryPanel;
+import com.ft9.view.panel.ProductsReplenishPanel;
 import com.ft9.view.panel.StartupPanel;
+import com.ft9.view.panel.StorekeeperManagePanel;
 import com.ft9.view.panel.actionListener.GoBackListener;
 import com.ft9.view.panel.actionListener.GoHomeListener;
 import com.ft9.view.panel.actionListener.PrintListener;
@@ -41,8 +54,9 @@ public class ViewManager {
 	 * Init Views
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void initViews(){
+	public static void initViews()throws Exception{
 		log.info("Initialing Panels...");
+		checkAllPanels();
 		//Put all panel classes into the list
 		panelStack=new Stack<JPanel>();
 		List<Class> allPanels=ClassUtils.getAllClassByFatherClass(JPanel.class, StructConst.PanelPackage);
@@ -305,6 +319,22 @@ public class ViewManager {
 				rightPanel.setViewportView(panel);
 			}
 		}
+	}
+	
+	private static void checkAllPanels() throws ServiceNotFoundException{
+		new DiscountManagePanel();
+		new HelpPanel();
+		new ManageCategoryPanel();
+		new ManageMemberPanel();
+		new ManageProductPanel();
+		new ManageVendorPanel();
+		new ModifyPasswordPanel();
+		new PaymentPanel();
+		new PrintReportPanel();
+		new ProductsEntryPanel();
+		new ProductsReplenishPanel();
+		new StorekeeperManagePanel();
+		new StartupPanel();
 	}
 	
 }

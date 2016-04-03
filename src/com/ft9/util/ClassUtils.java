@@ -71,7 +71,6 @@ public class ClassUtils {
         String path = packageName.replace(".", "/");
          
         Enumeration<URL> resources = classLoader.getResources(path);
-        
         List<File> dirs = new ArrayList<File>();
         while(resources.hasMoreElements()){
             URL resource = resources.nextElement();
@@ -120,7 +119,6 @@ public class ClassUtils {
             while (dirs.hasMoreElements()) {
                 URL url = dirs.nextElement();
                 String protocol = url.getProtocol();
-           
                 if ("file".equals(protocol)) {
                 
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
