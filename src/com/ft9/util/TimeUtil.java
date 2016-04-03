@@ -1,12 +1,4 @@
 package com.ft9.util;
-/*
- * All rights Reserved, Copyright (C) GElement LIMITED 2015
- * FileName: TimeUtil.java
- * Version:  $Revision$
- * Modify record:
- * NO. |     Date       |    Name           |      Content
- * 1   | 2015�??12�??9�??        | China)caiyicheng  | original version
- */
 
 
 
@@ -78,8 +70,6 @@ public class TimeUtil {
 			getTimeUtilByStandardDateFormat(dateFormat);
 			return true;
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -87,7 +77,7 @@ public class TimeUtil {
 	
 	/**
 	 * Method name: checkTimeInTimeInterval <BR>
-	 * Description: �??查某个时间是否在规定的时间间隔中<BR>
+	 * Description: Check Time In Time Interval<BR>
 	 * Remark: <BR>
 	 * @param originalTime
 	 * @param mutualTime
@@ -120,14 +110,12 @@ public class TimeUtil {
 			System.out.println(checkDateTime.lessThan(startDateTime));
 			return !checkDateTime.lessThan(startDateTime);
 		}catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
 	public static boolean checkDateBefore(String endDate,String checkDate){
-		//System.out.println(checkDate.compareTo(endDate));
 		try{
 			TimeUtil checkDateTime=TimeUtil.getTimeUtilByStandardDateFormat(checkDate);
 			TimeUtil endDateTime=TimeUtil.getTimeUtilByStandardDateFormat(endDate);
@@ -193,7 +181,6 @@ public class TimeUtil {
 	 * Remark: <BR>  void<BR>
 	 */
 	public TimeUtil() {
-		// TODO 自动生成的方法存�??
 		
 	}
 	

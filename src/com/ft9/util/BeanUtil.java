@@ -1,11 +1,3 @@
-/*
- * All rights Reserved, Copyright (C) FUJITSU LIMITED 2011
- * FileName: BeanUtil.java
- * Version:  $Revision$
- * Modify record:
- * NO. |     Date       |    Name         |      Content
- * 1   | 2014-10-14        | JFTT)caiyicheng    | original version
- */
 package com.ft9.util;
 
 import java.beans.BeanInfo;  
@@ -25,7 +17,6 @@ import java.util.Map;
  */
 public class BeanUtil {
 
-    // Map --> Bean 1: 利用Introspector,PropertyDescriptor实现 Map --> Bean  
     public static void transMap2Bean(Map<String, String> map, Object obj) {  
   
         try {  
@@ -37,7 +28,6 @@ public class BeanUtil {
   
                 if (map.containsKey(key)) {  
                     Object value = map.get(key);  
-                    // 得到property对应的setter方法  
                     Method setter = property.getWriteMethod();  
                     setter.invoke(obj, value);  
                 }  
@@ -52,7 +42,6 @@ public class BeanUtil {
   
     }  
   
-    // Bean --> Map 1: 利用Introspector和PropertyDescriptor 将Bean --> Map  
     public static Map<String, String> transBean2Map(Object obj) {  
   
         if(obj == null){  
@@ -64,11 +53,8 @@ public class BeanUtil {
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();  
             for (PropertyDescriptor property : propertyDescriptors) {  
                 String key = property.getName();  
-                //System.out.println("KEY:"+key);
   
-                // 过滤class属�??  
                 if (!key.equals("class")&&!key.contains("callback")) {  
-                    // 得到property对应的getter方法  
                     Method getter = property.getReadMethod();  
                     Object value = getter.invoke(obj);  
                     map.put(key, value.toString()+"");  
@@ -78,7 +64,6 @@ public class BeanUtil {
         } catch (Exception e) {  
             e.printStackTrace();
         }  
-        //System.out.println(map.toString());
         return map;  
     }  
     
@@ -95,9 +80,7 @@ public class BeanUtil {
                 String key = property.getName();  
                 //System.out.println("KEY:"+key);
   
-                // 过滤class属�??  
                 if (!key.equals("class")&&!key.contains("callback")) {  
-                    // 得到property对应的getter方法  
                     Method getter = property.getReadMethod();  
                     Object value = getter.invoke(obj);  
                     map.put(key, value.toString()+"");  
@@ -108,15 +91,9 @@ public class BeanUtil {
         } catch (Exception e) {  
             e.printStackTrace();
         }  
-        //System.out.println(map.toString());
         return "ERROR";
     }  
-    /**
-     * ���Bean�����
-     * eg.bean��ƣ�ProductBean,����:Product
-     * @param bean
-     * @return
-     */
+    
     public static String getBeanName(Object bean){
     	String classFullName=bean.getClass().getName();
     	String className=null;

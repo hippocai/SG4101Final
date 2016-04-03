@@ -62,7 +62,6 @@ public class ViewManager {
 					panelMap.get(fatherNodeName).put(name, cls);
 				}
 			}else{
-				//Do Nothing...
 			}
 		}
 		IconManager.initIcon();

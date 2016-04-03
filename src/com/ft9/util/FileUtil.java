@@ -16,26 +16,18 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 
-/**
- * @author 蔡一诚
- *
- */
 public class FileUtil {
 	private static Logger log = Logger.getLogger(FileUtil.class);
 	
 	/**
-	 * 在文本前插入
 	 * insert at the head of the file
 	 */
 	final public static int APPEND=1;
 	/**
-	 * 在文本后插入
 	 * insert at the end of the file
 	 */
 	final public static int PREPEND=2;
 	/**.
-	 * 0
-	 * 覆盖源文件
 	 * cover the original file
 	 */
 	final public static int WRITENEW=3;
@@ -58,7 +50,6 @@ public class FileUtil {
     
     
     /**
-     * 检查文件是否存在
      * 
      * @return
      */
@@ -66,7 +57,6 @@ public class FileUtil {
     	return file.exists();
     }
     /**
-     * 读取文本文件.
      * readWholeFileToString
      * 
      */
@@ -85,11 +75,9 @@ public class FileUtil {
             ++lineNumber;
         }
        
-      //  log.info("文件内容是:" + content);
         return content;
     }
     /**
-     * 将文件分割成每一行，放入一个list
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -108,7 +96,6 @@ public class FileUtil {
      */
     public boolean writeToFile(String newStr,int writeType) throws IOException{
     	String fileContent=readWholeFile();
-        //先读取原有文件内容，然后进行写入操作
     	if(fileContent.equals("")){
     		fileContent=newStr;
     	}else{
@@ -119,14 +106,12 @@ public class FileUtil {
 	    		default:log.error("Error WriteType!");return false;
     		}
     	}
-       // log.info("新的文件内容是："+fileContent);
         RandomAccessFile mm = null;
         try {
             mm = new RandomAccessFile(file, "rw");
             mm.writeBytes(fileContent);
             return true;
         } catch (IOException e1) {
-            // TODO 自动生成 catch 块
             e1.printStackTrace();
             return false;
         } finally {
@@ -134,7 +119,6 @@ public class FileUtil {
                 try {
                     mm.close();
                 } catch (IOException e2) {
-                    // TODO 自动生成 catch 块
                     e2.printStackTrace();
                 }
             }
@@ -155,7 +139,6 @@ public class FileUtil {
               BufferedReader br = new BufferedReader(isr);
               StringBuffer buf = new StringBuffer();
 
-              // 保存该行前面的内容
               while ((temp = br.readLine()) != null&& !temp.equals(row2Delete) ) {
                   buf = buf.append(temp);
                   buf = buf.append(System.getProperty("line.separator"));
@@ -163,7 +146,6 @@ public class FileUtil {
 
             
               boolean firstLineAfterDelete=true;
-              // 保存该行后面的内容
               while ((temp = br.readLine()) != null) {
             	  if(!firstLineAfterDelete){
             		  buf = buf.append(System.getProperty("line.separator"));
@@ -184,14 +166,6 @@ public class FileUtil {
               return false;
           }
     }
-    /**
-     * 将文件中指定内容的第一行替换为其它内容.
-     * 
-     * @param oldStr
-     *            查找内容
-     * @param replaceStr
-     *            替换内容
-     */
     public boolean replaceRowByStr(String oldStr,String replaceStr) {
         String temp = "";
         try {
@@ -201,17 +175,14 @@ public class FileUtil {
             BufferedReader br = new BufferedReader(isr);
             StringBuffer buf = new StringBuffer();
 
-            // 保存该行前面的内容
             while((temp = br.readLine()) != null
                     && !temp.equals(oldStr)) {
                 buf = buf.append(temp);
                 buf = buf.append(System.getProperty("line.separator"));
             }
 
-            // 将内容插入
             buf = buf.append(replaceStr);
 
-            // 保存该行后面的内容
             while ((temp = br.readLine()) != null) {
                 buf = buf.append(System.getProperty("line.separator"));
                 buf = buf.append(temp);
@@ -229,23 +200,4 @@ public class FileUtil {
             return false;
         }
     }
-//    public static void main(String[] s)  {
-//    	FileUtil fileUtil=new FileUtil("D:\\123.txt");
-//    	try {
-//    	
-//			fileUtil.creatFile();
-//			//fileUtil.writeToFile("XIJINGP", FileUtil.PREPEND);
-//	    	//fileUtil.writeToFile("YaMei", FileUtil.APPEND);
-//    		//fileUtil.deleteRow("XIJINGP");
-//    		//fileUtil.replaceRowByStr("YaMei", "WenJiaBao");
-//			List<String> lines=fileUtil.readWholeFileSplitToList();
-//			for(int i=0;i<lines.size();++i){
-//				System.out.println("第"+(i+1)+"行："+lines.get(i));
-//			}
-//		} catch (IOException e) {
-//			// TODO 自动生成的 catch 块
-//			e.printStackTrace();
-//		}
-//
-//    }
 }

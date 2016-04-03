@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.Properties;
 
 public class ReadProperties {
-	private static final String path = "configure.properties";// 从src的根目录�??�??
-	private static final String encode = "UTF-8";// 文件的编码格�??
+	private static final String path = "configure.properties";
+	private static final String encode = "UTF-8";
 	private static Properties props = new Properties();
 	static {
 		try {
