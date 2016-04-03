@@ -127,7 +127,7 @@ public class ProductService implements IProductService {
 	@Override
 	public int getMaxProductNumerOfCategory(String categoryCode) {
 		List<ProductBean>productBeanList=this.getAllProducts();
-		int maxNum=1;
+		int maxNum=0;
 		for(ProductBean productBean:productBeanList){
 			String id=productBean.getId();
 			String categoryCodeOfProduct=id.substring(0,id.indexOf("/"));

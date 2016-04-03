@@ -66,6 +66,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 	private IPaymentService payService=null;
 	private MemberBean memberBean=null;
 	private DiscountBean discountBean=null;
+	double cash=0;
 /**
     * Creates new form PaymentPanel
  * @throws ServiceNotFoundException 
@@ -154,6 +155,8 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
        loyalUseTxtField.setEnabled(false);
        cashTxtField.setText("0");
        cashTxtField.setEnabled(false);
+       cashTxtField.addKeyListener(this);
+       cashTxtField.addFocusListener(this);
        jLabel1.setText("Discount");
        
        jLabel1.setHorizontalAlignment(JLabel.CENTER);
@@ -338,16 +341,35 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 			}else if(arg0.getSource()==quantityTxtField){
 				addPurchaseExec();
 				barcodeTxtField.grabFocus();
+			}else if(arg0.getSource()==cashTxtField){
+				checkCash();
+				payBtn.grabFocus();
 			}
 		}
 	}
 	
+	private boolean checkCash(){
+		if(cashTxtField.getText().equals("")||!ViewUtil.isJTextNumberical(cashTxtField)){
+			JOptionPane.showMessageDialog(null, "The Cash Is Invalid", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		double receivedCash=Float.parseFloat(cashTxtField.getText());
+		if(receivedCash>=cash){
+			return true;
+		}else{
+			cashTxtField.setText(cash+"");
+			JOptionPane.showMessageDialog(null, "The Cash is not enough", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+	}
 	/**
 	 * Method name: payExec <BR>
 	 * Description: Pay Execute <BR>
 	 * Remark: <BR>  void<BR>
 	 */
 	private void payExec(){
+		String receivedCash="";
 		if(transList.size()==0){
 			JOptionPane.showMessageDialog(null, "Nothing in the list", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
@@ -358,9 +380,16 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 			JOptionPane.showMessageDialog(null, "No Enough Point", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		if(!this.checkCash()){
+			cashTxtField.setText(cash+"");
+			//JOptionPane.showMessageDialog(null, "The Cash is not enough", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}else{
+			receivedCash=cashTxtField.getText();
+		}
 		reCalcPrice();
 
-		double cash=Float.parseFloat(cashTxtField.getText());
+		//double cash=Float.parseFloat(cashTxtField.getText());
 		double actualPrice=Float.parseFloat(actualTxtField.getText());
 		double totalPrice=Float.parseFloat(totalTxtField.getText());
 
@@ -412,6 +441,14 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		viewMap=new HashMap<String,String>();
 		viewMap.put("Name", "Cash");
 		viewMap.put("Total",cash+"");
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Received");
+		viewMap.put("Total",receivedCash);
+		viewList.add(viewMap);
+		viewMap=new HashMap<String,String>();
+		viewMap.put("Name", "Change");
+		viewMap.put("Total",(Float.parseFloat(receivedCash)-cash)+"");
 		viewList.add(viewMap);
 		String[] receiptTableHeader=new String [] {"Name", "Quantity", "Unit Price", "Total"};
 		ViewManager.goToSubFunctionScreen(new PrintPanel(StringUtil.transStringArr2List(receiptTableHeader),viewList,addInfo));
@@ -485,7 +522,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		discountStr=discountStr.substring(0, discountStr.length()-1);
 		double actualPrice=totalPriceSum*(1-(double)str2Int(discountStr)/100.0);
 		actualTxtField.setText(actualPrice+"");
-		double cash=actualPrice-RedeemConfig.redeem2Dollar(str2Int(loyalUseTxtField.getText()));
+		cash=actualPrice-RedeemConfig.redeem2Dollar(str2Int(loyalUseTxtField.getText()));
 		cashTxtField.setText(cash+"");
 		
 	}
@@ -588,7 +625,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		map.put("Value", memberBean.getId());
 		paramList.add(map);
 		map=new HashMap<String,String>();
-		map.put("Param", "Loyalt Point:");
+		map.put("Param", "Loyalty Point:");
 		map.put("Value", memberBean.getLoyaltyPoint());
 		paramList.add(map);
 		map=new HashMap<String,String>();
@@ -607,6 +644,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		memberIdTxtField.setEnabled(false);
 		barcodeTxtField.setEnabled(true);
 		quantityTxtField.setEnabled(true);
+		cashTxtField.setEnabled(true);
 		barcodeTxtField.grabFocus();
 		
 	}
@@ -667,12 +705,14 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 	*/
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		if(arg0.getSource()==loyalUseTxtField){
+		if(arg0.getSource()==loyalUseTxtField&&loyalUseTxtField.getText().equals("0")){
 			loyalUseTxtField.setText("");
 		}else if(arg0.getSource()==memberIdTxtField){
 				memberIdTxtField.setText("");
 		}else if(arg0.getSource()==barcodeTxtField){
 			barcodeTxtField.setText("");
+		}else if(arg0.getSource()==cashTxtField){
+			cashTxtField.setText("");
 		}
 		
 	}
@@ -699,6 +739,12 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 		}else if(arg0.getSource()==barcodeTxtField){
 			if(barcodeTxtField.getText().equals("")){
 				barcodeTxtField.setText("Product No.");
+			}
+		}else if(arg0.getSource()==cashTxtField){
+			if(cashTxtField.getText().equals("")||!ViewUtil.isJTextDecimal(cashTxtField)){
+				cashTxtField.setText(cash+"");
+			}else{
+				checkCash();
 			}
 		}
 		

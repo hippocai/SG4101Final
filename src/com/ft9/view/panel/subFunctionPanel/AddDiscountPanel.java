@@ -67,8 +67,12 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	if(discountBean.getDiscountPercentage()!=null){
             percentageTxtField.setText(discountBean.getDiscountPercentage());
     	}
+    	
     	if(discountBean.getDiscountPeriod()!=null){
     		periodTxtField.setText(discountBean.getDiscountPeriod());
+    	}
+    	if(discountBean.getStartDate().equals("ALWAYS")){
+    		alwaysCheckBox.doClick();
     	}
     	if(discountBean.getStartDate()!=null){
     		startDateTxtField.setText(discountBean.getStartDate());
@@ -114,13 +118,11 @@ public class AddDiscountPanel extends javax.swing.JPanel {
         alwaysCheckBox=new JCheckBox();
         alwaysCheckBox.setText("Always");
         
-        alwaysCheckBox.addChangeListener(new ChangeListener() {
+        alwaysCheckBox.addActionListener(new ActionListener() {
 			
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				// TODO 自动生成的方法存根
-				//System.out.println("ST");
-				
 				if(alwaysCheckBox.isSelected()){
 					startDateTxtField.setText("ALWAYS");
 					periodTxtField.setText("ALWAYS");
@@ -128,11 +130,12 @@ public class AddDiscountPanel extends javax.swing.JPanel {
 					startDateTxtField.setEnabled(false);
 				}else{
 					
-					//startDateTxtField.setText("");
-					//periodTxtField.setText("");
+					startDateTxtField.setText("");
+					periodTxtField.setText("");
 					periodTxtField.setEnabled(true);
 					startDateTxtField.setEnabled(true);
 				}
+				
 			}
 		});
         jLabel1.setText("Discount Code:");

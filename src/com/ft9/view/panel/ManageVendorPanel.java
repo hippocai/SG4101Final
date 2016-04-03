@@ -124,7 +124,7 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
 		public void actionPerformed(ActionEvent arg0) {
 			List<HashMap<String, String>> selectedData = ViewUtil.getSelectedData(jTable1);
 			if (selectedData.size() != 1){
-				JOptionPane.showMessageDialog(null, "Please Choose 1 Vendor To Modify !", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Please Choose 1 Vendor !", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			Map<String, String> selectedMap = NameConverter.convertViewMap2PhysicMap(selectedData.get(0), "Vendor");
