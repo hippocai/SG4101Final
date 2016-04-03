@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import com.ft9.annotation.Menu;
 import com.ft9.common.StructConst;
 import com.ft9.util.ClassUtils;
-import com.ft9.view.panel.HelpPanel;
 import com.ft9.view.panel.StartupPanel;
 import com.ft9.view.panel.actionListener.GoBackListener;
 import com.ft9.view.panel.actionListener.GoHomeListener;

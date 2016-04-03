@@ -9,8 +9,8 @@ import java.util.IllegalFormatConversionException;
  * class name:TimeUtil <BR>
  * class description: please write your description <BR>
  * Remark: <BR>
- * @version 1.00 2015�??12�??9�??
- * @author GElement)caiyicheng
+ * @version 1.00
+ * @author caiyicheng
  */
 public class TimeUtil {
 	public static int TIME_PERIOD=1;

@@ -91,7 +91,6 @@ public class FileUtil {
     	return fileLines;
     }
     /**
-     * 写文件.
      * Write To File
      */
     public boolean writeToFile(String newStr,int writeType) throws IOException{
@@ -125,7 +124,6 @@ public class FileUtil {
         }
     }
     /**
-     * 删除某一行
      * delete a line
      * @param row2Delete
      * @return

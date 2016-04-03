@@ -18,7 +18,7 @@ import com.ft9.bean.TransactionBean;
  * class name:IPaymentService <BR>
  * class description: please write your description <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê3ÔÂ31ÈÕ
+ * @version 1.00
  * @author Guo Qi
  */
 public interface IPaymentService {

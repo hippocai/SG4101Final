@@ -63,9 +63,8 @@ public class ShowCategoriesFrame extends javax.swing.JFrame {
        );
 
        pack();
-   }// </editor-fold>                        
+   }                        
 
-   // Variables declaration - do not modify                     
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JTable jTable1;
    // End of variables declaration                   

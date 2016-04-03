@@ -20,9 +20,6 @@ public class StringUtil {
 
 	private static final String SPECIAL_CHARACTERS = "\n\r\f\'\"\\";
 
-	/**
-	 * 特殊字符-转义字符的映�?
-	 */
 	private static final Properties ESCAPE_MAP = new Properties();
 	static {
 		ESCAPE_MAP.put("\n", "\\n");

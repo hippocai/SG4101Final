@@ -31,7 +31,7 @@ import com.ft9.view.panel.subFunctionPanel.PrintPanel;
  * class name:ProductsReplenishPanel <BR>
  * class description: Product Replenish Panel <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author caiyicheng
  */
 @Menu(name="Products Replenish",fatherName="Entry&Replenish")

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.ft9.dao.impl.BaseDao;
 import com.ft9.dao.impl.CategoryDao;
 import com.ft9.dao.impl.DiscountDao;
 import com.ft9.dao.impl.MemberDao;

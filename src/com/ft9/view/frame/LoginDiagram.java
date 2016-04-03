@@ -175,14 +175,12 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener,K
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO 自动生成的方法存根
 		
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO 自动生成的方法存根
 		if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
 			log.info("Enter Pressed");
 			jButton1.doClick();
@@ -191,7 +189,6 @@ public class LoginDiagram extends javax.swing.JFrame implements ActionListener,K
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO 自动生成的方法存根
 		
 	}
 }

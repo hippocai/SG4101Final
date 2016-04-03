@@ -50,7 +50,7 @@ import com.icon.IconManager;
  * class name:PaymentPanel <BR>
  * class description: please write your description <BR>
  * Remark: <BR>
- * @version 1.00 2016Äê4ÔÂ2ÈÕ
+ * @version 1.00
  * @author Guo Qi
  */
 @Menu(name = "Checkout", fatherName = "Payment")
