@@ -52,7 +52,6 @@ public class CategoryService implements ICategoryService {
 	*/
 	@Override
 	public List<CategoryBean> getCategoryByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		if(map!=null){
 			return categoryDao.getCategorysByMap(map);
 		}
@@ -69,7 +68,6 @@ public class CategoryService implements ICategoryService {
 	*/
 	@Override
 	public List<CategoryBean> getAllCategorys() {
-		// TODO 自动生成的方法存根
 		return this.getCategoryByMap(new HashMap<String,String>());
 	}
 
@@ -84,7 +82,6 @@ public class CategoryService implements ICategoryService {
 	*/
 	@Override
 	public boolean deleteCategoryByMap(Map<String, String> map) {
-		// TODO 自动生成的方法存根
 		if(map==null){
 			return false;
 		}
@@ -102,7 +99,6 @@ public class CategoryService implements ICategoryService {
 	*/
 	@Override
 	public boolean addCategoryByBean(CategoryBean categoryBean) {
-		// TODO 自动生成的方法存根
 		if(categoryBean==null){
 			return false;
 		}
@@ -119,7 +115,6 @@ public class CategoryService implements ICategoryService {
 	*/
 	@Override
 	public boolean checkIfCategoryCodeExisted(String categoryCode) {
-		// TODO 自动生成的方法存根
 		Map<String,String>map=new HashMap<String,String>();
 		map.put("code", categoryCode);
 		return this.getCategoryByMap(map).size()==0;

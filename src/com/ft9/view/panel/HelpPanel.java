@@ -1,6 +1,7 @@
 package com.ft9.view.panel;
 
 import com.ft9.annotation.Menu;
+import com.ft9.util.ViewUtil;
 import com.ft9.view.ViewManager;
 
 /**
@@ -39,7 +40,7 @@ private void initComponents() {
 
        jLabel1 = new javax.swing.JLabel();
        jScrollPane1 = new javax.swing.JScrollPane();
-       jTable1 = new javax.swing.JTable();
+       jTable1 = ViewUtil.createUneditableTable();
        //Create Go Home Button
        jButton1 = ViewManager.createGoHomeButton();
 

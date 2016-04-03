@@ -63,7 +63,7 @@ public class ManageCategoryPanel extends javax.swing.JPanel implements ActionLis
         addBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable1 = ViewUtil.createUneditableTable();
         
         addBtn.setText("Add");
         addBtn.addActionListener(this);

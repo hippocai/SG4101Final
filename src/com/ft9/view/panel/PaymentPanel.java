@@ -84,7 +84,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
    private void initComponents() {
 
        jScrollPane1 = new javax.swing.JScrollPane();
-       memberInfoTable = new javax.swing.JTable();
+       memberInfoTable = ViewUtil.createUneditableTable();
        memberInfoTable.getTableHeader().setVisible(false);
        jScrollPane2 = new javax.swing.JScrollPane();
        transPanel = new javax.swing.JTable();
