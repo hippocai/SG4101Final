@@ -174,7 +174,7 @@ public void submitExec(){
    	if(categoryService.addCategoryByBean(categoryBean)){
    		JOptionPane.showMessageDialog(null, "Your Information Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
    	}else{
-   		//TODO:........
+   		JOptionPane.showMessageDialog(null, "OOPs,Something was wrong!", "Error", JOptionPane.ERROR_MESSAGE);
    	}
    	
    	}
