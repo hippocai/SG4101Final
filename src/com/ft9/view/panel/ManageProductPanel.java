@@ -96,7 +96,6 @@ public class ManageProductPanel extends javax.swing.JPanel implements ActionList
 
 
         searchTxtField.setText("");
-        searchTxtField.setSize(72, 21);
         jLabel1.setText("Key Word:");
 
         searchBtn.setText("Search");
@@ -142,7 +141,7 @@ public class ManageProductPanel extends javax.swing.JPanel implements ActionList
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(searchBtn)))
-                        .addGap(400, 400, 400))))
+                        .addGap(350, 350, 350))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

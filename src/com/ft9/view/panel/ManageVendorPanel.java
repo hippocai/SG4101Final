@@ -171,9 +171,9 @@ public class ManageVendorPanel extends javax.swing.JPanel implements ActionListe
                                
                            .addGroup(layout.createSequentialGroup()
                                .addComponent(jLabel1)
-                               .addGap(10, 10, 10)
+                               .addGap(30, 30, 30)
                                .addComponent(jTextField1)
-                               .addGap(18, 18, 18)
+                               .addGap(30, 30, 30)
                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                .addGap(10, 10, 10)
                                .addComponent(jButtonSearch)))
