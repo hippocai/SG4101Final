@@ -350,7 +350,7 @@ public class PaymentPanel extends javax.swing.JPanel implements KeyListener, Foc
 	
 	private boolean checkCash(){
 		if(cashTxtField.getText().equals("")||!ViewUtil.isJTextNumberical(cashTxtField)){
-			JOptionPane.showMessageDialog(null, "The Cash Is Invalid", "Error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "The Cash Is Invalid", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		double receivedCash=Float.parseFloat(cashTxtField.getText());

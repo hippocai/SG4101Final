@@ -321,11 +321,17 @@ public class AddVendorPanel extends javax.swing.JPanel {
      */
     private void submitExec(){
     	VendorBean vendorBean=null;
+    	ViewUtil.clearJTextError(descTxtField);
+    	ViewUtil.clearJTextError(nameTxtField);
     	if(!checkIfAllFulfilled()){
     		JOptionPane.showMessageDialog(null, "All Column should be fulfilled", "Error", JOptionPane.ERROR_MESSAGE);
     	}else{
     		vendorBean=this.generateVendorBean();
     	}
+    	if(!this.checkTxtContentsValid()){
+       		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+    			return;
+       	}
     	if(categories.size()==0){
     		JOptionPane.showMessageDialog(null, "You need to add at least one category", "Error", JOptionPane.ERROR_MESSAGE);
     		return;
@@ -404,6 +410,18 @@ public class AddVendorPanel extends javax.swing.JPanel {
     	return true;
     }
     
+    private boolean checkTxtContentsValid(){
+    	if(nameTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(nameTxtField);
+    		return false;
+    	}
+    	
+    	if(descTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(descTxtField);
+    		return false;
+    	}
+    	return true;
+    }
     /**
      * Method name: generateVendorBean <BR>
      * Description: Check Data <BR>

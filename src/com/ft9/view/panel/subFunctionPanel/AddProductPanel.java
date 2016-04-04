@@ -303,6 +303,10 @@ public class AddProductPanel extends javax.swing.JPanel {
     		JOptionPane.showMessageDialog(null, "Column must be number!", "Error", JOptionPane.ERROR_MESSAGE);
     		return null;
     	}
+    	if(!this.checkTxtContentsValid()){
+       		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+    			return null;
+       	}
     	ProductBean newProductBean=new ProductBean();
     	newProductBean.setBarCode(barcodeTxtField.getText());
     	newProductBean.setDescription(descTxtArea.getText());
@@ -375,7 +379,23 @@ public class AddProductPanel extends javax.swing.JPanel {
     	}
     	return true;
     }
-    
+    private boolean checkTxtContentsValid(){
+    	if(nameTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(nameTxtField);
+    		return false;
+    	}
+    	
+    	if(descTxtArea.getText().contains(",")){
+    		ViewUtil.setJTextError(descTxtArea);
+    		return false;
+    	}
+    	
+    	if(barcodeTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(barcodeTxtField);
+    		return false;
+    	}
+    	return true;
+    }
     /**
      * Method name: clearAllTextError <BR>
      * Description: Clear All TextError <BR>

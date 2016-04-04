@@ -344,6 +344,11 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     			return null;
     		}
     	}
+    	
+    	if(!this.checkTxtContentsValid()){
+       		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+    			return null;
+       	}
     	DiscountBean discountBean=new DiscountBean();
     	discountBean.setCode(this.codeTxtField.getText());
     	discountBean.setDescription(this.descTxtArea.getText());
@@ -361,6 +366,33 @@ public class AddDiscountPanel extends javax.swing.JPanel {
     	return discountBean;
     }
     
+    private boolean checkTxtContentsValid(){
+    	if(codeTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(codeTxtField);
+    		return false;
+    	}
+    	
+    	if(descTxtArea.getText().contains(",")){
+    		ViewUtil.setJTextError(descTxtArea);
+    		return false;
+    	}
+    	
+    	if(startDateTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(startDateTxtField);
+    		return false;
+    	}
+    	
+    	if(periodTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(periodTxtField);
+    		return false;
+    	}
+    	
+    	if(percentageTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(percentageTxtField);
+    		return false;
+    	}
+    	return true;
+    }
     /**
      * Method name: checkAllDataValid <BR>
      * Description: Check If All Data Valid <BR>
