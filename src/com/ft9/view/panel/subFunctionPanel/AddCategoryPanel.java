@@ -154,6 +154,10 @@ private CategoryBean generateDataBean(){
    			}
    		}
    	}
+   	if(!this.checkTxtContentsValid()){
+   		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
+   	}
     CategoryBean categoryBean=new CategoryBean();
     categoryBean.setCode(codeTxtArea.getText());
     categoryBean.setName(nameTxtField.getText());
@@ -191,6 +195,18 @@ public void submitExec(){
     		ViewUtil.setJTextError(codeTxtArea);
     		return false;
     	}else if(ViewUtil.isJTextEmpty(nameTxtField)){
+    		ViewUtil.setJTextError(nameTxtField);
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private  boolean checkTxtContentsValid(){
+    	if(codeTxtArea.getText().contains(",")){
+    		ViewUtil.setJTextError(codeTxtArea);
+    		return false;
+    	}
+    	if(nameTxtField.getText().contains(",")){
     		ViewUtil.setJTextError(nameTxtField);
     		return false;
     	}
