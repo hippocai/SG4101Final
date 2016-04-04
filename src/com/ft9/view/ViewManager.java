@@ -42,7 +42,7 @@ import com.icon.IconManager;
 
 public class ViewManager {
 	private static Logger log = Logger.getLogger(ViewManager.class);
-	private static String[] treeSeq={"Payment","Entry&Replenish","Manage","StoreKeeper","Print","Help"};
+	private static String[] treeSeq={"Payment","Entry & Replenish","Manage","StoreKeeper","Print","Help"};
 	@SuppressWarnings("rawtypes")
 	private static Map<String,HashMap<String,Class>>panelMap=new HashMap<String,HashMap<String,Class>>();
 

@@ -27,7 +27,7 @@ import com.ft9.view.ViewManager;
  */
 
 //Set JTree Name
-@Menu(name = "New Product", fatherName = "Entry&Replenish")
+@Menu(name = "New Product", fatherName = "Entry & Replenish")
 
 public class ProductsEntryPanel extends javax.swing.JPanel {
 
