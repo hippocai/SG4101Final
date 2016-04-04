@@ -168,7 +168,27 @@ import com.ft9.view.ViewManager;
 	    	return true;
 	    }
 	    
-	    
+	    /**
+	     * Method name: checkIfTxtContentsValid <BR>
+	     * Description: Check If Text Contents Contain Comma <BR>
+	     * Remark: <BR>
+	     * @return  boolean<BR>
+	     */
+	    private boolean checkIfTxtContentsValid(){
+			if(jTextField1.getText().contains(",")){
+				ViewUtil.setJTextError(jTextField1);
+				return false;
+			}
+			if(jTextField2.getText().contains(",")){
+				ViewUtil.setJTextError(jTextField2);
+				return false;
+			}
+			if (jTextField3.getText().contains(",")){
+				ViewUtil.setJTextError(jTextField3);
+				return false;
+			}
+			return true;
+	    }
 	    
 
 	    private javax.swing.JButton jButton1;
@@ -196,6 +216,10 @@ import com.ft9.view.ViewManager;
 	    	}else if (storekeeperService.isUserNameExisted(jTextField1.getText())){
 	    		ViewUtil.setJTextError(jTextField1);
 	    		JOptionPane.showMessageDialog(null, "This Storekeeper Has Already Existed!");
+	    		return null;
+	    	}
+	    	if(!checkIfTxtContentsValid()){
+	    		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
 	    		return null;
 	    	}
 	    	StoreKeeperBean storekeeperBean = new StoreKeeperBean();

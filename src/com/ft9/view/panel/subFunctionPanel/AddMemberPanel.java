@@ -257,6 +257,28 @@ private void initComponents() {
 		this.clearAllTextAreaError();
 	}
 
+    /**
+     * Method name: checkTxtContentsValid <BR>
+     * Description: Check Text Contents Contains Comma <BR>
+     * Remark: <BR>
+     * @return  boolean<BR>
+     */
+    private  boolean checkTxtContentsValid(){
+    	if(jTextField1.getText().contains(",")){
+    		ViewUtil.setJTextError(jTextField1);
+    		return false;
+    	}
+    	if(jTextField2.getText().contains(",")){
+    		ViewUtil.setJTextError(jTextField2);
+    		return false;
+    	}
+    	if(jTextField3.getText().contains(",")){
+    		ViewUtil.setJTextError(jTextField3);
+    		return false;
+    	}
+    	return true;
+    }
+    
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
    private javax.swing.JButton jButton3;
@@ -325,6 +347,10 @@ private void initComponents() {
 						return null;
 					}
 				}
+			}
+			if(!this.checkTxtContentsValid()){
+				JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+				return null;
 			}
 		}
 		MemberBean memberBean = new MemberBean();

@@ -304,6 +304,10 @@ private void setDatas(){
     		JOptionPane.showMessageDialog(null, "Column must be number!", "Error", JOptionPane.ERROR_MESSAGE);
     		return null;
     	}
+    	if(!checkIfTxtContentsValid()){
+    		JOptionPane.showMessageDialog(null, "The TextField Cannot Contain comma", "Error", JOptionPane.ERROR_MESSAGE);
+    		return null;
+    	}
     	ProductBean newProductBean=new ProductBean();
     	newProductBean.setBarCode(barcodeTxtField.getText());
     	newProductBean.setDescription(descTxtArea.getText());
@@ -377,6 +381,27 @@ private void setDatas(){
     	return true;
     }
     
+    /**
+     * Method name: checkIfTxtContentsValid <BR>
+     * Description: Check If Text Contents Contains Comma <BR>
+     * Remark: <BR>
+     * @return  boolean<BR>
+     */
+    private boolean checkIfTxtContentsValid(){
+    	if(nameTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(nameTxtField);
+    		return false;
+    	}
+    	if(barcodeTxtField.getText().contains(",")){
+    		ViewUtil.setJTextError(barcodeTxtField);
+    		return false;
+    	}
+    	if(descTxtArea.getText().contains(",")){
+    		ViewUtil.setJTextError(descTxtArea);
+    		return false;
+    	}
+    	return true;
+    }
     /**
      * Method name: clearAllTextError <BR>
      * Description: Clear All Text Fields Error <BR>
