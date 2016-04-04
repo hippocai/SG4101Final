@@ -61,7 +61,7 @@ public class StartupPanel extends javax.swing.JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ViewManager.selectTreeNodeByName("New Product", "Entry&Replenish");
+				ViewManager.selectTreeNodeByName("New Product", "Entry & Replenish");
 			}
 		});
         replenishButton.setIcon(IconManager.getIcon("replenish"));
@@ -69,7 +69,7 @@ public class StartupPanel extends javax.swing.JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ViewManager.selectTreeNodeByName("Products Replenish", "Entry&Replenish");
+				ViewManager.selectTreeNodeByName("Products Replenish", "Entry & Replenish");
 			}
 		});
 
