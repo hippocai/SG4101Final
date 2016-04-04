@@ -69,13 +69,13 @@ public class ClassUtils {
          
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace(".", "/");
-         
+      //  System.out.println("Path:"+path);
         Enumeration<URL> resources = classLoader.getResources(path);
         List<File> dirs = new ArrayList<File>();
         while(resources.hasMoreElements()){
             URL resource = resources.nextElement();
-           
-            dirs.add(new File(resource.getFile()));
+         //  System.out.println("File:"+URLDecoder.decode(resource.getFile(), "UTF-8"));
+            dirs.add(new File(URLDecoder.decode(resource.getFile(), "UTF-8")));
         }
         ArrayList<Class> classes = new ArrayList<Class>();
        
@@ -87,14 +87,14 @@ public class ClassUtils {
      
     @SuppressWarnings("rawtypes")
 	private static List<Class> findClasses(File directory,String packageName) throws ClassNotFoundException{
-         
+         //System.out.println("Package Name:"+packageName);
         List<Class> classes = new ArrayList<Class>();
         if(!directory.exists()){
+        	//System.out.println("dicNotExist");
             return classes;
         }
          
         File[] files = directory.listFiles();
-       
         for(File file : files){
             if(file.isDirectory()){
                 assert !file.getName().contains(".");
