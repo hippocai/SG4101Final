@@ -34,7 +34,7 @@ import com.ft9.view.panel.subFunctionPanel.PrintPanel;
  * @version 1.00
  * @author caiyicheng
  */
-@Menu(name="Products Replenish",fatherName="Entry&Replenish")
+@Menu(name="Products Replenish",fatherName="Entry & Replenish")
 public class ProductsReplenishPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
 	private static final long serialVersionUID = -7738644575952449822L;

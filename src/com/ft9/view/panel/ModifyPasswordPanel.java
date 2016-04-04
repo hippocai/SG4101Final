@@ -20,7 +20,7 @@ import com.ft9.view.ViewManager;
  */
 
 //Set The JTree Name
-@Menu(name="ModifyPassword",fatherName="StoreKeeper")
+@Menu(name="Modify Password",fatherName="StoreKeeper")
 /**
 *
 * @author hippo
